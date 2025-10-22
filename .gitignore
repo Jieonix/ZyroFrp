@@ -1,0 +1,22 @@
+
+WEB/FrontEnd/node_modules/
+FRP/SourceCode/ZyroFrp/builds/
+
+# 其他常见的忽略项
+.DS_Store
+*.log
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE 文件
+.claude/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 操作系统文件
+Thumbs.db

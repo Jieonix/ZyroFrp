@@ -1,0 +1,18 @@
+### 此 ZyroFrpc 为业务定制版本
+### 此版本仅能与ZyroFrp内网穿透服务平台适配
+
+# bindPort为必填项-服务器内网穿透专用端口
+bindPort = 7788
+# serverName为必填项-服务器名称
+serverName = "server_name"
+# vhostHTTPPort/vhostHTTPSPort为必填项-服务器http/https端口
+vhostHTTPPort = 80
+vhostHTTPSPort = 443
+
+# [database]为必填项-鉴权数据库信息
+[database]
+dbUser = "root"
+dbPassword = "database_password"
+dbHost = "database_host"
+dbPort = 3306
+dbName = "ZyroFrp"

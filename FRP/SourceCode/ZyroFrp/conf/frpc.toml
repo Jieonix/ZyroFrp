@@ -1,0 +1,60 @@
+### 此 ZyroFrpc 为业务定制版本
+### 此版本仅能与ZyroFrp内网穿透服务平台适配
+
+# serverAddr为必填项-服务器ip/服务器域名
+serverAddr = "127.0.0.1"
+# serverPort为必填项-服务器内网穿透专用端口
+serverPort = 7788
+# userKey为必填项
+userKey = "your_user_key"
+
+
+### 以下为各隧道格式示例，可供参考，用户按需保留
+
+# TCP 隧道示例
+[[proxies]]
+name = "test-tcp"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 22
+remotePort = 6000
+
+# UDP 隧道示例
+[[proxies]]
+name = "test-udp"
+type = "udp"
+localIP = "127.0.0.1"
+localPort = 53
+remotePort = 6001
+
+# HTTP 隧道示例
+[[proxies]]
+name = "test-http"
+type = "http"
+localIP = "127.0.0.1"
+localPort = 80
+customDomains = ["example.com"]
+
+# HTTPS 隧道示例
+[[proxies]]
+name = "test-https"
+type = "https"
+localIP = "127.0.0.1"
+localPort = 443
+customDomains = ["secure.example.com"]
+
+# XTCP 隧道示例 (P2P)
+[[proxies]]
+name = "test-xtcp"
+type = "xtcp"
+localIP = "127.0.0.1"
+localPort = 22
+secretKey = "your_xtcp_secret_key"
+
+# STCP 隧道示例 (安全TCP)
+[[proxies]]
+name = "test-stcp"
+type = "stcp"
+localIP = "127.0.0.1"
+localPort = 22
+secretKey = "your_stcp_secret_key"

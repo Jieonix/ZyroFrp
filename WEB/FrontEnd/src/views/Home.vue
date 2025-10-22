@@ -25,7 +25,7 @@ import Loading from '@/components/Loading.vue'
               </p>
               <p class="fb1_p2">您的邮箱为：<b class="fb1_p2_b">{{ email }}</b></p>
               <p class="fb1_p3">您已经陪我们度过了 <b class="fb1_p3_b">{{ timeSinceCreation }}</b> 天</p>
-              <p class="fb1_p4">您的 userKey 为：<b class="fb1_p4_b">{{ userKey }}</b></p>
+              <p class="fb1_p4">您的 userKey 为：<b class="fb1_p4_b" @click="copy_userKey">{{ userKey }}</b></p>
             </div>
             <div class="feature-box fb2">
               <h3 class="fb-h3">数据报告</h3>
@@ -90,6 +90,7 @@ import Loading from '@/components/Loading.vue'
         <Footer />
       </main>
     </div>
+    <MessageBox v-if="showMessageBox" :message="messageBoxContent" @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -102,6 +103,7 @@ import { validateToken } from '../utils/token.js';
 import { ref } from 'vue';
 import axios from 'axios';
 import { useLoadingStore } from '@/stores/loading'
+import MessageBox from '@/components/MessageBox.vue';
 
 
 export default {
@@ -127,6 +129,8 @@ export default {
       download_limit: "",
       announcements: [],
       is_trial_user: false,
+      showMessageBox: false,
+      messageBoxContent: '',
       normalUserStyle: isDarkMode
         ? {
           backgroundColor: "#606060",
@@ -245,6 +249,31 @@ export default {
       return this.normalUserStyle;
     },
 
+    copy_userKey() {
+      navigator.clipboard.writeText(this.userKey)
+
+        .then(() => {
+          this.showMessageBox = true;
+          this.messageBoxContent = "userKey已复制成功";
+          this.autoCloseMessageBox();
+        })
+        .catch(() => {
+          this.showMessageBox = true;
+          this.messageBoxContent = "userKey未复制成功，请重试";
+          this.autoCloseMessageBox();
+        })
+    },
+
+    autoCloseMessageBox() {
+      setTimeout(() => {
+        this.showMessageBox = false;
+      }, 3000);
+    },
+
+    handleCloseMessageBox() {
+      this.showMessageBox = false;
+    },
+
   },
 
   mounted() {
@@ -354,6 +383,14 @@ export default {
   font-weight: 900;
   cursor: pointer;
   font-size: 14px;
+}
+
+.fb1_p4_b {
+  transition: all 0.3s;
+}
+
+.fb1_p4_b:hover {
+  color: #616161;
 }
 
 .fb1_p3 {

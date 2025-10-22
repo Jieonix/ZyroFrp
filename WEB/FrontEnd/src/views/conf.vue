@@ -33,7 +33,7 @@ import MessageBox from '@/components/MessageBox.vue'
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" @close="handleCloseMessageBox" />
+    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -65,6 +65,7 @@ export default {
       userKey: '',
       showMessageBox: false,
       messageBoxContent: '',
+      messageBoxType: 'info',
       server_ip: '',
       server_port: '',
       userInfo: []
@@ -175,6 +176,7 @@ export default {
       navigator.clipboard.writeText(copyTextarea.value).then(() => {
         this.showMessageBox = true;
         this.messageBoxContent = "复制成功！";
+        this.messageBoxType = "success";
         this.autoCloseMessageBox();
       }).catch((error) => {
         console.error('复制失败:', error);

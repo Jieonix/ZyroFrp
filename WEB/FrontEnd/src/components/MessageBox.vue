@@ -70,9 +70,9 @@ onMounted(() => {
 }
 
 .message-box.success {
-  background-color: #f0f9ff;
-  color: #0369a1;
-  border-left: 4px solid #0ea5e9;
+  background-color: #f0f9f0;
+  color: #166534;
+  border-left: 4px solid #22c55e;
 }
 
 .message-box.error {
@@ -138,8 +138,8 @@ onMounted(() => {
 
 @media (prefers-color-scheme: dark) {
   .message-box.success {
-    background-color: #0c4a6e;
-    color: #e0f2fe;
+    background-color: #14532d;
+    color: #dcfce7;
   }
 
   .message-box.error {

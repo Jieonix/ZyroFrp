@@ -211,7 +211,7 @@ import Loading from '@/components/Loading.vue'
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" @close="handleCloseMessageBox" />
+    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -256,6 +256,7 @@ export default {
       vip_status: 0,
       showMessageBox: false,
       messageBoxContent: '',
+      messageBoxType: 'info',
       errorCodes: [
         "REGISTER_4001",
         "REGISTER_4002",
@@ -363,6 +364,7 @@ export default {
       if (!emailRegex.test(this.email)) {
         this.showMessageBox = true;
         this.messageBoxContent = "您的邮箱格式不符合条件，请更换后重试...";
+        this.messageBoxType = "error";
         this.autoCloseMessageBox();
         return;
       }
@@ -371,6 +373,7 @@ export default {
       if (!this.password || this.password.length < 6) {
         this.showMessageBox = true;
         this.messageBoxContent = "密码不能为空，且长度不能少于6位！";
+        this.messageBoxType = "error";
         this.autoCloseMessageBox();
         return;
       }
@@ -379,6 +382,7 @@ export default {
       if (weakPasswords.test(this.password)) {
         this.showMessageBox = true;
         this.messageBoxContent = "您的密码太弱了，请更换一个复杂点的密码...";
+        this.messageBoxType = "warning";
         this.autoCloseMessageBox();
         return;
       }
@@ -389,11 +393,13 @@ export default {
         if (this.errorCodes.includes(response.data.code)) {
           this.showMessageBox = true
           this.messageBoxContent = response.data.message
+          this.messageBoxType = "error"
           this.autoCloseMessageBox()
           return
         }
         this.showMessageBox = true;
         this.messageBoxContent = response.data.message;
+        this.messageBoxType = "success";
 
         this.add_style = false;
 
@@ -415,6 +421,7 @@ export default {
         })
         this.showMessageBox = true
         this.messageBoxContent = response.data.message
+        this.messageBoxType = "success"
         this.autoCloseMessageBox()
 
         setTimeout(() => {
@@ -465,6 +472,7 @@ export default {
 
         this.showMessageBox = true;
         this.messageBoxContent = response.data.message;
+        this.messageBoxType = "success";
         this.autoCloseMessageBox();
 
         setTimeout(() => {

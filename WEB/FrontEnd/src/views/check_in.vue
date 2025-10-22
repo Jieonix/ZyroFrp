@@ -46,7 +46,7 @@ D、{{ questionD }}
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" @close="handleCloseMessageBox" />
+    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -78,6 +78,7 @@ export default {
       answer: 'A',
       showMessageBox: false,
       messageBoxContent: '',
+      messageBoxType: 'info',
       isQuiz: false,
       messages: [
         "哥，今天题目你已经拿捏了，别卷啦，留点实力明天用！",
@@ -141,6 +142,7 @@ export default {
       if (!this.answer) {
         this.showMessageBox = true;
         this.messageBoxContent = '请选择一个答案';
+        this.messageBoxType = 'warning';
         this.autoCloseMessageBox();
         return;
       }
@@ -161,12 +163,14 @@ export default {
         if (quizErrorCodes.includes(response.data.code)) {
           this.showMessageBox = true;
           this.messageBoxContent = response.data.message;
+          this.messageBoxType = 'error';
           this.autoCloseMessageBox();
           return;
         }
 
         this.showMessageBox = true;
         this.messageBoxContent = response.data.data;
+        this.messageBoxType = 'success';
         this.autoCloseMessageBox();
 
         setTimeout(() => {
@@ -177,6 +181,7 @@ export default {
         console.error('提交答案失败:', error);
         this.showMessageBox = true;
         this.messageBoxContent = '提交失败，请稍后再试';
+        this.messageBoxType = 'error';
         this.autoCloseMessageBox();
       }
     },

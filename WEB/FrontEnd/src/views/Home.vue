@@ -90,7 +90,8 @@ import Loading from '@/components/Loading.vue'
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" @close="handleCloseMessageBox" />
+    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType"
+      @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -131,6 +132,7 @@ export default {
       is_trial_user: false,
       showMessageBox: false,
       messageBoxContent: '',
+      messageBoxType: '',
       normalUserStyle: isDarkMode
         ? {
           backgroundColor: "#606060",
@@ -255,11 +257,13 @@ export default {
         .then(() => {
           this.showMessageBox = true;
           this.messageBoxContent = "userKey已复制成功";
+          this.messageBoxType = "success";
           this.autoCloseMessageBox();
         })
         .catch(() => {
           this.showMessageBox = true;
           this.messageBoxContent = "userKey未复制成功，请重试";
+          this.messageBoxType = "error";
           this.autoCloseMessageBox();
         })
     },

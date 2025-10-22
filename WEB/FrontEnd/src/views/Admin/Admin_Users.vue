@@ -1,5 +1,4 @@
 <script setup>
-import MessageBox from '@/components/MessageBox.vue'
 import Loading from '@/components/Loading.vue'
 </script>
 
@@ -211,7 +210,6 @@ import Loading from '@/components/Loading.vue'
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -254,9 +252,6 @@ export default {
       vip_start_time: this.getCurrentDate(),
       vip_end_time: this.getCurrentDate(),
       vip_status: 0,
-      showMessageBox: false,
-      messageBoxContent: '',
-      messageBoxType: 'info',
       errorCodes: [
         "REGISTER_4001",
         "REGISTER_4002",
@@ -362,28 +357,19 @@ export default {
 
       // 邮箱校验
       if (!emailRegex.test(this.email)) {
-        this.showMessageBox = true;
-        this.messageBoxContent = "您的邮箱格式不符合条件，请更换后重试...";
-        this.messageBoxType = "error";
-        this.autoCloseMessageBox();
+        this.$message.error("您的邮箱格式不符合条件，请更换后重试...");
         return;
       }
 
       // 密码不能为空或太短
       if (!this.password || this.password.length < 6) {
-        this.showMessageBox = true;
-        this.messageBoxContent = "密码不能为空，且长度不能少于6位！";
-        this.messageBoxType = "error";
-        this.autoCloseMessageBox();
+        this.$message.error("密码不能为空，且长度不能少于6位！");
         return;
       }
 
       // 弱密码判断
       if (weakPasswords.test(this.password)) {
-        this.showMessageBox = true;
-        this.messageBoxContent = "您的密码太弱了，请更换一个复杂点的密码...";
-        this.messageBoxType = "warning";
-        this.autoCloseMessageBox();
+        this.$message.warning("您的密码太弱了，请更换一个复杂点的密码...");
         return;
       }
 
@@ -391,15 +377,10 @@ export default {
       try {
         const response = await axios.post('/auth/register_backstage', userData)
         if (this.errorCodes.includes(response.data.code)) {
-          this.showMessageBox = true
-          this.messageBoxContent = response.data.message
-          this.messageBoxType = "error"
-          this.autoCloseMessageBox()
+          this.$message.error(response.data.message)
           return
         }
-        this.showMessageBox = true;
-        this.messageBoxContent = response.data.message;
-        this.messageBoxType = "success";
+        this.$message.success(response.data.message);
 
         this.add_style = false;
 
@@ -419,10 +400,7 @@ export default {
             'Authorization': AdminToken
           }
         })
-        this.showMessageBox = true
-        this.messageBoxContent = response.data.message
-        this.messageBoxType = "success"
-        this.autoCloseMessageBox()
+        this.$message.success(response.data.message)
 
         setTimeout(() => {
           window.location.reload();

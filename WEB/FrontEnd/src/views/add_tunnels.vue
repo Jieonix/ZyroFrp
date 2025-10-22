@@ -1,6 +1,6 @@
 <script setup>
 import Loading from '@/components/Loading.vue'
-import MessageBox from '@/components/MessageBox.vue';
+;
 </script>
 
 <template>
@@ -97,7 +97,6 @@ import MessageBox from '@/components/MessageBox.vue';
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -108,7 +107,7 @@ import Footer from '@/components/Footer.vue';
 import { useRouter } from 'vue-router';
 import { validateToken } from '../utils/token.js';
 import axios from 'axios';
-import MessageBox from '@/components/MessageBox.vue';
+;
 import { useLoadingStore } from '@/stores/loading'
 
 
@@ -131,9 +130,6 @@ export default {
       remotePort: '',
       custom_domain: '',
       secret_key: '',
-      showMessageBox: false,
-      messageBoxContent: '',
-      messageBoxType: 'info',
       vipOnly: true,
       allowWebsite: true,
       allowHighTraffic: true,
@@ -223,18 +219,12 @@ export default {
         });
 
         if (resp.data.data.real_name_status !== 1) {
-          this.showMessageBox = true;
-          this.messageBoxContent = "请实名认证后再进行隧道创建！";
-          this.messageBoxType = "error";
-          this.autoCloseMessageBox();
+          this.$message.error("请实名认证后再进行隧道创建！");
           return;
         }
 
         if (resp.data.data.status === "OFFLINE") {
-          this.showMessageBox = true;
-          this.messageBoxContent = "服务器离线！";
-          this.messageBoxType = "error";
-          this.autoCloseMessageBox();
+          this.$message.error("服务器离线！");
           return;
         }
 
@@ -243,27 +233,18 @@ export default {
           const serverInList = this.lists.find(server => server.name === selectedServer);
 
           if (serverInList && serverInList.vipOnly) {
-            this.showMessageBox = true;
-            this.messageBoxContent = '该节点为VIP专属节点，为了VIP用户的体验，请您更换为免费通用节点，谢谢您的理解与配合！';
-            this.messageBoxType = "warning";
-            this.autoCloseMessageBox();
+            this.$message.warning('该节点为VIP专属节点，为了VIP用户的体验，请您更换为免费通用节点，谢谢您的理解与配合！');
             return;
           }
         }
 
         if (this.selectedServer && !this.allowWebsite && (this.selectedProtocol === 'HTTP' || this.selectedProtocol === 'HTTPS')) {
-          this.showMessageBox = true;
-          this.messageBoxContent = '该节点不允许建站，请更换其他节点';
-          this.messageBoxType = "error";
-          this.autoCloseMessageBox();
+          this.$message.error('该节点不允许建站，请更换其他节点');
           return;
         }
 
         if (this.selectedServer && !this.allowUdp && this.selectedProtocol === 'UDP') {
-          this.showMessageBox = true;
-          this.messageBoxContent = '该节点不允许UDP，请更换其他节点';
-          this.messageBoxType = "error";
-          this.autoCloseMessageBox();
+          this.$message.error('该节点不允许UDP，请更换其他节点');
           return;
         }
 
@@ -271,18 +252,12 @@ export default {
           headers: { 'Token': Token }
         });
 
-        this.showMessageBox = true;
-        this.messageBoxContent = response.data.message;
-        this.messageBoxType = "success";
-        this.autoCloseMessageBox();
+        this.$message.success(response.data.message);
 
       } catch (error) {
         console.error(error);
 
-        this.showMessageBox = true;
-        this.messageBoxContent = '提交隧道失败，请稍后重试';
-        this.messageBoxType = "error";
-        this.autoCloseMessageBox();
+        this.$message.error('提交隧道失败，请稍后重试');
       }
     },
     handleServerChange() {

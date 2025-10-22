@@ -1,6 +1,5 @@
 <script setup>
 import Loading from '@/components/Loading.vue'
-import MessageBox from '@/components/MessageBox.vue';
 </script>
 
 <template>
@@ -35,7 +34,6 @@ import MessageBox from '@/components/MessageBox.vue';
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
     <div v-if="isEditBoxVisible" class="edit-box-overlay" @click="closeEditBox">
       <div class="edit-box" @click.stop>
         <h3>编辑隧道</h3>
@@ -122,9 +120,6 @@ export default {
       tunnel_name: '',
       local_ip: '',
       local_port: '',
-      showMessageBox: false,
-      messageBoxContent: '',
-      messageBoxType: 'info',
     }
   },
   methods: {
@@ -208,9 +203,7 @@ export default {
         frpTunnel: tunnelData
       })
         .then(response => {
-          this.showMessageBox = true;
-          this.messageBoxContent = response.data.message;
-          this.messageBoxType = "success";
+          this.$message.success(response.data.message);
 
           setTimeout(() => {
             this.isEditBoxVisible = false;
@@ -232,9 +225,7 @@ export default {
         data: { token }
       })
         .then(response => {
-          this.showMessageBox = true;
-          this.messageBoxContent = response.data.message;
-          this.messageBoxType = "success";
+          this.$message.success(response.data.message);
 
           // 延迟 3 秒后重新获取隧道列表，确保消息有足够时间显示
           setTimeout(() => {
@@ -245,9 +236,6 @@ export default {
           console.error("删除失败:", error.response?.data || error.message);
         });
     },
-    handleCloseMessageBox() {
-      this.showMessageBox = false;
-    }
   },
   mounted() {
     this.checkTokenValidity();

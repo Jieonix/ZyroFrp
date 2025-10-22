@@ -14,18 +14,17 @@
       <button @click="register">注册</button>
       <p>已有账号? <a href="/Login" @click="toggleForm">登录</a></p>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, getCurrentInstance } from "vue"
 import Header from "@/components/Header.vue"
 import axios from "axios"
 import { validateEmail, validatePassword, validateCode } from '../../utils/validate.js'
 import router from "@/router/index.js"
-import MessageBox from '@/components/MessageBox.vue';
 
+const { proxy } = getCurrentInstance()
 
 const Email = ref('')
 const code = ref('')
@@ -42,10 +41,6 @@ const errorCodes = [
   "REGISTER_4006",
   "EMAIL_SEND_4301"
 ];
-const showMessageBox = ref(false)
-const messageBoxContent = ref('')
-const messageBoxType = ref('info')
-
 
 const sendCode = async () => {
 
@@ -65,10 +60,7 @@ const sendCode = async () => {
     })
 
     if (errorCodes.includes(response.data.code)) {
-      showMessageBox.value = true
-      messageBoxContent.value = response.data.message
-      messageBoxType.value = 'error'
-      autoCloseMessageBox()
+      proxy.$message.error(response.data.message)
       return;
     }
 
@@ -86,10 +78,7 @@ const sendCode = async () => {
 
   } catch (error) {
 
-    showMessageBox.value = true
-    messageBoxContent.value = '验证码发送失败：' + error
-    messageBoxType.value = 'error'
-    autoCloseMessageBox()
+    proxy.$message.error('验证码发送失败：' + error)
 
   } finally {
     isSending.value = false
@@ -119,17 +108,11 @@ const register = async () => {
     })
 
     if (errorCodes.includes(response.data.code)) {
-      showMessageBox.value = true
-      messageBoxContent.value = response.data.message
-      messageBoxType.value = 'error'
-      autoCloseMessageBox()
+      proxy.$message.error(response.data.message)
       return
     }
 
-    showMessageBox.value = true
-    messageBoxContent.value = '注册成功,请登录...'
-    messageBoxType.value = 'success'
-    autoCloseMessageBox()
+    proxy.$message.success('注册成功,请登录...')
 
     setTimeout(() => {
       router.push('/Login')
@@ -140,16 +123,6 @@ const register = async () => {
     console.error("注册失败：", error)
 
   }
-}
-
-const handleCloseMessageBox = () => {
-  showMessageBox.value = false;
-}
-
-const autoCloseMessageBox = () => {
-  setTimeout(() => {
-    showMessageBox.value = false;
-  }, 3000);
 }
 
 </script>

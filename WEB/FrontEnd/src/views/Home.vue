@@ -90,8 +90,6 @@ import Loading from '@/components/Loading.vue'
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType"
-      @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -104,7 +102,6 @@ import { validateToken } from '../utils/token.js';
 import { ref } from 'vue';
 import axios from 'axios';
 import { useLoadingStore } from '@/stores/loading'
-import MessageBox from '@/components/MessageBox.vue';
 
 
 export default {
@@ -130,9 +127,6 @@ export default {
       download_limit: "",
       announcements: [],
       is_trial_user: false,
-      showMessageBox: false,
-      messageBoxContent: '',
-      messageBoxType: '',
       normalUserStyle: isDarkMode
         ? {
           backgroundColor: "#606060",
@@ -255,27 +249,11 @@ export default {
       navigator.clipboard.writeText(this.userKey)
 
         .then(() => {
-          this.showMessageBox = true;
-          this.messageBoxContent = "userKey已复制成功";
-          this.messageBoxType = "success";
-          this.autoCloseMessageBox();
+          this.$message.success("userKey已复制成功");
         })
         .catch(() => {
-          this.showMessageBox = true;
-          this.messageBoxContent = "userKey未复制成功，请重试";
-          this.messageBoxType = "error";
-          this.autoCloseMessageBox();
+          this.$message.error("userKey未复制成功，请重试");
         })
-    },
-
-    autoCloseMessageBox() {
-      setTimeout(() => {
-        this.showMessageBox = false;
-      }, 3000);
-    },
-
-    handleCloseMessageBox() {
-      this.showMessageBox = false;
     },
 
   },

@@ -4,12 +4,14 @@ import './assets/api.js'
 import './utils/validate.js'
 import './utils/token.js'
 import './assets/vue_main.js'
+import './utils/message.css'
 
 import Vant from 'vant'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
+import { installMessage } from './utils/message.js'
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -17,6 +19,7 @@ const pinia = createPinia()
 app.use(pinia)
 app.use(router)
 app.use(Vant)
+installMessage(app)
 app.mount('#app')
 
 window.addEventListener('DOMContentLoaded', () => {

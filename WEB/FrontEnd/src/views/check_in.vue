@@ -1,6 +1,5 @@
 <script setup>
 import Loading from '@/components/Loading.vue'
-import MessageBox from '@/components/MessageBox.vue'
 </script>
 
 <template>
@@ -46,7 +45,6 @@ D、{{ questionD }}
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -76,9 +74,6 @@ export default {
       questionC: '',
       questionD: '',
       answer: 'A',
-      showMessageBox: false,
-      messageBoxContent: '',
-      messageBoxType: 'info',
       isQuiz: false,
       messages: [
         "哥，今天题目你已经拿捏了，别卷啦，留点实力明天用！",
@@ -140,10 +135,7 @@ export default {
     },
     async submitAnswer() {
       if (!this.answer) {
-        this.showMessageBox = true;
-        this.messageBoxContent = '请选择一个答案';
-        this.messageBoxType = 'warning';
-        this.autoCloseMessageBox();
+        this.$message.warning('请选择一个答案');
         return;
       }
 
@@ -161,17 +153,11 @@ export default {
         });
 
         if (quizErrorCodes.includes(response.data.code)) {
-          this.showMessageBox = true;
-          this.messageBoxContent = response.data.message;
-          this.messageBoxType = 'error';
-          this.autoCloseMessageBox();
+          this.$message.error(response.data.message);
           return;
         }
 
-        this.showMessageBox = true;
-        this.messageBoxContent = response.data.data;
-        this.messageBoxType = 'success';
-        this.autoCloseMessageBox();
+        this.$message.success(response.data.data);
 
         setTimeout(() => {
           window.location.reload()
@@ -179,23 +165,12 @@ export default {
 
       } catch (error) {
         console.error('提交答案失败:', error);
-        this.showMessageBox = true;
-        this.messageBoxContent = '提交失败，请稍后再试';
-        this.messageBoxType = 'error';
-        this.autoCloseMessageBox();
+        this.$message.error('提交失败，请稍后再试');
       }
     },
     created() {
       this.randomMsg = this.messages[Math.floor(Math.random() * this.messages.length)]
     },
-    handleCloseMessageBox() {
-      this.showMessageBox = false;
-    },
-    autoCloseMessageBox() {
-      setTimeout(() => {
-        this.showMessageBox = false;
-      }, 3000);
-    }
   },
   mounted() {
     this.checkTokenValidity();

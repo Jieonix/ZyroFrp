@@ -1,6 +1,5 @@
 <script setup>
 import Loading from '@/components/Loading.vue'
-import MessageBox from '@/components/MessageBox.vue'
 </script>
 
 <template>
@@ -33,7 +32,6 @@ import MessageBox from '@/components/MessageBox.vue'
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -63,9 +61,6 @@ export default {
       server_addr: '',
       server_port: '',
       userKey: '',
-      showMessageBox: false,
-      messageBoxContent: '',
-      messageBoxType: 'info',
       server_ip: '',
       server_port: '',
       userInfo: []
@@ -174,24 +169,14 @@ export default {
       copyTextarea.setSelectionRange(0, 99999);
 
       navigator.clipboard.writeText(copyTextarea.value).then(() => {
-        this.showMessageBox = true;
-        this.messageBoxContent = "复制成功！";
-        this.messageBoxType = "success";
-        this.autoCloseMessageBox();
+        this.$message.success("复制成功！");
       }).catch((error) => {
         console.error('复制失败:', error);
+        this.$message.error("复制失败，请重试");
       });
 
       document.body.removeChild(copyTextarea);
     },
-    handleCloseMessageBox() {
-      this.showMessageBox = false;
-    },
-    autoCloseMessageBox() {
-      setTimeout(() => {
-        this.showMessageBox = false;
-      }, 3000);
-    }
   },
   mounted() {
     this.checkTokenValidity()

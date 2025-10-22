@@ -1,6 +1,5 @@
 <script setup>
 import Loading from '@/components/Loading.vue'
-import MessageBox from '@/components/MessageBox.vue'
 </script>
 
 <template>
@@ -35,7 +34,6 @@ import MessageBox from '@/components/MessageBox.vue'
         <Footer />
       </main>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -60,9 +58,6 @@ export default {
     return {
       name: '',
       idCard: '',
-      showMessageBox: false,
-      messageBoxContent: '',
-      messageBoxType: 'info',
       realNameVerified: false
     };
   },
@@ -106,35 +101,21 @@ export default {
                 console.error(error);
               });
           } else {
-            this.showMessageBox = true;
-            this.messageBoxType = "error";
             if (data === 5) {
-              this.messageBoxContent = "身份信息不匹配，请重试～";
+              this.$message.error("身份信息不匹配，请重试～");
             } else if (data === 14) {
-              this.messageBoxContent = "无此身份证号码，请检查并重试～";
+              this.$message.error("无此身份证号码，请检查并重试～");
             } else if (data === 96) {
-              this.messageBoxContent = "交易失败，请稍后重试～";
+              this.$message.error("交易失败，请稍后重试～");
             } else {
-              this.messageBoxContent = "身份验证失败，未知错误～";
+              this.$message.error("身份验证失败，未知错误～");
             }
-            this.autoCloseMessageBox();
           }
         })
         .catch(error => {
           console.error(error);
-          this.showMessageBox = true;
-          this.messageBoxContent = "身份验证失败，请重试～" + error;
-          this.messageBoxType = "error";
-          this.autoCloseMessageBox();
+          this.$message.error("身份验证失败，请重试～" + error);
         });
-    },
-    handleCloseMessageBox() {
-      this.showMessageBox = false;
-    },
-    autoCloseMessageBox() {
-      setTimeout(() => {
-        this.showMessageBox = false;
-      }, 3000);
     },
     real_name_status() {
       const token = localStorage.getItem('Token');

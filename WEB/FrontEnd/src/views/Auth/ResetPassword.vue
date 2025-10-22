@@ -14,7 +14,6 @@
       <button @click="register">重置密码</button>
       <p>重置密码失败？<a href="/Register" @click="toggleForm">注册</a></p>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
@@ -25,7 +24,6 @@ import axios from "axios"
 import qs from 'qs'
 import { validateEmail, validatePassword, validateCode } from '../../utils/validate.js'
 import router from "@/router/index.js"
-import MessageBox from '@/components/MessageBox.vue';
 
 
 
@@ -45,9 +43,8 @@ const passwordResetErrorCodes = [
   "PASSWORD_RESET_4207",
   "EMAIL_SEND_4301"
 ];
-const showMessageBox = ref(false)
-const messageBoxContent = ref('')
-const messageBoxType = ref('info')
+import { getCurrentInstance } from "vue"
+const { proxy } = getCurrentInstance()
 
 
 const sendCode = async () => {
@@ -68,10 +65,7 @@ const sendCode = async () => {
     })
 
     if (passwordResetErrorCodes.includes(response.data.code)) {
-      showMessageBox.value = true
-      messageBoxContent.value = response.data.message
-      messageBoxType.value = 'error'
-      autoCloseMessageBox()
+      proxy.$message.error(response.data.message)
       return
     }
 
@@ -119,17 +113,11 @@ const register = async () => {
     })
 
     if (passwordResetErrorCodes.includes(response.data.code)) {
-      showMessageBox.value = true
-      messageBoxContent.value = response.data.message
-      messageBoxType.value = 'error'
-      autoCloseMessageBox()
+      proxy.$message.error(response.data.message)
       return
     }
 
-    showMessageBox.value = true
-    messageBoxContent.value = '密码修改成功，请登录...'
-    messageBoxType.value = 'success'
-    autoCloseMessageBox()
+    proxy.$message.success('密码修改成功，请登录...')
 
     setTimeout(() => {
       router.push('/Login')
@@ -143,15 +131,6 @@ const register = async () => {
   }
 }
 
-const handleCloseMessageBox = () => {
-  showMessageBox.value = false;
-}
-
-const autoCloseMessageBox = () => {
-  setTimeout(() => {
-    showMessageBox.value = false;
-  }, 3000);
-}
 
 </script>
 

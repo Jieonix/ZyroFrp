@@ -9,19 +9,18 @@
       <p><a href="/ResetPassword">忘记密码?</a></p>
       <p>还没有账号? <a href="/Register" @click="toggleForm">注册</a></p>
     </div>
-    <MessageBox v-if="showMessageBox" :message="messageBoxContent" :type="messageBoxType" @close="handleCloseMessageBox" />
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, getCurrentInstance } from "vue"
 import Header from "@/components/Header.vue"
 import axios from "axios"
 import qs from 'qs'
 import { validateEmail } from '../../utils/validate.js'
 import router from "@/router/index.js"
-import MessageBox from '@/components/MessageBox.vue';
 
+const { proxy } = getCurrentInstance()
 
 const Email = ref('')
 const password = ref('')
@@ -30,10 +29,6 @@ const loginErrorCodes = [
   "LOGIN_4102",
   "LOGIN_4103"
 ];
-const showMessageBox = ref(false)
-const messageBoxContent = ref('')
-const messageBoxType = ref('info')
-
 
 const login = async () => {
 
@@ -49,10 +44,7 @@ const login = async () => {
     })
 
     if (loginErrorCodes.includes(response.data.code)) {
-      showMessageBox.value = true
-      messageBoxContent.value = response.data.message
-      messageBoxType.value = 'error'
-      autoCloseMessageBox()
+      proxy.$message.error(response.data.message)
       return
     }
 
@@ -63,16 +55,6 @@ const login = async () => {
     }, 100)
 
   } catch (error) {}
-}
-
-const handleCloseMessageBox = () => {
-  showMessageBox.value = false;
-}
-
-const autoCloseMessageBox = () => {
-  setTimeout(() => {
-    showMessageBox.value = false;
-  }, 3000);
 }
 
 </script>

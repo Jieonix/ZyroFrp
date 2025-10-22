@@ -52,7 +52,7 @@
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
-  transition: all  0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 .login-container button:hover,
@@ -84,6 +84,7 @@
   .login-container,
   .register-container {
     background-color: #1e1e1e;
+    border: none;
   }
 
   .login-container h2,
@@ -112,5 +113,5 @@
   .login-container a,
   .register-container a {
     color: #727272
-}
+  }
 }

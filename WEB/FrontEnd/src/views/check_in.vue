@@ -55,7 +55,6 @@ import Footer from '@/components/Footer.vue';
 import { useRouter } from 'vue-router';
 import { validateToken } from '../utils/token.js';
 import axios from 'axios';
-import MessageBox from '@/components/MessageBox.vue';
 import { useLoadingStore } from '@/stores/loading'
 
 

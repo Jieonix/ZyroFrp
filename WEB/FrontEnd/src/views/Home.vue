@@ -75,10 +75,15 @@ import Loading from '@/components/Loading.vue'
             </div>
           </div>
           <div class="f_right">
-            <div class="feature-box fb5">
-              <h3 class="fb5-h3">公告板</h3>
+            <div class="feature-box fb5" :style="{ overflow: overflow ? 'auto' : 'visible' }">
+              <div class="fb5_div">
+                <h3 class="fb5-h3">公告板</h3>
+                <div class="fb5_div_div" @click="switch_announcement">
+                  <img src="../../public/icons/switchDark.png" alt="">
+                </div>
+              </div>
               <hr class="fb5-line">
-              <div class="announcement" v-for="announcement in announcements" :key="announcement.id">
+              <div class="announcement" v-for="announcement in displayedAnnouncements" :key="announcement.id">
                 <h3 class="fb5-h3-2">{{ announcement.title }}</h3>
                 <p>{{ announcement.content }}</p>
                 <p><strong>发布日期：</strong> {{ formatDate(announcement.created_at) }}</p>
@@ -125,8 +130,10 @@ export default {
       remaining_traffic: "",
       upload_limit: "",
       download_limit: "",
-      announcements: [],
       is_trial_user: false,
+      overflow: false,
+      announcements: [],
+      showAll: false,
       normalUserStyle: isDarkMode
         ? {
           backgroundColor: "#606060",
@@ -167,6 +174,11 @@ export default {
           borderRadius: "3px",
         },
     };
+  },
+  computed: {
+    displayedAnnouncements() {
+      return this.showAll ? this.announcements : this.announcements.slice(0, 7)
+    }
   },
   methods: {
     checkTokenValidity() {
@@ -215,13 +227,16 @@ export default {
     },
 
     sortAnnouncements() {
+      const allPinned = this.announcements.filter(a => a.is_pinned === 2);
       const pinned = this.announcements.filter(a => a.is_pinned === 1);
       const nonPinned = this.announcements.filter(a => a.is_pinned === 0);
 
+      allPinned.sort((a, b) => b.id - a.id);
       pinned.sort((a, b) => b.id - a.id);
       nonPinned.sort((a, b) => b.id - a.id);
 
-      this.announcements = [...pinned, ...nonPinned];
+      this.announcements = [...allPinned, ...pinned, ...nonPinned];
+
     },
 
     formatDate(dateString) {
@@ -254,6 +269,11 @@ export default {
         .catch(() => {
           this.$message.error("userKey未复制成功，请重试");
         })
+    },
+
+    switch_announcement() {
+      this.overflow = !this.overflow
+      this.showAll = !this.showAll
     },
 
   },
@@ -293,7 +313,6 @@ export default {
 .fb5 {
   width: 81.6rem;
   height: 76rem;
-  overflow: auto;
   margin-right: 1rem;
 }
 
@@ -432,6 +451,24 @@ export default {
   margin-bottom: 2px;
   vertical-align: middle;
   padding-right: 3px;
+}
+
+.fb5_div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fb5_div_div {
+  margin-right: 2rem;
+  margin-top: 0.3rem;
+  cursor: pointer;
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.fb5_div_div img {
+  height: 100%;
+  width: 100%;
 }
 
 @media (prefers-color-scheme: dark) {

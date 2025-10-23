@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import LandingPage from '../views/LandingPage.vue';
 import Home from '../views/Home.vue';
 import check_in from '../views/check_in.vue';
 import auth from '../views/auth.vue';
@@ -17,6 +18,11 @@ import Admin_Login from '@/views/Auth/Admin_Login.vue';
 const routes = [
   {
     path: '/',
+    name: 'LandingPage',
+    component: LandingPage,
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: Home,
   },

@@ -7,7 +7,7 @@ import SvgIcon from './SvgIcon.vue';
   <nav class="sidebar">
     <ul>
       <li>
-        <router-link to="/" active-class="active">
+        <router-link to="/Home" active-class="active">
           <SvgIcon name="Home" class="icon"></SvgIcon>仪表盘
         </router-link>
       </li>

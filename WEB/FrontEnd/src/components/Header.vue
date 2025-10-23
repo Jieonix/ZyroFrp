@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1>ZyrooFrp</h1>
+    <h1>ZyroFrp</h1>
   </header>
 </template>
 
@@ -27,7 +27,6 @@
     border-bottom: 1px solid #232323;
     color: #5ccea8;
   }
-  
-}
 
+}
 </style>

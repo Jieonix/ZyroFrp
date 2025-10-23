@@ -51,7 +51,7 @@ const login = async () => {
     localStorage.setItem("Token", response.data.data)
 
     setTimeout(() => {
-      router.push('/')
+      router.push('/home')
     }, 100)
 
   } catch (error) {}

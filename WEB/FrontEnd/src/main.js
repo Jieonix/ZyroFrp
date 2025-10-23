@@ -5,6 +5,9 @@ import './utils/validate.js'
 import './utils/token.js'
 import './assets/vue_main.js'
 import './utils/message.css'
+import 'virtual:svg-icons-register'
+import SvgIcon from '@/components/SvgIcon.vue'
+
 
 import Vant from 'vant'
 import { createApp } from 'vue'
@@ -21,6 +24,8 @@ app.use(router)
 app.use(Vant)
 installMessage(app)
 app.mount('#app')
+app.component('SvgIcon', SvgIcon)
+
 
 window.addEventListener('DOMContentLoaded', () => {
   const baseWidth = 1920;

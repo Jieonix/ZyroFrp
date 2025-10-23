@@ -1,14 +1,51 @@
+<script setup lang="ts">
+import SvgIcon from './SvgIcon.vue';
+
+</script>
+
 <template>
   <nav class="sidebar">
     <ul>
-      <li><router-link to="/" active-class="active">仪表盘</router-link></li>
-      <li><router-link to="/check_in" active-class="active">签到</router-link></li>
-      <li><router-link to="/auth" active-class="active">身份认证</router-link></li>
-      <li><router-link to="/tunnels" active-class="active">隧道列表</router-link></li>
-      <li><router-link to="/add_tunnels" active-class="active">添加隧道</router-link></li>
-      <li><router-link to="/conf" active-class="active">配置文件</router-link></li>
-      <li><router-link to="/app" active-class="active">应用程序</router-link></li>
-      <li><router-link to="/usingTutorials" active-class="active">使用教程</router-link></li>
+      <li>
+        <router-link to="/" active-class="active">
+          <SvgIcon name="Home" class="icon"></SvgIcon>仪表盘
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/check_in" active-class="active">
+          <SvgIcon name="CheckIn" class="icon"></SvgIcon>签到
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/auth" active-class="active">
+          <SvgIcon name="Auth" class="icon"></SvgIcon>身份认证
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/tunnels" active-class="active">
+          <SvgIcon name="Tunnels" class="icon"></SvgIcon>隧道列表
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/add_tunnels" active-class="active">
+          <SvgIcon name="AddTunnels" class="icon"></SvgIcon>添加隧道
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/conf" active-class="active">
+          <SvgIcon name="Conf" class="icon"></SvgIcon>配置文件
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/app" active-class="active">
+          <SvgIcon name="App" class="icon"></SvgIcon>应用程序
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/usingTutorials" active-class="active">
+          <SvgIcon name="Using" class="icon"></SvgIcon>使用教程
+        </router-link>
+      </li>
     </ul>
   </nav>
 </template>
@@ -46,12 +83,17 @@
 }
 
 .sidebar ul li a {
-  display: block;
+  display: flex;
+  align-items: center;
   text-decoration: none;
   color: #333;
   font-weight: bold;
   padding: 10px 20px;
   border-radius: 5px;
+}
+
+.icon {
+  margin-right: 0.7rem;
 }
 
 .sidebar ul li a.active {

@@ -29,6 +29,7 @@
     "vite-plugin-sitemap": "^0.7.1",
     "vite-plugin-ssr": "^0.4.142",
     "vite-plugin-static-copy": "^2.3.0",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-devtools": "^7.7.2",
     "vitest": "^3.0.5"
   }

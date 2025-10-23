@@ -79,7 +79,7 @@ import Loading from '@/components/Loading.vue'
               <div class="fb5_div">
                 <h3 class="fb5-h3">公告板</h3>
                 <div class="fb5_div_div" @click="switch_announcement">
-                  <img :src="theme === 'dark' ? '/icons/switchDark.png' : '/icons/switchLight.png'" alt="">
+                  <SvgIcon name="Switch" />
                 </div>
               </div>
               <hr class="fb5-line">
@@ -134,7 +134,6 @@ export default {
       overflow: false,
       announcements: [],
       showAll: false,
-      theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
       normalUserStyle: isDarkMode
         ? {
           backgroundColor: "#606060",
@@ -465,11 +464,6 @@ export default {
   cursor: pointer;
   height: 1.2rem;
   width: 1.1rem;
-}
-
-.fb5_div_div img {
-  height: 100%;
-  width: 100%;
 }
 
 @media (prefers-color-scheme: dark) {

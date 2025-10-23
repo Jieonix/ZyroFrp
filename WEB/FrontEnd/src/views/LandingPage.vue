@@ -44,49 +44,62 @@
     <section class="hero">
       <div class="hero-container">
         <div class="hero-content">
-          <h1 class="hero-title">专业的 FRP 内网穿透服务</h1>
+          <h1 class="hero-title">
+            <span class="title-gradient">专业的 FRP 内网穿透服务</span>
+          </h1>
           <p class="hero-subtitle">稳定、快速、安全的内网穿透解决方案，让您的本地服务轻松对外访问</p>
           <div class="hero-actions">
-            <button class="cta-primary" @click="goToRegister">立即开始</button>
-            <button class="cta-secondary" @click="scrollToFeatures">了解更多</button>
+            <button class="cta-primary" @click="goToRegister">
+              <span class="btn-text">立即开始</span>
+              <div class="btn-hover-effect"></div>
+            </button>
+            <button class="cta-secondary" @click="scrollToFeatures">
+              <span class="btn-text">了解更多</span>
+              <div class="btn-hover-effect"></div>
+            </button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-number" ref="userCount">0</div>
+              <div class="stat-label">活跃用户</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" ref="uptimeCount">0</div>
+              <div class="stat-label">服务可用性</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" ref="speedCount">0</div>
+              <div class="stat-label">平均响应速度</div>
+            </div>
           </div>
         </div>
         <div class="hero-visual">
-          <div class="network-diagram">
-            <div class="diagram-item">
-              <div class="device-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="2" y="2" width="20" height="16" rx="2" />
-                  <path d="M2 8h20" />
+          <div class="network-animation">
+            <div class="network-node" v-for="(node, index) in networkNodes" :key="index" :class="`node-${index + 1}`"
+              :style="{ animationDelay: `${index * 0.5}s` }">
+              <div class="node-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path :d="node.icon" />
                 </svg>
               </div>
-              <span class="diagram-label">本地服务</span>
+              <div class="node-label">{{ node.label }}</div>
             </div>
-            <div class="arrow">→</div>
-            <div class="diagram-item">
-              <div class="device-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2a10 10 0 0 1 10 10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2A10 10 0 0 1 12 2z" />
-                  <path d="M8 14h8" />
-                  <path d="M8 18h8" />
-                </svg>
-              </div>
-              <span class="diagram-label">ZyroFrp</span>
+            <div class="connection-lines">
+              <div class="line line-1"></div>
+              <div class="line line-2"></div>
+              <div class="line line-3"></div>
+              <div class="line line-4"></div>
             </div>
-            <div class="arrow">→</div>
-            <div class="diagram-item">
-              <div class="device-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M2 12h20" />
-                  <path
-                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                </svg>
-              </div>
-              <span class="diagram-label">互联网</span>
+            <div class="data-particles">
+              <div v-for="n in 20" :key="n" class="particle" :style="getParticleStyle(n)"></div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="hero-background">
+        <div class="bg-gradient-1"></div>
+        <div class="bg-gradient-2"></div>
+        <div class="bg-gradient-3"></div>
       </div>
     </section>
 
@@ -97,14 +110,21 @@
         <div class="features-grid">
           <div class="feature-card" v-for="(feature, index) in features" :key="index"
             :style="{ animationDelay: `${index * 0.2}s` }" @mouseenter="featureHover(index)"
-            @mouseleave="featureHover(null)">
-            <div class="feature-icon" :class="{ 'icon-hover': hoveredFeature === index }">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path :d="feature.icon" />
-              </svg>
+            @mouseleave="featureHover(null)" :class="{ 'feature-active': hoveredFeature === index }">
+            <div class="feature-icon-wrapper">
+              <div class="feature-icon" :class="{ 'icon-hover': hoveredFeature === index }">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path :d="feature.icon" />
+                </svg>
+              </div>
+              <div class="feature-glow"></div>
             </div>
             <h3>{{ feature.title }}</h3>
             <p>{{ feature.description }}</p>
+            <div class="feature-hover-content">
+              <div class="hover-indicator"></div>
+              <span class="hover-text">了解更多</span>
+            </div>
           </div>
         </div>
       </div>
@@ -116,19 +136,36 @@
         <h2 class="section-title">价格方案</h2>
         <div class="pricing-grid">
           <div v-for="(plan, index) in pricingPlans" :key="index" class="pricing-card"
-            :class="{ featured: plan.featured }" :style="{ animationDelay: `${index * 0.15}s` }"
-            @mouseenter="pricingHover(index)" @mouseleave="pricingHover(null)">
-            <div v-if="plan.featured" class="popular-badge">{{ plan.badge }}</div>
-            <h3>{{ plan.name }}</h3>
-            <div class="price">{{ plan.price }}<span>/月</span></div>
+            :class="{ featured: plan.featured, 'pricing-active': hoveredPricing === index }"
+            :style="{ animationDelay: `${index * 0.15}s` }" @mouseenter="pricingHover(index)"
+            @mouseleave="pricingHover(null)">
+            <div v-if="plan.featured" class="popular-badge">
+              <span class="badge-text">{{ plan.badge }}</span>
+              <div class="badge-glow"></div>
+            </div>
+            <div class="pricing-header">
+              <h3>{{ plan.name }}</h3>
+              <div class="price">
+                <span class="price-amount">{{ plan.price }}</span>
+                <span class="price-period">/月</span>
+              </div>
+            </div>
             <ul class="features-list">
-              <li v-for="(feature, featureIndex) in plan.features" :key="featureIndex">
-                {{ feature }}
+              <li v-for="(feature, featureIndex) in plan.features" :key="featureIndex"
+                :style="{ animationDelay: `${featureIndex * 0.1}s` }">
+                <div class="feature-check">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </div>
+                <span>{{ feature }}</span>
               </li>
             </ul>
             <button class="pricing-btn" :class="{ primary: plan.featured }" @click="goToRegister">
-              {{ plan.buttonText }}
+              <span class="btn-text">{{ plan.buttonText }}</span>
+              <div class="btn-hover-effect"></div>
             </button>
+            <div class="pricing-glow"></div>
           </div>
         </div>
       </div>
@@ -139,26 +176,32 @@
       <div class="container">
         <h2 class="section-title">快速上手</h2>
         <div class="tutorials-steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h3>注册账号</h3>
-            <p>创建您的 ZyroFrp 账户</p>
+          <div class="step" v-for="(step, index) in tutorialSteps" :key="index"
+            :class="{ 'step-active': activeStep === index }" @mouseenter="activeStep = index"
+            @mouseleave="activeStep = null">
+            <div class="step-number">{{ step.number }}</div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.description }}</p>
+            <div class="step-details" v-if="activeStep === index">
+              <div class="step-content">
+                <div class="step-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path :d="step.detailIcon" />
+                  </svg>
+                </div>
+                <div class="step-info">
+                  <h4>{{ step.detailTitle }}</h4>
+                  <p>{{ step.detailDescription }}</p>
+                  <button class="step-action-btn" @click="handleStepAction(index)">
+                    {{ step.actionText }}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <h3>下载客户端</h3>
-            <p>获取适合您系统的客户端</p>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <h3>配置隧道</h3>
-            <p>在 Web 界面创建和管理隧道</p>
-          </div>
-          <div class="step">
-            <div class="step-number">4</div>
-            <h3>启动服务</h3>
-            <p>运行客户端，享受内网穿透</p>
-          </div>
+        </div>
+        <div class="tutorials-actions">
+          <button class="tutorial-btn" @click="goToTutorials">查看详细教程</button>
         </div>
       </div>
     </section>
@@ -238,6 +281,59 @@ export default {
       isLoggedIn: false,
       hoveredFeature: null,
       hoveredPricing: null,
+      activeStep: null,
+      networkNodes: [
+        {
+          label: '本地服务',
+          icon: 'M2 8h20 M2 12h20 M2 16h20 M3 5v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z'
+        },
+        {
+          label: 'ZyroFrp',
+          icon: 'M12 2a10 10 0 0 1 10 10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2A10 10 0 0 1 12 2z M8 14h8 M8 18h8'
+        },
+        {
+          label: '互联网',
+          icon: 'M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z M2 12h20'
+        }
+      ],
+      tutorialSteps: [
+        {
+          number: '1',
+          title: '注册账号',
+          description: '创建您的 ZyroFrp 账户',
+          detailIcon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0z M12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+          detailTitle: '快速注册',
+          detailDescription: '只需邮箱验证，一分钟完成注册，立即开始使用',
+          actionText: '立即注册'
+        },
+        {
+          number: '2',
+          title: '下载客户端',
+          description: '获取适合您系统的客户端',
+          detailIcon: 'M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12',
+          detailTitle: '多平台支持',
+          detailDescription: '支持 Windows、macOS、Linux 等主流操作系统',
+          actionText: '下载客户端'
+        },
+        {
+          number: '3',
+          title: '配置隧道',
+          description: '在 Web 界面创建和管理隧道',
+          detailIcon: 'M13 10V3L4 14h7v7l9-11h-7z',
+          detailTitle: '可视化配置',
+          detailDescription: '通过直观的 Web 界面轻松配置和管理您的隧道',
+          actionText: '配置隧道'
+        },
+        {
+          number: '4',
+          title: '启动服务',
+          description: '运行客户端，享受内网穿透',
+          detailIcon: 'M13 10V3L4 14h7v7l9-11h-7z',
+          detailTitle: '一键启动',
+          detailDescription: '运行客户端程序，立即享受稳定快速的内网穿透服务',
+          actionText: '启动服务'
+        }
+      ],
       features: [
         {
           title: '高速稳定',
@@ -265,7 +361,7 @@ export default {
           name: '免费版',
           price: '¥0',
           features: [
-            '基础流量 1GB/月',
+            '流量 ∞ ',
             '单节点连接',
             '基础技术支持',
             'Web 管理界面'
@@ -277,7 +373,7 @@ export default {
           name: '专业版',
           price: '¥9.9',
           features: [
-            '流量 10GB/月',
+            '流量 ∞ ',
             '多节点负载均衡',
             '优先技术支持',
             '高级监控功能',
@@ -291,7 +387,7 @@ export default {
           name: '企业版',
           price: '¥29.9',
           features: [
-            '流量 50GB/月',
+            '流量 ∞ ',
             '专属节点',
             '24/7 技术支持',
             'API 接口',
@@ -302,9 +398,6 @@ export default {
         }
       ]
     }
-  },
-  mounted() {
-    this.checkLoginStatus()
   },
   methods: {
     // 检查登录状态
@@ -359,7 +452,68 @@ export default {
     // 价格卡片悬停效果
     pricingHover(index) {
       this.hoveredPricing = index
+    },
+
+    // 粒子动画样式
+    getParticleStyle(n) {
+      const delay = (n * 0.1) % 2
+      const duration = 2 + (n % 3)
+      return {
+        animationDelay: `${delay}s`,
+        animationDuration: `${duration}s`
+      }
+    },
+
+    // 滚动到功能区域
+    scrollToFeatures() {
+      this.goTo('#features')
+    },
+
+    // 处理教程步骤操作
+    handleStepAction(index) {
+      switch (index) {
+        case 0:
+          this.goToRegister()
+          break
+        case 1:
+          // 这里可以添加下载客户端的逻辑
+          window.open('/download', '_blank')
+          break
+        case 2:
+          this.$router.push('/tunnels')
+          break
+        case 3:
+          // 这里可以添加启动服务的逻辑
+          this.$router.push('/home')
+          break
+      }
     }
+  },
+  mounted() {
+    this.checkLoginStatus()
+
+    // 数字动画效果
+    const animateCounter = (element, target, duration = 2000) => {
+      const start = 0
+      const increment = target / (duration / 16)
+      let current = start
+
+      const timer = setInterval(() => {
+        current += increment
+        if (current >= target) {
+          current = target
+          clearInterval(timer)
+        }
+        element.textContent = Math.floor(current).toLocaleString()
+      }, 16)
+    }
+
+    // 延迟执行数字动画
+    setTimeout(() => {
+      if (this.$refs.userCount) animateCounter(this.$refs.userCount, 10000)
+      if (this.$refs.uptimeCount) animateCounter(this.$refs.uptimeCount, 999)
+      if (this.$refs.speedCount) animateCounter(this.$refs.speedCount, 50)
+    }, 500)
   }
 }
 </script>
@@ -513,6 +667,8 @@ export default {
   min-height: 580px;
   display: flex;
   align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero-container {
@@ -523,6 +679,8 @@ export default {
   gap: 60px;
   align-items: center;
   padding: 0 22px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-content {
@@ -533,11 +691,28 @@ export default {
   font-size: 3rem;
   font-weight: 400;
   margin-bottom: 16px;
-  background: linear-gradient(135deg, #1d1d1f 0%, #424245 100%);
+  line-height: 1.1;
+}
+
+.title-gradient {
+  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 50%, #0071e3 100%);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 1.1;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .hero-subtitle {
@@ -551,46 +726,291 @@ export default {
 .hero-actions {
   display: flex;
   gap: 16px;
-  margin-bottom: 0;
+  margin-bottom: 40px;
+  position: relative;
 }
 
-/* 网络示意图 */
-.network-diagram {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
+.cta-primary,
+.cta-secondary {
+  position: relative;
+  overflow: hidden;
+  padding: 12px 24px;
+  border-radius: 980px;
+  font-size: 17px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
 }
 
-.diagram-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-.device-icon {
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
-  border-radius: 20px;
+.cta-primary {
+  background: #0071e3;
   color: white;
+}
+
+.cta-secondary {
+  background: transparent;
+  color: #0071e3;
+  border: 1px solid #0071e3;
+}
+
+.btn-hover-effect {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.cta-primary:hover .btn-hover-effect,
+.cta-secondary:hover .btn-hover-effect {
+  left: 100%;
+}
+
+.cta-primary:hover {
+  background: #0077ed;
+  transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
 }
 
-.diagram-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1d1d1f;
+.cta-secondary:hover {
+  background: rgba(0, 113, 227, 0.1);
+  transform: translateY(-2px);
 }
 
-.arrow {
-  font-size: 24px;
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: 700;
   color: #0071e3;
-  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #86868b;
+}
+
+/* 网络动画 */
+.network-animation {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.network-node {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.node-1 {
+  top: 50%;
+  left: 20%;
+  transform: translateY(-50%);
+}
+
+.node-2 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.node-3 {
+  top: 50%;
+  left: 80%;
+  transform: translateY(-50%);
+}
+
+.node-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
+  border-radius: 16px;
+  color: white;
+  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
+  transition: all 0.3s;
+}
+
+.network-node:hover .node-icon {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(0, 113, 227, 0.4);
+}
+
+.node-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #1d1d1f;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.connection-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, #0071e3, #00c6ff);
+  top: 50%;
+  transform: translateY(-50%);
+  animation: pulseLine 2s ease-in-out infinite;
+}
+
+.line-1 {
+  left: 20%;
+  width: 30%;
+  animation-delay: 0s;
+}
+
+.line-2 {
+  left: 50%;
+  width: 30%;
+  animation-delay: 0.5s;
+}
+
+@keyframes pulseLine {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.data-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #0071e3;
+  border-radius: 50%;
+  animation: particleMove 2s linear infinite;
+}
+
+@keyframes particleMove {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(200px) translateY(-100px);
+    opacity: 0;
+  }
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.bg-gradient-1,
+.bg-gradient-2,
+.bg-gradient-3 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.1;
+}
+
+.bg-gradient-1 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #0071e3, #00c6ff);
+  top: 10%;
+  left: 10%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.bg-gradient-2 {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, #00c6ff, #0071e3);
+  bottom: 20%;
+  right: 15%;
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+.bg-gradient-3 {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #0071e3, #00c6ff);
+  top: 60%;
+  left: 70%;
+  animation: float 10s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 通用容器 */
@@ -614,6 +1034,20 @@ export default {
 .features-section {
   padding: 80px 0;
   background: #f5f5f7;
+  position: relative;
+  overflow: hidden;
+}
+
+.features-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 30% 20%, rgba(0, 113, 227, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(0, 198, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .features-grid {
@@ -622,25 +1056,58 @@ export default {
   gap: 32px;
   max-width: 1000px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .feature-card {
-  width: 17rem;
-  height: 17rem;
+  width: 100%;
+  min-height: 280px;
   background: white;
-  padding: 1rem;
-  border-radius: 18px;
+  padding: 2rem;
+  border-radius: 24px;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 113, 227, 0.1);
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 113, 227, 0.05), transparent);
+  transition: left 0.6s;
+}
+
+.feature-card:hover::before {
+  left: 100%;
 }
 
 .feature-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
+  border-color: rgba(0, 113, 227, 0.3);
+}
+
+.feature-active {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
+  border-color: rgba(0, 113, 227, 0.3);
+}
+
+.feature-icon-wrapper {
+  position: relative;
+  margin-bottom: 1.5rem;
 }
 
 .feature-icon {
@@ -649,11 +1116,35 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
+  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
   border-radius: 20px;
   color: white;
-  margin-bottom: 16px;
   box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  z-index: 2;
+}
+
+.icon-hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 35px rgba(0, 113, 227, 0.4);
+}
+
+.feature-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(0, 113, 227, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.feature-card:hover .feature-glow {
+  opacity: 1;
 }
 
 .feature-card h3 {
@@ -661,17 +1152,69 @@ export default {
   font-weight: 600;
   margin-bottom: 12px;
   color: #1d1d1f;
+  transition: color 0.3s;
+}
+
+.feature-card:hover h3 {
+  color: #0071e3;
 }
 
 .feature-card p {
   color: #86868b;
   line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.feature-hover-content {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.feature-card:hover .feature-hover-content {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.hover-indicator {
+  width: 6px;
+  height: 6px;
+  background: #0071e3;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+.hover-text {
+  font-size: 12px;
+  color: #0071e3;
+  font-weight: 500;
 }
 
 /* 价格方案区域 */
 .pricing-section {
   padding: 80px 0;
   background: white;
+  position: relative;
 }
 
 .pricing-grid {
@@ -684,16 +1227,33 @@ export default {
 
 .pricing-card {
   background: #f5f5f7;
-  padding: 32px;
-  border-radius: 18px;
+  padding: 2rem;
+  border-radius: 24px;
   text-align: center;
   position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(0, 113, 227, 0.1);
+  overflow: hidden;
+}
+
+.pricing-card:hover,
+.pricing-active {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
+  border-color: rgba(0, 113, 227, 0.3);
 }
 
 .pricing-card.featured {
-  background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
+  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
   color: white;
   transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.3);
+}
+
+.pricing-card.featured:hover,
+.pricing-card.featured.pricing-active {
+  transform: scale(1.08) translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0, 113, 227, 0.4);
 }
 
 .popular-badge {
@@ -701,44 +1261,126 @@ export default {
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: #ff9500;
+  background: linear-gradient(135deg, #ff9500 0%, #ffaa33 100%);
   color: white;
-  padding: 4px 12px;
-  border-radius: 12px;
+  padding: 8px 16px;
+  border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
+  box-shadow: 0 4px 15px rgba(255, 149, 0, 0.3);
+  z-index: 2;
+  position: relative;
+}
+
+.badge-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(255, 149, 0, 0.3) 0%, transparent 70%);
+  border-radius: 20px;
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.pricing-header {
+  margin-bottom: 1.5rem;
 }
 
 .pricing-card h3 {
   font-size: 24px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
+  transition: color 0.3s;
+}
+
+.pricing-card:hover h3,
+.pricing-active h3 {
+  color: #0071e3;
+}
+
+.pricing-card.featured h3 {
+  color: white;
 }
 
 .price {
   font-size: 48px;
   font-weight: 700;
-  margin-bottom: 24px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
 }
 
-.price span {
+.price-amount {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.price-period {
   font-size: 16px;
   font-weight: 400;
+  opacity: 0.8;
 }
 
 .features-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 32px 0;
+  margin: 0 0 2rem 0;
+  text-align: left;
 }
 
 .features-list li {
-  padding: 8px 0;
+  padding: 12px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
 }
 
 .pricing-card.featured .features-list li {
   border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.feature-check {
+  width: 24px;
+  height: 24px;
+  background: rgba(0, 113, 227, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0071e3;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+
+.pricing-card:hover .feature-check,
+.pricing-active .feature-check {
+  background: #0071e3;
+  color: white;
+  transform: scale(1.1);
+}
+
+.pricing-card.featured .feature-check {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
 .pricing-btn {
@@ -750,6 +1392,9 @@ export default {
   font-weight: 400;
   cursor: pointer;
   transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.2);
 }
 
 .pricing-btn.primary {
@@ -762,28 +1407,71 @@ export default {
   color: white;
 }
 
+.pricing-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
+}
+
+.pricing-btn.primary:hover {
+  background: #f8f9fa;
+}
+
+.pricing-btn:not(.primary):hover {
+  background: #0077ed;
+}
+
+.pricing-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.pricing-card:hover .pricing-glow {
+  left: 100%;
+}
+
 /* 使用教程区域 */
 .tutorials-section {
   padding: 80px 0;
   background: #f5f5f7;
+  position: relative;
 }
 
 .tutorials-steps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  max-width: 1000px;
+  gap: 24px;
+  max-width: 1200px;
   margin: 0 auto 48px;
 }
 
 .step {
   text-align: center;
+  background: white;
+  padding: 2rem 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 113, 227, 0.1);
+}
+
+.step:hover,
+.step-active {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
+  border-color: rgba(0, 113, 227, 0.3);
 }
 
 .step-number {
   width: 60px;
   height: 60px;
-  background: #0071e3;
+  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
   color: white;
   border-radius: 50%;
   display: flex;
@@ -792,6 +1480,14 @@ export default {
   font-size: 24px;
   font-weight: 600;
   margin: 0 auto 16px;
+  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
+  transition: all 0.3s;
+}
+
+.step:hover .step-number,
+.step-active .step-number {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(0, 113, 227, 0.4);
 }
 
 .step h3 {
@@ -799,10 +1495,92 @@ export default {
   font-weight: 600;
   margin-bottom: 8px;
   color: #1d1d1f;
+  transition: color 0.3s;
+}
+
+.step:hover h3,
+.step-active h3 {
+  color: #0071e3;
 }
 
 .step p {
   color: #86868b;
+  margin-bottom: 1rem;
+}
+
+.step-details {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+}
+
+.step-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 113, 227, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0071e3;
+  flex-shrink: 0;
+}
+
+.step-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #1d1d1f;
+}
+
+.step-info p {
+  font-size: 14px;
+  color: #86868b;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.step-action-btn {
+  padding: 8px 16px;
+  background: #0071e3;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.step-action-btn:hover {
+  background: #0077ed;
+  transform: translateY(-1px);
 }
 
 .tutorial-btn {
@@ -814,11 +1592,14 @@ export default {
   font-size: 17px;
   font-weight: 400;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
 }
 
 .tutorial-btn:hover {
   background: #0077ed;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.4);
 }
 
 .tutorials-actions {

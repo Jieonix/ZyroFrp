@@ -17,36 +17,47 @@ import Loading from '@/components/Loading.vue'
           <div class="feature-box fb1">
             <div class="h3">
               <h3>使用帮助</h3>
-              <p>（ 鼠标悬停展示详细步骤 ）</p>
             </div>
 
-            <p class="tooltip"><strong>1. 添加隧道</strong>
-              <span class="tooltiptext">完成实名认证后，进入“添加隧道”页面。在此页面中，您可以创建新的 FRP
-                隧道。填写隧道的名称、类型、端口等信息，确保填写正确的本地和远程端口。提交后，系统将生成一个专属的配置文件。</span>
-            </p>
-            <strong class="dowm">↓</strong>
+            <div class="line">
+              <strong class="dowm">
+                <SvgIcon name="Confirm" class="icon" />
+              </strong>
+              <p class="tooltip"><strong>创建隧道</strong></p>
+            </div>
 
-            <p class="tooltip"><strong>2. 复制配置文件</strong>
-              <span
-                class="tooltiptext">在“配置文件”页面，您可以看到系统为您的隧道自动生成的配置文件。点击复制按钮，将配置文件中的内容复制到您的设备中。请注意，配置文件中的信息包含您的隧道参数，确保正确保存。</span>
-            </p>
-            <strong class="dowm">↓</strong>
+            <div class="arrow">
+              |
+            </div>
 
-            <p class="tooltip"><strong>3. 配置 FRPC 客户端</strong>
-              <span class="tooltiptext">下载并解压 FRPC 客户端后，在客户端的目录下找到 <code>frpc.ini</code>
-                配置文件。打开该文件，并将刚才复制的配置内容粘贴进去，确保配置项完整且无误。</span>
-            </p>
-            <strong class="dowm">↓</strong>
+            <div class="line">
+              <strong class="dowm">
+                <SvgIcon name="Confirm" class="icon" />
+              </strong>
+              <p class="tooltip"><strong>软件下载</strong></p>
+            </div>
 
-            <p class="tooltip"><strong>4. 启动 FRPC 客户端</strong>
-              <span class="tooltiptext">完成配置后，打开终端（Windows 用 cmd，Linux/macOS 用终端），切到 FRPC 所在目录，执行
-                <code>./frpc -c frpc.ini</code> 启动。启动后即可连接服务端，在平台查看流量。</span>
-            </p>
-            <br><br><br><br><br>
+            <div class="arrow">
+              |
+            </div>
 
-            <p class="tooltip"><strong>👋 有问题？反馈问题</strong>
-              <span class="tooltiptext">如果遇到 BUG 或问题，欢迎加入我们的QQ群：738146595 反馈，我们会第一时间处理。</span>
-            </p>
+            <div class="line">
+              <strong class="dowm">
+                <SvgIcon name="Confirm" class="icon" />
+              </strong>
+              <p class="tooltip"><strong>启动隧道</strong></p>
+            </div>
+
+            <div class="arrow">
+              |
+            </div>
+
+            <div class="line">
+              <strong class="dowm">
+                <SvgIcon name="Confirm2" class="icon2" />
+              </strong>
+              <p class="tooltip"><strong>开始使用</strong></p>
+            </div>
           </div>
         </section>
         <Footer />
@@ -92,6 +103,7 @@ export default {
   padding: 3rem;
   margin: 1rem;
   margin-bottom: 16.5rem;
+  padding-bottom: 5rem;
 }
 
 h3 {
@@ -170,10 +182,37 @@ section.features {
 }
 
 strong.dowm {
-  display: block;
-  text-align: left;
-  font-size: 2em;
-  margin: 20px 0;
+  display: flex;
+}
+
+strong {
+  font-size: 1rem;
+}
+
+.icon {
+  color: #63e2b7;
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+}
+
+.icon2 {
+  color: #63e2b7;
+  width: 2.74rem;
+  height: 2.74rem;
+  margin-right: 1rem;
+  margin-left: 0.2rem;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  font-size: 2rem;
+  margin-left: 1.3rem;
+  color: #63e2b7;
 }
 
 @media (prefers-color-scheme: dark) {

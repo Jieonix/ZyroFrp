@@ -100,6 +100,8 @@
         <div class="bg-gradient-1"></div>
         <div class="bg-gradient-2"></div>
         <div class="bg-gradient-3"></div>
+        <div class="bg-gradient-4"></div>
+        <div class="bg-gradient-5"></div>
       </div>
     </section>
 
@@ -107,23 +109,53 @@
     <section id="features" class="features-section">
       <div class="container">
         <h2 class="section-title">核心功能</h2>
-        <div class="features-grid">
-          <div class="feature-card" v-for="(feature, index) in features" :key="index"
-            :style="{ animationDelay: `${index * 0.2}s` }" @mouseenter="featureHover(index)"
-            @mouseleave="featureHover(null)" :class="{ 'feature-active': hoveredFeature === index }">
-            <div class="feature-icon-wrapper">
-              <div class="feature-icon" :class="{ 'icon-hover': hoveredFeature === index }">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path :d="feature.icon" />
-                </svg>
+        <div class="features-layout">
+          <div class="feature-group-left">
+            <div class="feature-card" v-for="(feature, index) in features.slice(0, 3)" :key="index"
+              :style="{ animationDelay: `${index * 0.3}s`, ...featureSizes[index] }" @mouseenter="featureHover(index)"
+              @mouseleave="featureHover(null)" :class="{ 'feature-active': hoveredFeature === index }">
+              <div class="feature-icon-wrapper">
+                <div class="feature-icon" :class="{ 'icon-hover': hoveredFeature === index }">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path :d="feature.icon" />
+                  </svg>
+                </div>
+                <div class="feature-glow"></div>
               </div>
-              <div class="feature-glow"></div>
+              <h3>{{ feature.title }}</h3>
+              <p>{{ feature.description }}</p>
             </div>
-            <h3>{{ feature.title }}</h3>
-            <p>{{ feature.description }}</p>
-            <div class="feature-hover-content">
-              <div class="hover-indicator"></div>
-              <span class="hover-text">了解更多</span>
+          </div>
+          <div class="feature-group-center">
+            <div class="feature-card" v-for="(feature, index) in features.slice(3, 6)" :key="index + 3"
+              :style="{ animationDelay: `${(index + 3) * 0.2}s`, ...featureSizes[index + 3] }" @mouseenter="featureHover(index + 3)"
+              @mouseleave="featureHover(null)" :class="{ 'feature-active': hoveredFeature === index + 3 }">
+              <div class="feature-icon-wrapper">
+                <div class="feature-icon" :class="{ 'icon-hover': hoveredFeature === index + 3 }">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path :d="feature.icon" />
+                  </svg>
+                </div>
+                <div class="feature-glow"></div>
+              </div>
+              <h3>{{ feature.title }}</h3>
+              <p>{{ feature.description }}</p>
+            </div>
+          </div>
+          <div class="feature-group-right">
+            <div class="feature-card" v-for="(feature, index) in features.slice(6, 9)" :key="index + 6"
+              :style="{ animationDelay: `${(index + 6) * 0.15}s`, ...featureSizes[index + 6] }" @mouseenter="featureHover(index + 6)"
+              @mouseleave="featureHover(null)" :class="{ 'feature-active': hoveredFeature === index + 6 }">
+              <div class="feature-icon-wrapper">
+                <div class="feature-icon" :class="{ 'icon-hover': hoveredFeature === index + 6 }">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path :d="feature.icon" />
+                  </svg>
+                </div>
+                <div class="feature-glow"></div>
+              </div>
+              <h3>{{ feature.title }}</h3>
+              <p>{{ feature.description }}</p>
             </div>
           </div>
         </div>
@@ -175,33 +207,57 @@
     <section id="tutorials" class="tutorials-section">
       <div class="container">
         <h2 class="section-title">快速上手</h2>
-        <div class="tutorials-steps">
-          <div class="step" v-for="(step, index) in tutorialSteps" :key="index"
-            :class="{ 'step-active': activeStep === index }" @mouseenter="activeStep = index"
-            @mouseleave="activeStep = null">
-            <div class="step-number">{{ step.number }}</div>
-            <h3>{{ step.title }}</h3>
-            <p>{{ step.description }}</p>
-            <div class="step-details" v-if="activeStep === index">
-              <div class="step-content">
-                <div class="step-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path :d="step.detailIcon" />
-                  </svg>
-                </div>
-                <div class="step-info">
-                  <h4>{{ step.detailTitle }}</h4>
-                  <p>{{ step.detailDescription }}</p>
-                  <button class="step-action-btn" @click="handleStepAction(index)">
-                    {{ step.actionText }}
-                  </button>
+        <div class="tutorials-layout">
+          <div class="step-group-left">
+            <div class="step-large" v-for="(step, index) in tutorialSteps.slice(0, 2)" :key="index"
+              :class="{ 'step-active': activeStep === index }" @mouseenter="activeStep = index"
+              @mouseleave="activeStep = null">
+              <div class="step-number">{{ step.number }}</div>
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.description }}</p>
+              <div class="step-details" v-if="activeStep === index">
+                <div class="step-content">
+                  <div class="step-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path :d="step.detailIcon" />
+                    </svg>
+                  </div>
+                  <div class="step-info">
+                    <h4>{{ step.detailTitle }}</h4>
+                    <p>{{ step.detailDescription }}</p>
+                    <button class="step-action-btn" @click="handleStepAction(index)">
+                      {{ step.actionText }}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="tutorials-actions">
-          <button class="tutorial-btn" @click="goToTutorials">查看详细教程</button>
+          <div class="step-group-right">
+            <div class="step-small" v-for="(step, index) in tutorialSteps.slice(2, 4)" :key="index + 2"
+              :class="{ 'step-active': activeStep === index + 2 }" @mouseenter="activeStep = index + 2"
+              @mouseleave="activeStep = null">
+              <div class="step-number">{{ step.number }}</div>
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.description }}</p>
+              <div class="step-details" v-if="activeStep === index + 2">
+                <div class="step-content">
+                  <div class="step-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path :d="step.detailIcon" />
+                    </svg>
+                  </div>
+                  <div class="step-info">
+                    <h4>{{ step.detailTitle }}</h4>
+                    <p>{{ step.detailDescription }}</p>
+                    <button class="step-action-btn" @click="handleStepAction(index + 2)">
+                      {{ step.actionText }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -282,6 +338,18 @@ export default {
       hoveredFeature: null,
       hoveredPricing: null,
       activeStep: null,
+      backgroundGradients: [
+        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+        'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+        'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+        'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+        'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+        'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
+        'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)'
+      ],
+      currentBackground: '',
+      featureSizes: Array(9).fill({ width: '100%', minHeight: '180px' }),
       networkNodes: [
         {
           label: '本地服务',
@@ -354,6 +422,31 @@ export default {
           title: '实时监控',
           description: '详细的流量统计和连接状态监控，随时掌握服务运行情况',
           icon: 'M18 20V10 M12 20V4 M6 20V14'
+        },
+        {
+          title: '多协议支持',
+          description: '支持 TCP、UDP、HTTP、HTTPS 等多种协议，满足不同场景需求',
+          icon: 'M8 6h13 M8 12h13 M8 18h13 M3 6h.01 M3 12h.01 M3 18h.01'
+        },
+        {
+          title: '跨平台兼容',
+          description: '支持 Windows、macOS、Linux 等主流操作系统，无缝切换',
+          icon: 'M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z'
+        },
+        {
+          title: '智能路由',
+          description: '智能选择最优线路，自动故障切换，确保服务持续可用',
+          icon: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10'
+        },
+        {
+          title: '流量控制',
+          description: '精确的流量统计和控制，帮助您合理规划资源使用',
+          icon: 'M12 2v20 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'
+        },
+        {
+          title: 'API 集成',
+          description: '提供完整的 API 接口，方便与其他系统集成和自动化管理',
+          icon: 'M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1m2 1l2-1M14 4v2.5M20 4v2.5M6 10l-2 1m2-1l-2-1m2 1v2.5M3 7l2-1M3 7l2 1M3 7v2.5M6 4L4 3m2 1L8 3M6 4v2.5'
         }
       ],
       pricingPlans: [
@@ -371,7 +464,7 @@ export default {
         },
         {
           name: '专业版',
-          price: '¥9.9',
+          price: '¥0',
           features: [
             '流量 ∞ ',
             '多节点负载均衡',
@@ -385,7 +478,7 @@ export default {
         },
         {
           name: '企业版',
-          price: '¥29.9',
+          price: '¥0',
           features: [
             '流量 ∞ ',
             '专属节点',
@@ -400,6 +493,44 @@ export default {
     }
   },
   methods: {
+    // 随机选择背景
+    setRandomBackground() {
+      const randomIndex = Math.floor(Math.random() * this.backgroundGradients.length)
+      this.currentBackground = this.backgroundGradients[randomIndex]
+    },
+
+    // 生成随机功能卡片大小
+    generateRandomFeatureSizes() {
+      const sizes = []
+      for (let i = 0; i < this.features.length; i++) {
+        const randomWidth = Math.floor(Math.random() * 40) + 60 // 60% 到 100%
+        const randomHeight = Math.floor(Math.random() * 60) + 140 // 140px 到 200px
+        sizes.push({
+          width: `${randomWidth}%`,
+          minHeight: `${randomHeight}px`
+        })
+      }
+      this.featureSizes = sizes
+    },
+
+    // 滚动动画效果
+    scrollToSection(id) {
+      const el = document.querySelector(id)
+      if (el) {
+        el.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+        // 添加滚动后的微动画
+        setTimeout(() => {
+          el.style.transform = 'translateY(-10px)'
+          setTimeout(() => {
+            el.style.transform = 'translateY(0)'
+          }, 300)
+        }, 500)
+      }
+    },
+
     // 检查登录状态
     checkLoginStatus() {
       const token = localStorage.getItem('Token')
@@ -432,12 +563,6 @@ export default {
       this.$router.push('/')
     },
 
-    // 滚动到指定区域
-    scrollToSection(id) {
-      const el = document.querySelector(id)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
-    },
-
     goTo(target) {
       // 原生滚动到锚点
       const el = document.querySelector(target)
@@ -466,7 +591,7 @@ export default {
 
     // 滚动到功能区域
     scrollToFeatures() {
-      this.goTo('#features')
+      this.scrollToSection('#features')
     },
 
     // 处理教程步骤操作
@@ -491,6 +616,8 @@ export default {
   },
   mounted() {
     this.checkLoginStatus()
+    this.setRandomBackground()
+    this.generateRandomFeatureSizes()
 
     // 数字动画效果
     const animateCounter = (element, target, duration = 2000) => {
@@ -662,13 +789,32 @@ export default {
 
 /* 主横幅区域 */
 .hero {
-  padding: 120px 0 80px;
+  padding: 0;
   background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
-  min-height: 580px;
+  height: 100vh;
+  min-height: 600px;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
+  transition: background 1s ease-in-out;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: v-bind(currentBackground);
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 1;
+}
+
+.hero:hover::before {
+  opacity: 0.1;
 }
 
 .hero-container {
@@ -680,7 +826,7 @@ export default {
   align-items: center;
   padding: 0 22px;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .hero-content {
@@ -688,7 +834,7 @@ export default {
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 400;
   margin-bottom: 16px;
   line-height: 1.1;
@@ -716,9 +862,9 @@ export default {
 }
 
 .hero-subtitle {
-  font-size: 21px;
+  font-size: 18px;
   color: #86868b;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   max-width: 500px;
   line-height: 1.4;
 }
@@ -782,8 +928,8 @@ export default {
 
 .hero-stats {
   display: flex;
-  gap: 32px;
-  margin-top: 40px;
+  gap: 24px;
+  margin-top: 32px;
 }
 
 .stat-item {
@@ -791,7 +937,7 @@ export default {
 }
 
 .stat-number {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: #0071e3;
   margin-bottom: 4px;
@@ -950,43 +1096,64 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 
 .bg-gradient-1,
 .bg-gradient-2,
-.bg-gradient-3 {
+.bg-gradient-3,
+.bg-gradient-4,
+.bg-gradient-5 {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.1;
+  filter: blur(80px);
+  opacity: 0.08;
+  transition: all 2s ease-in-out;
 }
 
 .bg-gradient-1 {
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(135deg, #0071e3, #00c6ff);
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   top: 10%;
   left: 10%;
-  animation: float 6s ease-in-out infinite;
+  animation: float 8s ease-in-out infinite;
 }
 
 .bg-gradient-2 {
-  width: 200px;
-  height: 200px;
-  background: linear-gradient(135deg, #00c6ff, #0071e3);
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   bottom: 20%;
   right: 15%;
-  animation: float 8s ease-in-out infinite reverse;
+  animation: float 10s ease-in-out infinite reverse;
 }
 
 .bg-gradient-3 {
-  width: 150px;
-  height: 150px;
-  background: linear-gradient(135deg, #0071e3, #00c6ff);
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   top: 60%;
   left: 70%;
-  animation: float 10s ease-in-out infinite;
+  animation: float 12s ease-in-out infinite;
+}
+
+.bg-gradient-4 {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  top: 30%;
+  right: 10%;
+  animation: float 14s ease-in-out infinite reverse;
+}
+
+.bg-gradient-5 {
+  width: 350px;
+  height: 350px;
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  bottom: 10%;
+  left: 20%;
+  animation: float 16s ease-in-out infinite;
 }
 
 @keyframes float {
@@ -1015,27 +1182,49 @@ export default {
 
 /* 通用容器 */
 .container {
-  max-width: 80rem;
+  max-width: 100rem;
   margin: 0 auto;
   padding: 0 22px;
 }
 
 /* 区域标题 */
 .section-title {
-  font-size: 40px;
-  font-weight: 400;
+  font-size: 42px;
+  font-weight: 300;
   text-align: center;
-  width: 20rem;
-  margin-bottom: 48px;
+  margin-bottom: 60px;
   color: #1d1d1f;
+  letter-spacing: -0.5px;
+  position: relative;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
+  border-radius: 1px;
 }
 
 /* 功能特色区域 */
 .features-section {
-  padding: 80px 0;
-  background: #f5f5f7;
+  padding: 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  height: 100vh;
+  min-height: 600px;
   position: relative;
   overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .features-section::before {
@@ -1045,29 +1234,62 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 30% 20%, rgba(0, 113, 227, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(0, 198, 255, 0.05) 0%, transparent 50%);
+  background: radial-gradient(circle at 20% 30%, rgba(0, 113, 227, 0.03) 0%, transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(0, 198, 255, 0.03) 0%, transparent 60%);
   pointer-events: none;
 }
 
-.features-grid {
+.features-section:hover {
+  background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
+}
+
+.features-layout {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-  max-width: 1000px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1400px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  height: 70vh;
+  align-items: start;
+  justify-items: center;
+  width: 100%;
+}
+
+.feature-group-left {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 40px;
+  width: 100%;
+  align-items: center;
+}
+
+.feature-group-center {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 10px;
+  width: 100%;
+  align-items: center;
+}
+
+.feature-group-right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 80px;
+  width: 100%;
+  align-items: center;
 }
 
 .feature-card {
-  width: 100%;
-  min-height: 280px;
   background: white;
-  padding: 2rem;
-  border-radius: 24px;
+  padding: 1.5rem;
+  border-radius: 16px;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
   flex-direction: column;
@@ -1076,6 +1298,7 @@ export default {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(0, 113, 227, 0.1);
+  min-height: 160px;
 }
 
 .feature-card::before {
@@ -1094,32 +1317,32 @@ export default {
 }
 
 .feature-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 113, 227, 0.15);
   border-color: rgba(0, 113, 227, 0.3);
 }
 
 .feature-active {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 113, 227, 0.15);
   border-color: rgba(0, 113, 227, 0.3);
 }
 
 .feature-icon-wrapper {
   position: relative;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .feature-icon {
-  width: 80px;
-  height: 80px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
-  border-radius: 20px;
+  border-radius: 12px;
   color: white;
-  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   z-index: 2;
@@ -1135,8 +1358,8 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   background: radial-gradient(circle, rgba(0, 113, 227, 0.2) 0%, transparent 70%);
   border-radius: 50%;
   opacity: 0;
@@ -1148,9 +1371,9 @@ export default {
 }
 
 .feature-card h3 {
-  font-size: 21px;
+  font-size: 14px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   color: #1d1d1f;
   transition: color 0.3s;
 }
@@ -1161,79 +1384,47 @@ export default {
 
 .feature-card p {
   color: #86868b;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-}
-
-.feature-hover-content {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  transition: all 0.3s;
-}
-
-.feature-card:hover .feature-hover-content {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-5px);
-}
-
-.hover-indicator {
-  width: 6px;
-  height: 6px;
-  background: #0071e3;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.5;
-    transform: scale(1.2);
-  }
-}
-
-.hover-text {
+  line-height: 1.4;
+  margin-bottom: 0.8rem;
   font-size: 12px;
-  color: #0071e3;
-  font-weight: 500;
 }
+
 
 /* 价格方案区域 */
 .pricing-section {
-  padding: 80px 0;
-  background: white;
+  padding: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  height: 100vh;
+  min-height: 600px;
   position: relative;
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.pricing-section:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
 }
 
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  max-width: 1000px;
-  margin: 0 auto;
+  gap: 2rem;
+  max-width: 100%;
+  margin-left: 3.5rem;
 }
 
 .pricing-card {
+  width: 14rem;
   background: #f5f5f7;
-  padding: 2rem;
-  border-radius: 24px;
+  padding: 1.5rem;
+  border-radius: 20px;
   text-align: center;
   position: relative;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: 1px solid rgba(0, 113, 227, 0.1);
   overflow: hidden;
+  min-height: 380px;
 }
 
 .pricing-card:hover,
@@ -1246,30 +1437,34 @@ export default {
 .pricing-card.featured {
   background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
   color: white;
-  transform: scale(1.05);
+  transform: scale(1.1);
   box-shadow: 0 20px 40px rgba(0, 113, 227, 0.3);
 }
 
 .pricing-card.featured:hover,
 .pricing-card.featured.pricing-active {
-  transform: scale(1.08) translateY(-8px);
+  transform: scale(1.15) translateY(-8px);
   box-shadow: 0 30px 60px rgba(0, 113, 227, 0.4);
 }
 
 .popular-badge {
+  width: 7rem;
   position: absolute;
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #ff9500 0%, #ffaa33 100%);
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8e53 100%);
   color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(255, 149, 0, 0.3);
+  padding: 0.3rem 0rem;
+  border-radius: 24px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
   z-index: 2;
   position: relative;
+  text-transform: uppercase;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .badge-glow {
@@ -1277,11 +1472,11 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(circle, rgba(255, 149, 0, 0.3) 0%, transparent 70%);
-  border-radius: 20px;
-  animation: badgePulse 2s ease-in-out infinite;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.4) 0%, transparent 70%);
+  border-radius: 24px;
+  animation: badgePulse 1.5s ease-in-out infinite;
 }
 
 @keyframes badgePulse {
@@ -1301,9 +1496,9 @@ export default {
 }
 
 .pricing-card h3 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   transition: color 0.3s;
 }
 
@@ -1317,7 +1512,7 @@ export default {
 }
 
 .price {
-  font-size: 48px;
+  font-size: 36px;
   font-weight: 700;
   margin-bottom: 1rem;
   display: flex;
@@ -1327,12 +1522,12 @@ export default {
 }
 
 .price-amount {
-  font-size: 48px;
+  font-size: 36px;
   line-height: 1;
 }
 
 .price-period {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   opacity: 0.8;
 }
@@ -1345,13 +1540,14 @@ export default {
 }
 
 .features-list li {
-  padding: 12px 0;
+  padding: 8px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   opacity: 0;
   animation: fadeInUp 0.5s ease-out forwards;
+  font-size: 14px;
 }
 
 .pricing-card.featured .features-list li {
@@ -1359,8 +1555,8 @@ export default {
 }
 
 .feature-check {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   background: rgba(0, 113, 227, 0.1);
   border-radius: 50%;
   display: flex;
@@ -1436,50 +1632,92 @@ export default {
 
 /* 使用教程区域 */
 .tutorials-section {
-  padding: 80px 0;
-  background: #f5f5f7;
+  padding: 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  height: 100vh;
+  min-height: 600px;
   position: relative;
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
 }
 
-.tutorials-steps {
+.tutorials-section:hover {
+  background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
+}
+
+.tutorials-layout {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
   max-width: 1200px;
-  margin: 0 auto 48px;
+  margin: 0 auto;
+  height: 70vh;
+  align-items: start;
+  justify-items: center;
 }
 
-.step {
+.step-group-left {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 80px;
+  width: 100%;
+  align-items: center;
+}
+
+.step-group-right {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 40px;
+  width: 100%;
+  align-items: center;
+}
+
+.step-large,
+.step-small {
   text-align: center;
   background: white;
-  padding: 2rem 1.5rem;
+  padding: 2rem;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(0, 113, 227, 0.1);
 }
 
-.step:hover,
+.step-large {
+  min-height: 220px;
+  width: 100%;
+}
+
+.step-small {
+  min-height: 160px;
+  width: 85%;
+}
+
+.step-large:hover,
+.step-small:hover,
 .step-active {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
-  border-color: rgba(0, 113, 227, 0.3);
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px rgba(0, 113, 227, 0.2);
+  border-color: rgba(0, 113, 227, 0.4);
 }
 
 .step-number {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
-  margin: 0 auto 16px;
+  margin: 0 auto 12px;
   box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
   transition: all 0.3s;
 }
@@ -1491,9 +1729,9 @@ export default {
 }
 
 .step h3 {
-  font-size: 21px;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   color: #1d1d1f;
   transition: color 0.3s;
 }
@@ -1505,7 +1743,8 @@ export default {
 
 .step p {
   color: #86868b;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  font-size: 14px;
 }
 
 .step-details {
@@ -1514,8 +1753,8 @@ export default {
   left: 0;
   width: 100%;
   background: white;
-  padding: 1.5rem;
-  border-radius: 0 0 20px 20px;
+  padding: 1rem;
+  border-radius: 0 0 16px 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   z-index: 10;
   animation: slideDown 0.3s ease-out;
@@ -1541,10 +1780,10 @@ export default {
 }
 
 .step-icon {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   background: rgba(0, 113, 227, 0.1);
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1553,26 +1792,26 @@ export default {
 }
 
 .step-info h4 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   margin-bottom: 4px;
   color: #1d1d1f;
 }
 
 .step-info p {
-  font-size: 14px;
+  font-size: 12px;
   color: #86868b;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   line-height: 1.4;
 }
 
 .step-action-btn {
-  padding: 8px 16px;
+  padding: 6px 12px;
   background: #0071e3;
   color: white;
   border: none;
-  border-radius: 20px;
-  font-size: 14px;
+  border-radius: 16px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
@@ -1583,54 +1822,42 @@ export default {
   transform: translateY(-1px);
 }
 
-.tutorial-btn {
-  padding: 12px 24px;
-  background: #0071e3;
-  color: white;
-  border: none;
-  border-radius: 980px;
-  font-size: 17px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
-}
-
-.tutorial-btn:hover {
-  background: #0077ed;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.4);
-}
-
-.tutorials-actions {
-  text-align: center;
-}
 
 /* 关于我们区域 */
 .about-section {
-  padding: 80px 0;
-  background: white;
+  padding: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  height: 100vh;
+  min-height: 600px;
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.about-section:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
 }
 
 .about-text {
-  max-width: 600px;
+  max-width: 40rem;
   margin: 0 auto;
   text-align: center;
+  margin-left: 6.5rem;
 }
 
 .about-text p {
-  font-size: 21px;
+  font-size: 18px;
   color: #86868b;
   line-height: 1.5;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .stats {
   display: flex;
   justify-content: center;
-  gap: 48px;
+  gap: 32px;
   max-width: 600px;
-  margin: 48px auto 0;
+  margin: 32px auto 0;
 }
 
 .stat {
@@ -1638,10 +1865,10 @@ export default {
 }
 
 .stat-number {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 700;
   color: #1d1d1f;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .stat-label {
@@ -1652,23 +1879,29 @@ export default {
 /* 页脚 */
 .footer {
   background: #f5f5f7;
-  padding: 48px 0 24px;
+  padding: 40px 0 20px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .footer-content {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  margin-bottom: 32px;
+  gap: 24px;
+  margin-bottom: 24px;
   max-width: 1000px;
   margin: 0 auto;
 }
 
-.footer-section h3,
-.footer-section h4 {
-  margin-bottom: 16px;
+.footer-section h3 {
+  margin-bottom: 12px;
   color: #1d1d1f;
+  font-size: 16px;
+}
+
+.footer-section h4 {
+  margin-bottom: 12px;
+  color: #1d1d1f;
+  font-size: 13px;
 }
 
 .footer-section ul {
@@ -1678,13 +1911,14 @@ export default {
 }
 
 .footer-section li {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .footer-section a {
   color: #86868b;
   text-decoration: none;
   transition: color 0.3s;
+  font-size: 13px;
 }
 
 .footer-section a:hover {
@@ -1693,15 +1927,22 @@ export default {
 
 .footer-bottom {
   text-align: center;
-  padding-top: 24px;
+  padding-top: 20px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   color: #86868b;
+  font-size: 13px;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
   .nav-menu {
     display: none;
+  }
+
+  .hero {
+    height: auto;
+    min-height: 100vh;
+    padding: 80px 0 40px;
   }
 
   .hero-container {
@@ -1719,7 +1960,7 @@ export default {
   }
 
   .hero-subtitle {
-    font-size: 18px;
+    font-size: 16px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -1729,25 +1970,56 @@ export default {
     align-items: center;
   }
 
-  .network-diagram {
-    flex-direction: column;
-    gap: 20px;
+  .features-section,
+  .pricing-section,
+  .tutorials-section,
+  .about-section {
+    height: auto;
+    min-height: 100vh;
+    padding: 80px 0;
   }
 
-  .arrow {
-    transform: rotate(90deg);
-  }
-
-  .features-grid {
+  .features-layout {
     grid-template-columns: 1fr;
+    gap: 20px;
+    height: auto;
+  }
+
+  .feature-group-left,
+  .feature-group-center,
+  .feature-group-right {
+    margin-top: 0;
+    gap: 15px;
+  }
+
+  .feature-card {
+    width: 100% !important;
+    margin: 0 auto;
+    min-height: 140px !important;
+    padding: 1rem !important;
   }
 
   .pricing-grid {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 
-  .tutorials-steps {
+  .tutorials-layout {
     grid-template-columns: 1fr;
+    gap: 30px;
+    height: auto;
+  }
+
+  .step-group-left,
+  .step-group-right {
+    margin-top: 0;
+    gap: 20px;
+  }
+
+  .step-large,
+  .step-small {
+    width: 100%;
+    margin: 0 auto;
   }
 
   .footer-content {
@@ -1755,13 +2027,14 @@ export default {
   }
 
   .section-title {
-    font-size: 32px;
-    margin-right: 5rem;
+    font-size: 28px;
+    margin-right: 0;
+    white-space: nowrap;
   }
 
   .stats {
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
 }
 

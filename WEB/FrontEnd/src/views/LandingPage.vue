@@ -10,14 +10,22 @@
 
         <!-- 导航菜单 -->
         <ul class="nav-menu">
-          <li @click="goTo('#features')">功能特色</li>
-          <li @click="goTo('#pricing')">价格方案</li>
-          <li @click="goTo('#tutorials')">使用教程</li>
-          <li @click="goTo('#about')">关于我们</li>
+          <li @click="goTo('#features')" class="nav-item">功能特色</li>
+          <li @click="goTo('#pricing')" class="nav-item">价格方案</li>
+          <li @click="goTo('#tutorials')" class="nav-item">使用教程</li>
+          <li @click="goTo('#about')" class="nav-item">关于我们</li>
         </ul>
 
         <!-- 用户操作区域 -->
         <div class="user-actions">
+          <!-- GitHub 按钮 -->
+          <button class="github-btn" @click="openGitHub">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+            </svg>
+            <span>GitHub</span>
+          </button>
 
           <!-- 用户状态按钮 -->
           <div v-if="isLoggedIn" class="user-logged-in">
@@ -28,134 +36,227 @@
             <button class="login-btn" @click="goToLogin">登录</button>
             <button class="register-btn" @click="goToRegister">注册</button>
           </div>
-          <!-- GitHub 按钮 -->
-          <button class="github-btn" @click="openGitHub">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-              <path
-                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-            </svg>
-            GitHub
-          </button>
         </div>
       </div>
     </nav>
 
     <!-- 主横幅区域 -->
     <section class="hero">
+      <div class="hero-background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="noise-overlay"></div>
+      </div>
+
       <div class="hero-container">
         <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-text">🚀 全新升级</span>
+          </div>
           <h1 class="hero-title">
-            <span class="title-gradient">专业的 FRP 内网穿透服务</span>
+            <span class="title-gradient">让内网穿透变得</span>
+            <span class="title-highlight">简单高效</span>
           </h1>
-          <p class="hero-subtitle">稳定、快速、安全的内网穿透解决方案，让您的本地服务轻松对外访问</p>
+          <p class="hero-subtitle">
+            企业级内网穿透解决方案，为开发者和企业提供稳定、高速、安全的网络连接服务
+          </p>
           <div class="hero-actions">
             <button class="cta-primary" @click="goToRegister">
-              <span class="btn-text">立即开始</span>
-              <div class="btn-hover-effect"></div>
+              <span>免费试用</span>
+              <svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
             </button>
             <button class="cta-secondary" @click="scrollToFeatures">
-              <span class="btn-text">了解更多</span>
-              <div class="btn-hover-effect"></div>
+              <span>查看演示</span>
+              <svg class="btn-play" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" />
+                <path d="M6 5V11L11 8L6 5Z" fill="currentColor" />
+              </svg>
             </button>
           </div>
-          <div class="hero-stats">
-            <div class="stat-item">
-              <div class="stat-number" ref="userCount">0</div>
-              <div class="stat-label">活跃用户</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" ref="uptimeCount">0</div>
-              <div class="stat-label">服务可用性</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" ref="speedCount">0</div>
-              <div class="stat-label">平均响应速度</div>
-            </div>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <div class="network-animation">
-            <div class="network-node" v-for="(node, index) in networkNodes" :key="index" :class="`node-${index + 1}`"
-              :style="{ animationDelay: `${index * 0.5}s` }">
-              <div class="node-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path :d="node.icon" />
+
+          <div class="trust-indicators">
+            <div class="trust-item">
+              <div class="trust-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 1L12.5 7.5L19 8L14 12L16 19L10 15L4 19L6 12L1 8L7.5 7.5L10 1Z" fill="currentColor" />
                 </svg>
               </div>
-              <div class="node-label">{{ node.label }}</div>
+              <div class="trust-text">
+                <div class="trust-number">10K+</div>
+                <div class="trust-label">活跃用户</div>
+              </div>
             </div>
-            <div class="connection-lines">
-              <div class="line line-1"></div>
-              <div class="line line-2"></div>
-              <div class="line line-3"></div>
-              <div class="line line-4"></div>
+            <div class="trust-item">
+              <div class="trust-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z"
+                    stroke="currentColor" stroke-width="2" />
+                  <path d="M10 6V10L13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="trust-text">
+                <div class="trust-number">99.9%</div>
+                <div class="trust-label">服务可用性</div>
+              </div>
             </div>
-            <div class="data-particles">
-              <div v-for="n in 20" :key="n" class="particle" :style="getParticleStyle(n)"></div>
+            <div class="trust-item">
+              <div class="trust-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M3 12L7 16L17 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="trust-text">
+                <div class="trust-number">24/7</div>
+                <div class="trust-label">技术支持</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="hero-background">
-        <div class="bg-gradient-1"></div>
-        <div class="bg-gradient-2"></div>
-        <div class="bg-gradient-3"></div>
-        <div class="bg-gradient-4"></div>
-        <div class="bg-gradient-5"></div>
+
+        <div class="hero-visual">
+          <div class="terminal-window">
+            <div class="terminal-header">
+              <div class="terminal-controls">
+                <div class="control control-red"></div>
+                <div class="control control-yellow"></div>
+                <div class="control control-green"></div>
+              </div>
+              <div class="terminal-title">zyrofrp-client</div>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-line">
+                <span class="prompt">$</span>
+                <span class="command">./frpc -c ./frpc.toml</span>
+              </div>
+              <div class="terminal-line success">
+                <span class="output">→ 2024/01/15 10:23:45 [I] [proxy.go:102] [e5abf6c4a3c3] proxy [web] started
+                  successfully</span>
+              </div>
+              <div class="terminal-line success">
+                <span class="output">→ 2024/01/15 10:23:45 [I] [control.go:180] [e5abf6c4a3c3] login to server
+                  success</span>
+              </div>
+              <div class="terminal-line info">
+                <span class="output">→ 2024/01/15 10:23:46 [I] [proxy.go:207] [e5abf6c4a3c3] [web] get a user
+                  connection</span>
+              </div>
+              <div class="terminal-cursor"></div>
+            </div>
+          </div>
+
+          <div class="floating-cards">
+            <div class="float-card card-1">
+              <div class="card-icon">🌐</div>
+              <div class="card-label">HTTP/HTTPS</div>
+            </div>
+            <div class="float-card card-2">
+              <div class="card-icon">🔌</div>
+              <div class="card-label">TCP/UDP</div>
+            </div>
+            <div class="float-card card-3">
+              <div class="card-icon">🔒</div>
+              <div class="card-label">安全加密</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- 功能特色区域 -->
     <section id="features" class="features-section">
       <div class="container">
-        <h2 class="section-title">核心功能</h2>
-        <div class="features-layout">
-          <div class="feature-group-left">
-            <div class="feature-card" v-for="(feature, index) in features.slice(0, 3)" :key="index"
-              :style="{ animationDelay: `${index * 0.3}s`, ...featureSizes[index] }" @mouseenter="featureHover(index)"
-              @mouseleave="featureHover(null)" :class="{ 'feature-active': hoveredFeature === index }">
-              <div class="feature-icon-wrapper">
-                <div class="feature-icon" :class="{ 'icon-hover': hoveredFeature === index }">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path :d="feature.icon" />
-                  </svg>
-                </div>
-                <div class="feature-glow"></div>
+        <div class="section-header">
+          <div class="section-badge">核心功能</div>
+          <h2 class="section-title">强大而灵活的功能</h2>
+          <p class="section-subtitle">为不同规模的企业和开发者提供完整的内网穿透解决方案</p>
+        </div>
+
+        <div class="features-grid">
+          <div v-for="(feature, index) in coreFeatures" :key="index" class="feature-card"
+            :class="{ 'featured': feature.featured, 'hovered': hoveredFeature === index }"
+            @mouseenter="featureHover(index)" @mouseleave="featureHover(null)" @click="handleFeatureClick(feature)">
+            <div class="feature-content">
+              <div class="feature-icon" :class="feature.iconClass">
+                <svg v-if="feature.iconType === 'lightning'" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <svg v-else-if="feature.iconType === 'shield'" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <svg v-else-if="feature.iconType === 'settings'" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+                  <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" />
+                  <path d="M20.5 7.5L16 12l4.5 4.5M3.5 7.5L8 12l-4.5 4.5" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <svg v-else-if="feature.iconType === 'chart'" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M18 20V10m-6 10V4m-6 16v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <svg v-else-if="feature.iconType === 'protocol'" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" />
+                  <path d="M8 12h8m-4-4v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <svg v-else-if="feature.iconType === 'platform'" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" />
+                  <path d="M8 21h8m-4-4v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <span v-else class="icon-emoji">{{ feature.emoji }}</span>
               </div>
-              <h3>{{ feature.title }}</h3>
-              <p>{{ feature.description }}</p>
+              <div class="feature-text">
+                <h3>{{ feature.title }}</h3>
+                <p>{{ feature.description }}</p>
+              </div>
+            </div>
+            <div class="feature-arrow">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
             </div>
           </div>
-          <div class="feature-group-center">
-            <div class="feature-card" v-for="(feature, index) in features.slice(3, 6)" :key="index + 3"
-              :style="{ animationDelay: `${(index + 3) * 0.2}s`, ...featureSizes[index + 3] }" @mouseenter="featureHover(index + 3)"
-              @mouseleave="featureHover(null)" :class="{ 'feature-active': hoveredFeature === index + 3 }">
-              <div class="feature-icon-wrapper">
-                <div class="feature-icon" :class="{ 'icon-hover': hoveredFeature === index + 3 }">
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path :d="feature.icon" />
-                  </svg>
-                </div>
-                <div class="feature-glow"></div>
-              </div>
-              <h3>{{ feature.title }}</h3>
-              <p>{{ feature.description }}</p>
+        </div>
+
+        <div class="feature-showcase">
+          <div class="showcase-left">
+            <div class="showcase-content">
+              <h3>智能路由</h3>
+              <p>自动选择最优路径，确保数据传输的高效性和稳定性</p>
+              <ul class="showcase-features">
+                <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>智能负载均衡</li>
+                <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>故障自动切换</li>
+                <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>全球节点覆盖</li>
+              </ul>
             </div>
           </div>
-          <div class="feature-group-right">
-            <div class="feature-card" v-for="(feature, index) in features.slice(6, 9)" :key="index + 6"
-              :style="{ animationDelay: `${(index + 6) * 0.15}s`, ...featureSizes[index + 6] }" @mouseenter="featureHover(index + 6)"
-              @mouseleave="featureHover(null)" :class="{ 'feature-active': hoveredFeature === index + 6 }">
-              <div class="feature-icon-wrapper">
-                <div class="feature-icon" :class="{ 'icon-hover': hoveredFeature === index + 6 }">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path :d="feature.icon" />
-                  </svg>
-                </div>
-                <div class="feature-glow"></div>
-              </div>
-              <h3>{{ feature.title }}</h3>
-              <p>{{ feature.description }}</p>
+          <div class="showcase-visual">
+            <div class="network-diagram">
+              <div class="node central">智能路由</div>
+              <div class="node node1">节点1</div>
+              <div class="node node2">节点2</div>
+              <div class="node node3">节点3</div>
+              <div class="connection conn1"></div>
+              <div class="connection conn2"></div>
+              <div class="connection conn3"></div>
             </div>
           </div>
         </div>
@@ -165,39 +266,71 @@
     <!-- 价格方案区域 -->
     <section id="pricing" class="pricing-section">
       <div class="container">
-        <h2 class="section-title">价格方案</h2>
-        <div class="pricing-grid">
-          <div v-for="(plan, index) in pricingPlans" :key="index" class="pricing-card"
-            :class="{ featured: plan.featured, 'pricing-active': hoveredPricing === index }"
-            :style="{ animationDelay: `${index * 0.15}s` }" @mouseenter="pricingHover(index)"
-            @mouseleave="pricingHover(null)">
-            <div v-if="plan.featured" class="popular-badge">
-              <span class="badge-text">{{ plan.badge }}</span>
-              <div class="badge-glow"></div>
-            </div>
-            <div class="pricing-header">
-              <h3>{{ plan.name }}</h3>
-              <div class="price">
-                <span class="price-amount">{{ plan.price }}</span>
-                <span class="price-period">/月</span>
+        <div class="section-header">
+          <div class="section-badge">价格方案</div>
+          <h2 class="section-title">选择适合您的方案</h2>
+          <p class="section-subtitle">从个人开发者到企业级应用，我们都有合适的解决方案</p>
+        </div>
+
+        <div class="pricing-content">
+          <div class="pricing-toggle">
+            <button class="toggle-btn" :class="{ active: billingPeriod === 'monthly' }"
+              @click="setBillingPeriod('monthly')">按月付费</button>
+            <button class="toggle-btn" :class="{ active: billingPeriod === 'yearly' }"
+              @click="setBillingPeriod('yearly')">按年付费 <span class="discount">省20%</span></button>
+          </div>
+
+          <div class="pricing-grid">
+            <div v-for="(plan, index) in pricingPlans" :key="index" class="pricing-card" :class="{
+              'featured': plan.featured,
+              'enterprise': plan.name === '企业版',
+              'hovered': hoveredPricing === index
+            }" @mouseenter="pricingHover(index)" @mouseleave="pricingHover(null)">
+
+              <div class="pricing-header">
+                <div class="plan-info">
+                  <h3>{{ plan.name }}</h3>
+                  <p v-if="plan.description" class="plan-description">{{ plan.description }}</p>
+                </div>
+                <div v-if="plan.featured" class="popular-badge">
+                  <span>{{ plan.badge }}</span>
+                </div>
+              </div>
+
+              <div class="pricing-body">
+                <div class="price">
+                  <span class="currency">¥</span>
+                  <span class="amount">{{ billingPeriod === 'yearly' ? plan.yearlyPrice : plan.monthlyPrice }}</span>
+                  <span class="period">/{{ billingPeriod === 'yearly' ? '年' : '月' }}</span>
+                </div>
+
+                <ul class="features-list">
+                  <li v-for="(feature, featureIndex) in plan.features" :key="featureIndex"
+                    :class="{ 'highlight': feature.highlight }">
+                    <svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+                    <span>{{ feature.text }}</span>
+                    <span v-if="feature.description" class="feature-description">{{ feature.description }}</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="pricing-footer">
+                <button class="pricing-btn" :class="{
+                  'primary': plan.featured,
+                  'secondary': !plan.featured,
+                  'enterprise': plan.name === '企业版'
+                }" @click="handlePlanSelection(plan)">
+                  {{ plan.buttonText }}
+                </button>
               </div>
             </div>
-            <ul class="features-list">
-              <li v-for="(feature, featureIndex) in plan.features" :key="featureIndex"
-                :style="{ animationDelay: `${featureIndex * 0.1}s` }">
-                <div class="feature-check">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                </div>
-                <span>{{ feature }}</span>
-              </li>
-            </ul>
-            <button class="pricing-btn" :class="{ primary: plan.featured }" @click="goToRegister">
-              <span class="btn-text">{{ plan.buttonText }}</span>
-              <div class="btn-hover-effect"></div>
-            </button>
-            <div class="pricing-glow"></div>
+          </div>
+
+          <div class="pricing-note">
+            <p>所有方案均包含 7 天免费试用期 • 随时可以升级或降级 • 无隐藏费用</p>
           </div>
         </div>
       </div>
@@ -206,56 +339,42 @@
     <!-- 使用教程区域 -->
     <section id="tutorials" class="tutorials-section">
       <div class="container">
-        <h2 class="section-title">快速上手</h2>
-        <div class="tutorials-layout">
-          <div class="step-group-left">
-            <div class="step-large" v-for="(step, index) in tutorialSteps.slice(0, 2)" :key="index"
-              :class="{ 'step-active': activeStep === index }" @mouseenter="activeStep = index"
-              @mouseleave="activeStep = null">
-              <div class="step-number">{{ step.number }}</div>
+        <div class="section-header">
+          <div class="section-badge">使用教程</div>
+          <h2 class="section-title">快速开始使用</h2>
+          <p class="section-subtitle">简单四步，轻松搭建内网穿透服务</p>
+        </div>
+
+        <div class="tutorials-grid">
+          <div v-for="(step, index) in tutorialSteps" :key="index" class="tutorial-card"
+            :class="{ 'active': activeStep === index }" @mouseenter="activeStep = index"
+            @mouseleave="activeStep = null">
+            <div class="tutorial-number">{{ index + 1 }}</div>
+            <div class="tutorial-content">
               <h3>{{ step.title }}</h3>
               <p>{{ step.description }}</p>
-              <div class="step-details" v-if="activeStep === index">
-                <div class="step-content">
-                  <div class="step-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path :d="step.detailIcon" />
-                    </svg>
-                  </div>
-                  <div class="step-info">
-                    <h4>{{ step.detailTitle }}</h4>
-                    <p>{{ step.detailDescription }}</p>
-                    <button class="step-action-btn" @click="handleStepAction(index)">
-                      {{ step.actionText }}
-                    </button>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-          <div class="step-group-right">
-            <div class="step-small" v-for="(step, index) in tutorialSteps.slice(2, 4)" :key="index + 2"
-              :class="{ 'step-active': activeStep === index + 2 }" @mouseenter="activeStep = index + 2"
-              @mouseleave="activeStep = null">
-              <div class="step-number">{{ step.number }}</div>
-              <h3>{{ step.title }}</h3>
-              <p>{{ step.description }}</p>
-              <div class="step-details" v-if="activeStep === index + 2">
-                <div class="step-content">
-                  <div class="step-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path :d="step.detailIcon" />
-                    </svg>
-                  </div>
-                  <div class="step-info">
-                    <h4>{{ step.detailTitle }}</h4>
-                    <p>{{ step.detailDescription }}</p>
-                    <button class="step-action-btn" @click="handleStepAction(index + 2)">
-                      {{ step.actionText }}
-                    </button>
-                  </div>
-                </div>
-              </div>
+            <div class="tutorial-icon">
+              <svg v-if="step.iconType === 'user'" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+                <path d="M12 14c-4 0-8 2-8 6v2h16v-2c0-4-4-6-8-6z" stroke="currentColor" stroke-width="2" />
+              </svg>
+              <svg v-else-if="step.iconType === 'download'" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2v16m0 0l-4-4m4 4l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <rect x="4" y="18" width="16" height="4" rx="1" stroke="currentColor" stroke-width="2" />
+              </svg>
+              <svg v-else-if="step.iconType === 'settings'" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M20.5 7.5L16 12l4.5 4.5M3.5 7.5L8 12l-4.5 4.5" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <svg v-else-if="step.iconType === 'rocket'" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2l3 7h7l-5 5 1 7-6-4-6 4 1-7-5-5h7l3-7z" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span v-else class="icon-emoji">{{ step.emoji }}</span>
             </div>
           </div>
         </div>
@@ -265,24 +384,66 @@
     <!-- 关于我们区域 -->
     <section id="about" class="about-section">
       <div class="container">
-        <h2 class="section-title">关于 ZyroFrp</h2>
+        <div class="section-header">
+          <div class="section-badge">关于我们</div>
+          <h2 class="section-title">专业的内网穿透服务提供商</h2>
+          <p class="section-subtitle">致力于为用户提供稳定、快速、安全的内网穿透解决方案</p>
+        </div>
+
         <div class="about-content">
           <div class="about-text">
-            <p>ZyroFrp 是一个专业的 FRP 内网穿透服务平台，致力于为用户提供稳定、快速、安全的内网穿透服务。</p>
+            <p>ZyroFrp 是一个专业的 FRP 内网穿透服务平台，基于开源项目 frp 开发，为个人开发者和企业用户提供高效稳定的内网穿透服务。</p>
             <p>我们拥有多年的网络服务经验，技术团队持续优化服务性能，确保用户获得最佳的使用体验。</p>
-            <div class="stats">
-              <div class="stat">
-                <div class="stat-number">10K+</div>
-                <div class="stat-label">活跃用户</div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
               </div>
-              <div class="stat">
-                <div class="stat-number">99.9%</div>
-                <div class="stat-label">服务可用性</div>
+              <div class="stat-number">10K+</div>
+              <div class="stat-label">活跃用户</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
               </div>
-              <div class="stat">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">技术支持</div>
+              <div class="stat-number">99.9%</div>
+              <div class="stat-label">服务可用性</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                  <path d="M2 12h20" stroke="currentColor" stroke-width="2" />
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                    stroke="currentColor" stroke-width="2" />
+                </svg>
               </div>
+              <div class="stat-number">50+</div>
+              <div class="stat-label">全球节点</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="stat-number">24/7</div>
+              <div class="stat-label">技术支持</div>
             </div>
           </div>
         </div>
@@ -321,9 +482,9 @@
             </ul>
           </div>
         </div>
-        <div class="footer-bottom">
-          <p>&copy; 2024 ZyroFrp. 保留所有权利。</p>
-        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 ZyroFrp. 保留所有权利。</p>
       </div>
     </footer>
   </div>
@@ -338,153 +499,124 @@ export default {
       hoveredFeature: null,
       hoveredPricing: null,
       activeStep: null,
-      backgroundGradients: [
-        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-        'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-        'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-        'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-        'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-        'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
-        'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)'
-      ],
-      currentBackground: '',
-      featureSizes: Array(9).fill({ width: '100%', minHeight: '180px' }),
-      networkNodes: [
+      billingPeriod: 'monthly',
+
+      // 核心功能数据
+      coreFeatures: [
         {
-          label: '本地服务',
-          icon: 'M2 8h20 M2 12h20 M2 16h20 M3 5v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z'
+          title: '高速连接',
+          description: '多节点负载均衡，确保数据传输的高速稳定',
+          iconType: 'lightning',
+          iconClass: 'icon-lightning',
+          featured: false
         },
         {
-          label: 'ZyroFrp',
-          icon: 'M12 2a10 10 0 0 1 10 10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2A10 10 0 0 1 12 2z M8 14h8 M8 18h8'
-        },
-        {
-          label: '互联网',
-          icon: 'M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z M2 12h20'
-        }
-      ],
-      tutorialSteps: [
-        {
-          number: '1',
-          title: '注册账号',
-          description: '创建您的 ZyroFrp 账户',
-          detailIcon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0z M12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
-          detailTitle: '快速注册',
-          detailDescription: '只需邮箱验证，一分钟完成注册，立即开始使用',
-          actionText: '立即注册'
-        },
-        {
-          number: '2',
-          title: '下载客户端',
-          description: '获取适合您系统的客户端',
-          detailIcon: 'M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12',
-          detailTitle: '多平台支持',
-          detailDescription: '支持 Windows、macOS、Linux 等主流操作系统',
-          actionText: '下载客户端'
-        },
-        {
-          number: '3',
-          title: '配置隧道',
-          description: '在 Web 界面创建和管理隧道',
-          detailIcon: 'M13 10V3L4 14h7v7l9-11h-7z',
-          detailTitle: '可视化配置',
-          detailDescription: '通过直观的 Web 界面轻松配置和管理您的隧道',
-          actionText: '配置隧道'
-        },
-        {
-          number: '4',
-          title: '启动服务',
-          description: '运行客户端，享受内网穿透',
-          detailIcon: 'M13 10V3L4 14h7v7l9-11h-7z',
-          detailTitle: '一键启动',
-          detailDescription: '运行客户端程序，立即享受稳定快速的内网穿透服务',
-          actionText: '启动服务'
-        }
-      ],
-      features: [
-        {
-          title: '高速稳定',
-          description: '多节点负载均衡，确保服务稳定运行，提供高速的网络连接体验',
-          icon: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z'
-        },
-        {
-          title: '安全可靠',
-          description: '端到端加密传输，多重安全防护机制，保障您的数据安全',
-          icon: 'M3 11h18v11H3z M12 16a1 1 0 1 0 0-2 1 1 0 0 0 0 2z M7 7V7a5 5 0 0 1 10 0v4'
+          title: '安全加密',
+          description: '端到端加密传输，保护您的数据安全',
+          iconType: 'shield',
+          iconClass: 'icon-shield',
+          featured: false
         },
         {
           title: '简单易用',
-          description: '可视化配置界面，一键部署，无需复杂的技术背景即可上手',
-          icon: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8'
+          description: '可视化配置界面，一键部署，无需技术背景',
+          iconType: 'settings',
+          iconClass: 'icon-settings',
+          featured: false
         },
         {
           title: '实时监控',
-          description: '详细的流量统计和连接状态监控，随时掌握服务运行情况',
-          icon: 'M18 20V10 M12 20V4 M6 20V14'
+          description: '详细的流量统计和连接状态监控',
+          iconType: 'chart',
+          iconClass: 'icon-chart',
+          featured: false
         },
         {
           title: '多协议支持',
-          description: '支持 TCP、UDP、HTTP、HTTPS 等多种协议，满足不同场景需求',
-          icon: 'M8 6h13 M8 12h13 M8 18h13 M3 6h.01 M3 12h.01 M3 18h.01'
+          description: '支持 TCP、UDP、HTTP、HTTPS 等多种协议',
+          iconType: 'protocol',
+          iconClass: 'icon-protocol',
+          featured: false
         },
         {
           title: '跨平台兼容',
-          description: '支持 Windows、macOS、Linux 等主流操作系统，无缝切换',
-          icon: 'M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z'
-        },
-        {
-          title: '智能路由',
-          description: '智能选择最优线路，自动故障切换，确保服务持续可用',
-          icon: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10'
-        },
-        {
-          title: '流量控制',
-          description: '精确的流量统计和控制，帮助您合理规划资源使用',
-          icon: 'M12 2v20 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'
-        },
-        {
-          title: 'API 集成',
-          description: '提供完整的 API 接口，方便与其他系统集成和自动化管理',
-          icon: 'M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1m2 1l2-1M14 4v2.5M20 4v2.5M6 10l-2 1m2-1l-2-1m2 1v2.5M3 7l2-1M3 7l2 1M3 7v2.5M6 4L4 3m2 1L8 3M6 4v2.5'
+          description: '支持 Windows、macOS、Linux 等主流系统',
+          iconType: 'platform',
+          iconClass: 'icon-platform',
+          featured: false
         }
       ],
+
+      // 教程步骤数据
+      tutorialSteps: [
+        {
+          title: '注册账号',
+          description: '创建您的 ZyroFrp 账户',
+          iconType: 'user'
+        },
+        {
+          title: '下载客户端',
+          description: '获取适合您系统的客户端',
+          iconType: 'download'
+        },
+        {
+          title: '配置隧道',
+          description: '在 Web 界面创建和管理隧道',
+          iconType: 'settings'
+        },
+        {
+          title: '启动服务',
+          description: '运行客户端，享受内网穿透',
+          iconType: 'rocket'
+        }
+      ],
+
       pricingPlans: [
         {
           name: '免费版',
-          price: '¥0',
+          description: '适合个人开发者和小型项目',
+          monthlyPrice: '0',
+          yearlyPrice: '0',
           features: [
-            '流量 ∞ ',
-            '单节点连接',
-            '基础技术支持',
-            'Web 管理界面'
+            { text: '无限流量', highlight: false },
+            { text: '单隧道连接', highlight: false },
+            { text: '基础技术支持', highlight: false },
+            { text: 'Web 管理界面', highlight: true }
           ],
           buttonText: '开始使用',
           featured: false
         },
         {
           name: '专业版',
-          price: '¥0',
+          description: '适合成长型团队和商业项目',
+          monthlyPrice: '29',
+          yearlyPrice: '23',
           features: [
-            '流量 ∞ ',
-            '多节点负载均衡',
-            '优先技术支持',
-            '高级监控功能',
-            '自定义域名'
+            { text: '无限流量', highlight: false },
+            { text: '多隧道连接', highlight: true },
+            { text: '多节点负载均衡', highlight: true },
+            { text: '优先技术支持', highlight: false },
+            { text: '高级监控功能', highlight: false },
+            { text: '自定义域名', highlight: true },
+            { text: 'API 访问权限', highlight: false }
           ],
-          buttonText: '立即购买',
+          buttonText: '立即升级',
           featured: true,
           badge: '最受欢迎'
         },
         {
           name: '企业版',
-          price: '¥0',
+          description: '适合大型企业和高流量应用',
+          monthlyPrice: '99',
+          yearlyPrice: '79',
           features: [
-            '流量 ∞ ',
-            '专属节点',
-            '24/7 技术支持',
-            'API 接口',
-            '私有化部署'
+            { text: '无限流量', highlight: false },
+            { text: '无限隧道连接', highlight: true },
+            { text: '专属节点资源', highlight: true, description: '独享高性能节点' },
+            { text: '24/7 专属支持', highlight: true },
+            { text: '完整 API 权限', highlight: false },
+            { text: '私有化部署选项', highlight: true, description: '支持本地部署' },
+            { text: '定制化服务', highlight: false }
           ],
           buttonText: '联系销售',
           featured: false
@@ -493,25 +625,6 @@ export default {
     }
   },
   methods: {
-    // 随机选择背景
-    setRandomBackground() {
-      const randomIndex = Math.floor(Math.random() * this.backgroundGradients.length)
-      this.currentBackground = this.backgroundGradients[randomIndex]
-    },
-
-    // 生成随机功能卡片大小
-    generateRandomFeatureSizes() {
-      const sizes = []
-      for (let i = 0; i < this.features.length; i++) {
-        const randomWidth = Math.floor(Math.random() * 40) + 60 // 60% 到 100%
-        const randomHeight = Math.floor(Math.random() * 60) + 140 // 140px 到 200px
-        sizes.push({
-          width: `${randomWidth}%`,
-          minHeight: `${randomHeight}px`
-        })
-      }
-      this.featureSizes = sizes
-    },
 
     // 滚动动画效果
     scrollToSection(id) {
@@ -574,20 +687,43 @@ export default {
       this.hoveredFeature = index
     },
 
+    // 处理功能卡片点击
+    handleFeatureClick(feature) {
+      // 根据不同的功能执行不同的操作
+      switch (feature.title) {
+        case '高速连接':
+          this.scrollToSection('#pricing')
+          break
+        case '安全加密':
+          this.goTo('/security')
+          break
+        case '简单易用':
+          this.scrollToTutorials()
+          break
+        case '实时监控':
+          this.goToRegister()
+          break
+        case '多协议支持':
+          this.scrollToSection('#pricing')
+          break
+        case '跨平台兼容':
+          window.open('/download', '_blank')
+          break
+        default:
+          this.scrollToSection('#pricing')
+      }
+    },
+
     // 价格卡片悬停效果
     pricingHover(index) {
       this.hoveredPricing = index
     },
 
-    // 粒子动画样式
-    getParticleStyle(n) {
-      const delay = (n * 0.1) % 2
-      const duration = 2 + (n % 3)
-      return {
-        animationDelay: `${delay}s`,
-        animationDuration: `${duration}s`
-      }
+    // 设置计费周期
+    setBillingPeriod(period) {
+      this.billingPeriod = period
     },
+
 
     // 滚动到功能区域
     scrollToFeatures() {
@@ -612,35 +748,21 @@ export default {
           this.$router.push('/home')
           break
       }
+    },
+
+    // 处理价格方案选择
+    handlePlanSelection(plan) {
+      if (plan.name === '企业版') {
+        // 企业版联系销售
+        window.open('mailto:sales@zyrofrp.com?subject=企业版咨询', '_blank')
+      } else {
+        // 其他方案直接注册
+        this.goToRegister()
+      }
     }
   },
   mounted() {
     this.checkLoginStatus()
-    this.setRandomBackground()
-    this.generateRandomFeatureSizes()
-
-    // 数字动画效果
-    const animateCounter = (element, target, duration = 2000) => {
-      const start = 0
-      const increment = target / (duration / 16)
-      let current = start
-
-      const timer = setInterval(() => {
-        current += increment
-        if (current >= target) {
-          current = target
-          clearInterval(timer)
-        }
-        element.textContent = Math.floor(current).toLocaleString()
-      }, 16)
-    }
-
-    // 延迟执行数字动画
-    setTimeout(() => {
-      if (this.$refs.userCount) animateCounter(this.$refs.userCount, 10000)
-      if (this.$refs.uptimeCount) animateCounter(this.$refs.uptimeCount, 999)
-      if (this.$refs.speedCount) animateCounter(this.$refs.speedCount, 50)
-    }, 500)
   }
 }
 </script>
@@ -648,9 +770,11 @@ export default {
 
 <style scoped>
 .landing-page {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #1d1d1f;
-  background-color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #0a0a0a;
+  background: #ffffff;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
 /* 导航栏样式 */
@@ -659,28 +783,53 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   z-index: 1000;
-  height: 3.9rem;
+  height: 72px;
+  transition: all 0.3s ease;
 }
 
 .nav-container {
-  max-width: 100rem;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  padding: 0 22px;
+  padding: 0 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  transition: all 0.3s ease;
+}
+
+.logo:hover .logo-icon {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 122, 255, 0.15);
 }
 
 .logo h1 {
-  font-size: 21px;
-  font-weight: 500;
-  color: #1d1d1f;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0a0a0a;
   margin: 0;
+  letter-spacing: -0.5px;
 }
 
 .nav-menu {
@@ -688,73 +837,116 @@ export default {
   list-style: none;
   margin: 0;
   padding: 0;
+  gap: 8px;
 }
 
-.nav-menu a {
-  text-decoration: none;
-  color: #1d1d1f;
-  font-size: 1rem;
-  font-weight: 400;
-  transition: color 0.3s;
-  background-color: transparent;
-}
-
-.nav-menu li {
-  background-color: transparent;
-  height: 4rem;
+.nav-item {
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 0.8rem;
-  transition: all 0.3s;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6b7280;
   cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  height: 4rem;
 }
 
-.nav-menu li:hover {
-  background-color: #f0f0f0;
+.nav-item:hover {
+  color: #0a0a0a;
+  background: #f3f4f6;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-item:hover::after {
+  width: 100%;
 }
 
 .user-actions {
   display: flex;
   align-items: center;
-  height: 100%;
 }
 
 /* 按钮样式 */
-.github-btn,
-.dashboard-btn,
-.logout-btn,
-.login-btn,
-.register-btn {
-  background-color: transparent;
-  cursor: pointer;
-  border: none;
-  transition: all 0.3s;
-  height: 100%;
-  padding: 0.8rem 1rem;
-  height: 4rem;
-  font-size: 1rem;
-}
-
 .github-btn {
   display: flex;
   align-items: center;
+  padding: 8px 20px;
+  background: transparent;
+  color: #6b7280;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 4.4rem;
 }
 
 .github-btn svg {
-  margin-bottom: 0.2rem;
-  margin-right: 0.3rem;
+  margin-right: 0.5rem;
 }
 
-.github-btn:hover,
-.dashboard-btn:hover,
-.logout-btn:hover,
-.login-btn:hover,
-.register-btn:hover {
-  background-color: #f0f0f0;
+.github-btn:hover {
+  background: #f3f4f6;
+  color: #0a0a0a;
 }
 
-.user-actions {
-  margin-left: 30rem;
+.login-btn,
+.register-btn,
+.dashboard-btn,
+.logout-btn {
+  padding: 8px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  height: 4.4rem;
+}
+
+.login-btn {
+  background: transparent;
+  color: #0a0a0a;
+  border: 1px solid #fcfcfc;
+}
+
+.login-btn:hover {
+  background: #f3f4f6;
+}
+
+.register-btn,
+.dashboard-btn {
+  background: transparent;
+  color: #6b7280;
+}
+
+.register-btn:hover,
+.dashboard-btn:hover {
+  background-color: #f3f4f6;
+  color: #424242;
+}
+
+.logout-btn {
+  background: transparent;
+  color: #6b7280;
+}
+
+.logout-btn:hover {
+  background: #f3f4f6;
+  color: #dc2626;
 }
 
 .cta-primary,
@@ -768,53 +960,109 @@ export default {
 }
 
 .cta-primary {
-  background: #0071e3;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
   border: none;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
 }
 
 .cta-primary:hover {
-  background: #0077ed;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
 }
 
 .cta-secondary {
   background: transparent;
-  color: #0071e3;
-  border: 1px solid #0071e3;
+  color: #10b981;
+  border: 1px solid #10b981;
 }
 
 .cta-secondary:hover {
-  background: rgba(0, 113, 227, 0.1);
+  background: rgba(16, 185, 129, 0.1);
 }
 
 /* 主横幅区域 */
 .hero {
-  padding: 0;
-  background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
-  height: 100vh;
-  min-height: 600px;
-  display: flex;
-  align-items: center;
+  padding: 120px 0 80px;
+  background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
   position: relative;
   overflow: hidden;
-  transition: background 1s ease-in-out;
+  height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
-.hero::before {
-  content: '';
+.hero-background {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: v-bind(currentBackground);
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
   z-index: 1;
+  pointer-events: none;
 }
 
-.hero:hover::before {
-  opacity: 0.1;
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+  animation: float 20s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 600px;
+  height: 600px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  top: -200px;
+  right: -200px;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  bottom: -100px;
+  left: -100px;
+  animation-delay: 5s;
+  animation-direction: reverse;
+}
+
+.orb-3 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 100%);
+  top: 50%;
+  left: 60%;
+  animation-delay: 10s;
+}
+
+.noise-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  33% {
+    transform: translate(30px, -30px) rotate(120deg);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) rotate(240deg);
+  }
 }
 
 .hero-container {
@@ -822,226 +1070,702 @@ export default {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 80px;
   align-items: center;
-  padding: 0 22px;
+  padding: 0 24px;
   position: relative;
-  z-index: 3;
+  z-index: 2;
 }
 
 .hero-content {
-  text-align: left;
+  max-width: 600px;
 }
 
-.hero-title {
-  font-size: 2.5rem;
-  font-weight: 400;
-  margin-bottom: 16px;
-  line-height: 1.1;
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  animation: pulse 2s ease-in-out infinite;
 }
 
-.title-gradient {
-  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 50%, #0071e3 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientShift 3s ease-in-out infinite;
-}
-
-@keyframes gradientShift {
+@keyframes pulse {
 
   0%,
   100% {
-    background-position: 0% 50%;
+    transform: scale(1);
   }
 
   50% {
-    background-position: 100% 50%;
+    transform: scale(1.05);
   }
 }
 
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -2px;
+}
+
+.title-gradient {
+  background: linear-gradient(135deg, #0a0a0a 0%, #6b7280 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.title-highlight {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+}
+
 .hero-subtitle {
-  font-size: 18px;
-  color: #86868b;
-  margin-bottom: 28px;
-  max-width: 500px;
-  line-height: 1.4;
+  font-size: 20px;
+  color: #6b7280;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 .hero-actions {
   display: flex;
   gap: 16px;
-  margin-bottom: 40px;
-  position: relative;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
 }
 
 .cta-primary,
 .cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
-  padding: 12px 24px;
-  border-radius: 980px;
-  font-size: 17px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.3s;
-  border: none;
 }
 
 .cta-primary {
-  background: #0071e3;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
-}
-
-.cta-secondary {
-  background: transparent;
-  color: #0071e3;
-  border: 1px solid #0071e3;
-}
-
-.btn-hover-effect {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.5s;
-}
-
-.cta-primary:hover .btn-hover-effect,
-.cta-secondary:hover .btn-hover-effect {
-  left: 100%;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
 }
 
 .cta-primary:hover {
-  background: #0077ed;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+}
+
+.cta-secondary {
+  background: white;
+  color: #0a0a0a;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .cta-secondary:hover {
-  background: rgba(0, 113, 227, 0.1);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
 }
 
-.hero-stats {
+.btn-arrow,
+.btn-play {
+  transition: transform 0.3s ease;
+}
+
+.cta-primary:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.cta-secondary:hover .btn-play {
+  transform: scale(1.1);
+}
+
+.trust-indicators {
   display: flex;
-  gap: 24px;
-  margin-top: 32px;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  font-size: 24px;
-  font-weight: 700;
-  color: #0071e3;
-  margin-bottom: 4px;
-}
-
-.stat-label {
-  font-size: 14px;
-  color: #86868b;
-}
-
-/* 网络动画 */
-.network-animation {
-  position: relative;
-  width: 400px;
-  height: 300px;
-  margin: 0 auto;
-}
-
-.network-node {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
+  gap: 48px;
   align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: fadeInUp 0.8s ease-out forwards;
 }
 
-.node-1 {
-  top: 50%;
-  left: 20%;
-  transform: translateY(-50%);
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.node-2 {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.node-3 {
-  top: 50%;
-  left: 80%;
-  transform: translateY(-50%);
-}
-
-.node-icon {
-  width: 60px;
-  height: 60px;
+.trust-icon {
+  width: 40px;
+  height: 40px;
+  background: #f3f4f6;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
-  border-radius: 16px;
-  color: white;
-  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
-  transition: all 0.3s;
+  color: #10b981;
 }
 
-.network-node:hover .node-icon {
-  transform: scale(1.1);
-  box-shadow: 0 12px 35px rgba(0, 113, 227, 0.4);
+.trust-number {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0a0a0a;
+  line-height: 1;
+  margin-bottom: 4px;
 }
 
-.node-label {
-  font-size: 12px;
+.trust-label {
+  font-size: 14px;
+  color: #6b7280;
   font-weight: 500;
-  color: #1d1d1f;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 4px 8px;
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
 }
 
-.connection-lines {
+/* Hero 视觉元素 */
+.hero-visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.terminal-window {
+  background: #1e1e1e;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: terminalFloat 6s ease-in-out infinite;
+}
+
+@keyframes terminalFloat {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.terminal-header {
+  background: #2d2d2d;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.control-red {
+  background: #ff5f56;
+}
+
+.control-yellow {
+  background: #ffbd2e;
+}
+
+.control-green {
+  background: #27c93f;
+}
+
+.terminal-title {
+  color: #888888;
+  font-size: 14px;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+}
+
+.terminal-body {
+  padding: 20px;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  background: #1e1e1e;
+}
+
+.terminal-line {
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.terminal-line:nth-child(1) {
+  animation-delay: 0.5s;
+}
+
+.terminal-line:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.terminal-line:nth-child(3) {
+  animation-delay: 1.5s;
+}
+
+.terminal-line:nth-child(4) {
+  animation-delay: 2s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.prompt {
+  color: #27c93f;
+  margin-right: 8px;
+}
+
+.command {
+  color: #ffffff;
+}
+
+.output {
+  color: #888888;
+}
+
+.success {
+  color: #27c93f;
+}
+
+.info {
+  color: #54c7ec;
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: #ffffff;
+  animation: cursorBlink 1s infinite;
+}
+
+@keyframes cursorBlink {
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.floating-cards {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 
-.line {
+.float-card {
   position: absolute;
-  height: 2px;
-  background: linear-gradient(90deg, #0071e3, #00c6ff);
-  top: 50%;
-  transform: translateY(-50%);
-  animation: pulseLine 2s ease-in-out infinite;
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  animation: cardFloat 8s ease-in-out infinite;
 }
 
-.line-1 {
-  left: 20%;
-  width: 30%;
+.card-1 {
+  top: 20%;
+  right: -20px;
   animation-delay: 0s;
 }
 
-.line-2 {
-  left: 50%;
-  width: 30%;
-  animation-delay: 0.5s;
+.card-2 {
+  top: 60%;
+  left: -40px;
+  animation-delay: 2s;
 }
 
-@keyframes pulseLine {
+.card-3 {
+  bottom: 10%;
+  right: 20px;
+  animation-delay: 4s;
+}
+
+@keyframes cardFloat {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-5px) rotate(1deg);
+  }
+
+  75% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+.card-icon {
+  font-size: 24px;
+}
+
+.card-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+/* 区域标题样式 */
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  color: #6b7280;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0a0a0a;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.section-subtitle {
+  font-size: 18px;
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* 功能特色区域 */
+.features-section {
+  padding: 120px 0;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* 确保功能特色区域的内容垂直排列 */
+.features-section .container {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  justify-content: center;
+  flex: 1;
+}
+
+.features-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 30% 20%, rgba(0, 122, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(88, 86, 214, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.feature-card {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  padding: 32px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 122, 255, 0.05) 0%, rgba(88, 86, 214, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-card:hover,
+.feature-card.featured {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 122, 255, 0.2);
+}
+
+.feature-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.feature-icon svg {
+  width: 24px;
+  height: 24px;
+  color: inherit;
+}
+
+.icon-emoji {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.feature-card:hover .feature-icon {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  transform: scale(1.05);
+}
+
+.feature-text h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.feature-text p {
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.feature-arrow {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  color: #d1d5db;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-arrow {
+  color: #10b981;
+  transform: translateX(4px);
+}
+
+.feature-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.showcase-left {
+  display: flex;
+  align-items: center;
+}
+
+.showcase-content h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0a0a0a;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.showcase-content p {
+  font-size: 18px;
+  color: #6b7280;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.showcase-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.showcase-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: #0a0a0a;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.showcase-features svg {
+  color: #007AFF;
+  flex-shrink: 0;
+}
+
+.showcase-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.network-diagram {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.node {
+  position: absolute;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.node.central {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-color: #10b981;
+  z-index: 2;
+}
+
+.node1 {
+  top: 20%;
+  left: 20%;
+}
+
+.node2 {
+  top: 20%;
+  right: 20%;
+}
+
+.node3 {
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.connection {
+  position: absolute;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  height: 2px;
+  transform-origin: left center;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.conn1 {
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.conn2 {
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.conn3 {
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+@keyframes pulse {
 
   0%,
   100% {
@@ -1053,855 +1777,618 @@ export default {
   }
 }
 
-.data-particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #0071e3;
-  border-radius: 50%;
-  animation: particleMove 2s linear infinite;
-}
-
-@keyframes particleMove {
-  0% {
-    transform: translateX(0) translateY(0);
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 1;
-  }
-
-  90% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(200px) translateY(-100px);
-    opacity: 0;
-  }
-}
-
-.hero-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-}
-
-.bg-gradient-1,
-.bg-gradient-2,
-.bg-gradient-3,
-.bg-gradient-4,
-.bg-gradient-5 {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.08;
-  transition: all 2s ease-in-out;
-}
-
-.bg-gradient-1 {
-  width: 400px;
-  height: 400px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  top: 10%;
-  left: 10%;
-  animation: float 8s ease-in-out infinite;
-}
-
-.bg-gradient-2 {
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  bottom: 20%;
-  right: 15%;
-  animation: float 10s ease-in-out infinite reverse;
-}
-
-.bg-gradient-3 {
-  width: 250px;
-  height: 250px;
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  top: 60%;
-  left: 70%;
-  animation: float 12s ease-in-out infinite;
-}
-
-.bg-gradient-4 {
-  width: 200px;
-  height: 200px;
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  top: 30%;
-  right: 10%;
-  animation: float 14s ease-in-out infinite reverse;
-}
-
-.bg-gradient-5 {
-  width: 350px;
-  height: 350px;
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  bottom: 10%;
-  left: 20%;
-  animation: float 16s ease-in-out infinite;
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-20px) rotate(180deg);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 通用容器 */
-.container {
-  max-width: 100rem;
-  margin: 0 auto;
-  padding: 0 22px;
-}
-
-/* 区域标题 */
-.section-title {
-  font-size: 42px;
-  font-weight: 300;
-  text-align: center;
-  margin-bottom: 60px;
-  color: #1d1d1f;
-  letter-spacing: -0.5px;
+/* 价格方案区域 */
+.pricing-section {
+  padding: 120px 0;
+  background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
   position: relative;
-  display: block;
-  width: 100%;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* 价格方案区域容器样式 */
+.pricing-section .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+/* 价格内容区域垂直布局 */
+.pricing-section .pricing-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 40px !important;
+}
+
+.pricing-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  background: #f3f4f6;
+  padding: 4px;
+  border-radius: 16px;
+  width: fit-content;
+  margin: 0 auto 60px auto;
+}
+
+/* 强制价格网格布局 - 最高优先级 */
+.pricing-section .container .pricing-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  max-width: 1200px !important;
+  margin: 0 auto 60px !important;
+  align-items: start !important;
+}
+
+.toggle-btn {
+  padding: 10px 24px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
   white-space: nowrap;
 }
 
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
-  border-radius: 1px;
+.toggle-btn.active {
+  background: white;
+  color: #10b981;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 功能特色区域 */
-.features-section {
-  padding: 0;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  height: 100vh;
-  min-height: 600px;
+.discount {
+  background: #10b981;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-left: 6px;
+  font-weight: 700;
+}
+
+
+.pricing-card {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  padding: 32px 24px;
   position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  transition: all 0.5s ease-in-out;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  min-height: 520px;
+  justify-content: space-between;
 }
 
-.features-section::before {
+.pricing-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 20% 30%, rgba(0, 113, 227, 0.03) 0%, transparent 60%),
-    radial-gradient(circle at 80% 70%, rgba(0, 198, 255, 0.03) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.features-section:hover {
-  background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
-}
-
-.features-layout {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  max-width: 1400px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-  height: 70vh;
-  align-items: start;
-  justify-items: center;
-  width: 100%;
-}
-
-.feature-group-left {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin-top: 40px;
-  width: 100%;
-  align-items: center;
-}
-
-.feature-group-center {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 10px;
-  width: 100%;
-  align-items: center;
-}
-
-.feature-group-right {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 80px;
-  width: 100%;
-  align-items: center;
-}
-
-.feature-card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(0, 113, 227, 0.1);
-  min-height: 160px;
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 113, 227, 0.05), transparent);
-  transition: left 0.6s;
-}
-
-.feature-card:hover::before {
-  left: 100%;
-}
-
-.feature-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 15px 35px rgba(0, 113, 227, 0.15);
-  border-color: rgba(0, 113, 227, 0.3);
-}
-
-.feature-active {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 15px 35px rgba(0, 113, 227, 0.15);
-  border-color: rgba(0, 113, 227, 0.3);
-}
-
-.feature-icon-wrapper {
-  position: relative;
-  margin-bottom: 0.8rem;
-}
-
-.feature-icon {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
-  border-radius: 12px;
-  color: white;
-  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: relative;
-  z-index: 2;
-}
-
-.icon-hover {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 12px 35px rgba(0, 113, 227, 0.4);
-}
-
-.feature-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  background: radial-gradient(circle, rgba(0, 113, 227, 0.2) 0%, transparent 70%);
-  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 122, 255, 0.03) 0%, rgba(88, 86, 214, 0.03) 100%);
   opacity: 0;
-  transition: opacity 0.4s;
+  transition: opacity 0.3s ease;
 }
 
-.feature-card:hover .feature-glow {
+.pricing-card:hover::before {
   opacity: 1;
 }
 
-.feature-card h3 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #1d1d1f;
-  transition: color 0.3s;
-}
-
-.feature-card:hover h3 {
-  color: #0071e3;
-}
-
-.feature-card p {
-  color: #86868b;
-  line-height: 1.4;
-  margin-bottom: 0.8rem;
-  font-size: 12px;
-}
-
-
-/* 价格方案区域 */
-.pricing-section {
-  padding: 0;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  height: 100vh;
-  min-height: 600px;
-  position: relative;
-  transition: all 0.5s ease-in-out;
-  display: flex;
-  align-items: center;
-}
-
-.pricing-section:hover {
-  background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  max-width: 100%;
-  margin-left: 3.5rem;
-}
-
-.pricing-card {
-  width: 14rem;
-  background: #f5f5f7;
-  padding: 1.5rem;
-  border-radius: 20px;
-  text-align: center;
-  position: relative;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 1px solid rgba(0, 113, 227, 0.1);
-  overflow: hidden;
-  min-height: 380px;
-}
-
 .pricing-card:hover,
-.pricing-active {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
-  border-color: rgba(0, 113, 227, 0.3);
+.pricing-card.hovered {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 122, 255, 0.2);
 }
 
 .pricing-card.featured {
-  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
-  color: white;
-  transform: scale(1.1);
-  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.3);
+  border-color: #10b981;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+  transform: scale(1.02);
 }
 
 .pricing-card.featured:hover,
-.pricing-card.featured.pricing-active {
-  transform: scale(1.15) translateY(-8px);
-  box-shadow: 0 30px 60px rgba(0, 113, 227, 0.4);
-}
-
-.popular-badge {
-  width: 7rem;
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #ff6b35 0%, #ff8e53 100%);
-  color: white;
-  padding: 0.3rem 0rem;
-  border-radius: 24px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
-  z-index: 2;
-  position: relative;
-  text-transform: uppercase;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.badge-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 140%;
-  height: 140%;
-  background: radial-gradient(circle, rgba(255, 107, 53, 0.4) 0%, transparent 70%);
-  border-radius: 24px;
-  animation: badgePulse 1.5s ease-in-out infinite;
-}
-
-@keyframes badgePulse {
-
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-
-  50% {
-    opacity: 1;
-  }
+.pricing-card.featured.hovered {
+  transform: scale(1.05) translateY(-8px);
+  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
 }
 
 .pricing-header {
-  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+  min-height: 60px;
 }
 
-.pricing-card h3 {
+.plan-info h3 {
   font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 0.8rem;
-  transition: color 0.3s;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
 }
 
-.pricing-card:hover h3,
-.pricing-active h3 {
-  color: #0071e3;
+.plan-description {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
 }
 
-.pricing-card.featured h3 {
+.popular-badge {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  flex-shrink: 0;
 }
 
 .price {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 1rem;
   display: flex;
   align-items: baseline;
   justify-content: center;
   gap: 4px;
+  margin-bottom: 32px;
+  min-height: 50px;
 }
 
-.price-amount {
-  font-size: 36px;
+.currency {
+  font-size: 18px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.amount {
+  font-size: 42px;
+  font-weight: 800;
+  color: #0a0a0a;
   line-height: 1;
 }
 
-.price-period {
-  font-size: 14px;
-  font-weight: 400;
-  opacity: 0.8;
+.period {
+  font-size: 16px;
+  font-weight: 500;
+  color: #6b7280;
 }
 
 .features-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 2rem 0;
-  text-align: left;
+  margin: 0 0 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .features-list li {
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: fadeInUp 0.5s ease-out forwards;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   font-size: 14px;
+  color: #0a0a0a;
+  line-height: 1.4;
+  min-height: 20px;
 }
 
-.pricing-card.featured .features-list li {
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+.features-list li:last-child {
+  border-bottom: none;
 }
 
-.feature-check {
-  width: 20px;
-  height: 20px;
-  background: rgba(0, 113, 227, 0.1);
+.features-list li.highlight {
+  font-weight: 600;
+  color: #10b981;
+}
+
+.check-icon {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0071e3;
+  color: white;
   flex-shrink: 0;
-  transition: all 0.3s;
+  margin-top: 2px;
 }
 
-.pricing-card:hover .feature-check,
-.pricing-active .feature-check {
-  background: #0071e3;
-  color: white;
-  transform: scale(1.1);
+.feature-description {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 400;
+  margin-top: 3px;
+  line-height: 1.3;
 }
 
-.pricing-card.featured .feature-check {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+.pricing-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-footer {
+  margin-top: auto;
+  padding-top: 16px;
 }
 
 .pricing-btn {
   width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 980px;
-  font-size: 17px;
-  font-weight: 400;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.2);
 }
 
 .pricing-btn.primary {
-  background: white;
-  color: #0071e3;
-}
-
-.pricing-btn:not(.primary) {
-  background: #0071e3;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
-}
-
-.pricing-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
 }
 
 .pricing-btn.primary:hover {
-  background: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
 }
 
-.pricing-btn:not(.primary):hover {
-  background: #0077ed;
+.pricing-btn.secondary {
+  background: #f3f4f6;
+  color: #0a0a0a;
+  border: 2px solid #e5e7eb;
 }
 
-.pricing-glow {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.6s;
+.pricing-btn.secondary:hover {
+  background: #e5e7eb;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.pricing-card:hover .pricing-glow {
-  left: 100%;
+.pricing-btn.enterprise {
+  background: #f3f4f6;
+  color: #0a0a0a;
+}
+
+.pricing-btn.enterprise:hover {
+  transform: translateY(-2px);
+  background-color: #e6e7eb;
+  box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+}
+
+.pricing-note {
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pricing-note p {
+  margin: 0;
 }
 
 /* 使用教程区域 */
 .tutorials-section {
-  padding: 0;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  height: 100vh;
-  min-height: 600px;
+  padding: 120px 0;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
   position: relative;
-  transition: all 0.5s ease-in-out;
+  height: 100vh;
   display: flex;
   align-items: center;
 }
 
-.tutorials-section:hover {
-  background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
+.tutorials-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 70% 20%, rgba(0, 122, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 30% 80%, rgba(88, 86, 214, 0.03) 0%, transparent 50%);
+  pointer-events: none;
 }
 
-.tutorials-layout {
+/* 使用教程区域容器样式 */
+.tutorials-section .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.tutorials-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 70vh;
-  align-items: start;
-  justify-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 2;
 }
 
-.step-group-left {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  margin-top: 80px;
-  width: 100%;
-  align-items: center;
-}
-
-.step-group-right {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  margin-top: 40px;
-  width: 100%;
-  align-items: center;
-}
-
-.step-large,
-.step-small {
-  text-align: center;
+.tutorial-card {
   background: white;
-  padding: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  padding: 32px 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(0, 113, 227, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.step-large {
-  min-height: 220px;
+.tutorial-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 122, 255, 0.05) 0%, rgba(88, 86, 214, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.step-small {
-  min-height: 160px;
-  width: 85%;
+.tutorial-card:hover::before,
+.tutorial-card.active::before {
+  opacity: 1;
 }
 
-.step-large:hover,
-.step-small:hover,
-.step-active {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 50px rgba(0, 113, 227, 0.2);
-  border-color: rgba(0, 113, 227, 0.4);
+.tutorial-card:hover,
+.tutorial-card.active {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 122, 255, 0.2);
 }
 
-.step-number {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
-  color: white;
+.tutorial-number {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0 auto 12px;
-  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
-  transition: all 0.3s;
+  font-size: 24px;
+  font-weight: 800;
+  color: #10b981;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
 }
 
-.step:hover .step-number,
-.step-active .step-number {
+.tutorial-card:hover .tutorial-number,
+.tutorial-card.active .tutorial-number {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
   transform: scale(1.1);
-  box-shadow: 0 12px 35px rgba(0, 113, 227, 0.4);
 }
 
-.step h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #1d1d1f;
-  transition: color 0.3s;
+.tutorial-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
 }
 
-.step:hover h3,
-.step-active h3 {
-  color: #0071e3;
+.tutorial-content p {
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
 }
 
-.step p {
-  color: #86868b;
-  margin-bottom: 0.8rem;
-  font-size: 14px;
-}
-
-.step-details {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background: white;
-  padding: 1rem;
-  border-radius: 0 0 16px 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.step-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  text-align: left;
-}
-
-.step-icon {
-  width: 32px;
-  height: 32px;
-  background: rgba(0, 113, 227, 0.1);
-  border-radius: 8px;
+.tutorial-icon {
+  margin-top: 20px;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0071e3;
-  flex-shrink: 0;
+  color: #10b981;
+  transition: all 0.3s ease;
 }
 
-.step-info h4 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: #1d1d1f;
-}
-
-.step-info p {
-  font-size: 12px;
-  color: #86868b;
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
-
-.step-action-btn {
-  padding: 6px 12px;
-  background: #0071e3;
+.tutorial-card:hover .tutorial-icon,
+.tutorial-card.active .tutorial-icon {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
-  border: none;
-  border-radius: 16px;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
+  transform: scale(1.05);
 }
-
-.step-action-btn:hover {
-  background: #0077ed;
-  transform: translateY(-1px);
-}
-
 
 /* 关于我们区域 */
 .about-section {
-  padding: 0;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 120px 0;
+  background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+  position: relative;
   height: 100vh;
-  min-height: 600px;
-  transition: all 0.5s ease-in-out;
   display: flex;
   align-items: center;
 }
 
-.about-section:hover {
-  background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 122, 255, 0.02) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* 关于我们区域容器样式 */
+.about-section .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.about-content {
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .about-text {
-  max-width: 40rem;
-  margin: 0 auto;
-  text-align: center;
-  margin-left: 6.5rem;
+  max-width: 600px;
+  margin: 0 auto 60px;
 }
 
 .about-text p {
   font-size: 18px;
-  color: #86868b;
-  line-height: 1.5;
+  color: #6b7280;
+  line-height: 1.8;
   margin-bottom: 20px;
 }
 
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  max-width: 600px;
-  margin: 32px auto 0;
+.about-text p:last-child {
+  margin-bottom: 0;
 }
 
-.stat {
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+  margin-top: 0;
+  width: 100%;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  padding: 40px 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 122, 255, 0.2);
+}
+
+.stat-icon {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+}
+
+.stat-icon svg {
+  width: 40px;
+  height: 40px;
 }
 
 .stat-number {
-  font-size: 32px;
-  font-weight: 700;
-  color: #1d1d1f;
-  margin-bottom: 6px;
+  font-size: 36px;
+  font-weight: 800;
+  color: #0a0a0a;
+  margin-bottom: 12px;
+  line-height: 1;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .stat-label {
-  color: #86868b;
-  font-size: 14px;
+  font-size: 16px;
+  color: #6b7280;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 /* 页脚 */
 .footer {
-  background: #f5f5f7;
-  padding: 40px 0 20px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #f8fafc;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
 }
 
 .footer-content {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-bottom: 24px;
-  max-width: 1000px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 48px;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-section:nth-child(1) {
+  margin-top: 2rem;
+  margin-right: 6rem;
 }
 
 .footer-section h3 {
-  margin-bottom: 12px;
-  color: #1d1d1f;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
 }
 
 .footer-section h4 {
-  margin-bottom: 12px;
-  color: #1d1d1f;
-  font-size: 13px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin-bottom: 16px;
+}
+
+.footer-section p {
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 24px;
 }
 
 .footer-section ul {
@@ -1911,200 +2398,486 @@ export default {
 }
 
 .footer-section li {
-  margin-bottom: 6px;
+  margin-bottom: 12px;
 }
 
 .footer-section a {
-  color: #86868b;
+  color: #6b7280;
   text-decoration: none;
-  transition: color 0.3s;
-  font-size: 13px;
+  transition: color 0.2s ease;
+  font-size: 15px;
 }
 
 .footer-section a:hover {
-  color: #0071e3;
+  color: #007AFF;
 }
 
 .footer-bottom {
   text-align: center;
-  padding-top: 20px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  color: #86868b;
-  font-size: 13px;
+  padding: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  color: #6b7280;
+  font-size: 14px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 通用容器 */
+.container {
+  max-width: 100rem;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
 }
 
 /* 响应式设计 */
-@media (max-width: 768px) {
-  .nav-menu {
-    display: none;
-  }
-
-  .hero {
-    height: auto;
-    min-height: 100vh;
-    padding: 80px 0 40px;
-  }
-
+@media (max-width: 1024px) {
   .hero-container {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 60px;
     text-align: center;
   }
 
   .hero-content {
-    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   .hero-title {
-    font-size: 32px;
+    font-size: 3rem;
+  }
+
+  .trust-indicators {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .feature-showcase {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .showcase-visual {
+    order: -1;
+  }
+
+  .pricing-section .pricing-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px;
+    max-width: 800px;
+  }
+
+  .pricing-card.featured {
+    transform: none;
+  }
+
+  .pricing-card.featured:hover {
+    transform: translateY(-8px);
+  }
+
+  .tutorials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    height: 64px;
+  }
+
+  .nav-container {
+    padding: 0 16px;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .user-actions {
+    gap: 8px;
+  }
+
+  .github-btn span {
+    display: none;
+  }
+
+  .hero {
+    padding: 80px 0 60px;
+    height: 100vh;
+  }
+
+  .hero-container {
+    padding: 0 16px;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
   }
 
   .hero-subtitle {
-    font-size: 16px;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 18px;
   }
 
   .hero-actions {
     flex-direction: column;
     align-items: center;
+    gap: 12px;
   }
 
-  .features-section,
-  .pricing-section,
-  .tutorials-section,
-  .about-section {
-    height: auto;
-    min-height: 100vh;
+  .cta-primary,
+  .cta-secondary {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  .trust-indicators {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .tutorials-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .tutorial-card {
+    padding: 24px 20px;
+  }
+
+  .tutorial-number {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .tutorial-content h3 {
+    font-size: 18px;
+  }
+
+  .tutorial-content p {
+    font-size: 15px;
+  }
+
+  .about-text {
+    margin-bottom: 40px;
+  }
+
+  .about-text p {
+    font-size: 16px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .stat-card {
+    padding: 32px 20px;
+    min-height: 160px;
+  }
+
+  .stat-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .stat-number {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .stat-label {
+    font-size: 14px;
+  }
+
+  /* 小屏幕额外样式 */
+  .tutorials-section {
     padding: 80px 0;
   }
 
-  .features-layout {
+  .tutorial-card {
+    padding: 20px 16px;
+  }
+
+  .tutorial-number {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .tutorial-content h3 {
+    font-size: 16px;
+  }
+
+  .tutorial-content p {
+    font-size: 14px;
+  }
+
+  .tutorial-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .about-section {
+    padding: 80px 0;
+  }
+
+  .about-text p {
+    font-size: 15px;
+  }
+
+  .stats-grid {
     grid-template-columns: 1fr;
     gap: 20px;
-    height: auto;
+    margin-top: 40px;
   }
 
-  .feature-group-left,
-  .feature-group-center,
-  .feature-group-right {
-    margin-top: 0;
-    gap: 15px;
+  .stat-card {
+    padding: 32px 20px;
+    min-height: 140px;
   }
 
-  .feature-card {
-    width: 100% !important;
-    margin: 0 auto;
-    min-height: 140px !important;
-    padding: 1rem !important;
+  .stat-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
   }
 
-  .pricing-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
+  .stat-number {
+    font-size: 24px;
+    margin-bottom: 8px;
   }
 
-  .tutorials-layout {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    height: auto;
-  }
-
-  .step-group-left,
-  .step-group-right {
-    margin-top: 0;
-    gap: 20px;
-  }
-
-  .step-large,
-  .step-small {
-    width: 100%;
-    margin: 0 auto;
+  .stat-label {
+    font-size: 13px;
   }
 
   .footer-content {
-    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 16px 32px;
+  }
+
+  .terminal-window {
+    max-width: 100%;
+  }
+
+  .floating-cards {
+    display: none;
+  }
+
+  .section-header {
+    margin-bottom: 60px;
   }
 
   .section-title {
-    font-size: 28px;
-    margin-right: 0;
-    white-space: nowrap;
+    font-size: 2rem;
   }
 
-  .stats {
-    flex-direction: column;
+  .features-grid {
+    grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  .features-section .container {
+    gap: 40px;
+  }
+
+  .features-section {
+    height: 100vh;
+  }
+
+  .pricing-section {
+    height: 100vh;
+  }
+
+  .tutorials-section {
+    height: 100vh;
+  }
+
+  .about-section {
+    height: 100vh;
+  }
+
+  .feature-card {
+    padding: 24px;
+  }
+
+  .showcase-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .network-diagram {
+    width: 250px;
+    height: 250px;
+  }
+
+  .pricing-toggle {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .toggle-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .pricing-section .pricing-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+    max-width: 500px;
+  }
+
+  .pricing-card {
+    padding: 32px 24px;
+  }
+
+  .amount {
+    font-size: 36px;
   }
 }
 
-/* 深色模式支持 */
-@media (prefers-color-scheme: dark) {
-  .landing-page {
-    background-color: #000000;
-    color: #f5f5f7;
-  }
-
-  .navbar {
-    background: rgba(29, 29, 31, 0.8);
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .logo h1,
-  .nav-menu a,
-  .github-btn,
-  .dashboard-btn,
-  .logout-btn,
-  .login-btn,
-  .register-btn {
-    color: #f5f5f7;
-  }
-
-  .github-btn:hover,
-  .dashboard-btn:hover,
-  .logout-btn:hover,
-  .login-btn:hover,
-  .register-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .hero {
-    background: linear-gradient(135deg, #1d1d1f 0%, #000000 100%);
-  }
-
+@media (max-width: 480px) {
   .hero-title {
-    background: linear-gradient(135deg, #f5f5f7 0%, #a1a1a6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 2rem;
   }
 
-  .features-section,
-  .tutorials-section,
-  .footer {
-    background: #1d1d1f;
+  .hero-subtitle {
+    font-size: 16px;
   }
 
-  .feature-card,
-  .pricing-card:not(.featured) {
-    background: #2c2c2e;
-    color: #f5f5f7;
+  .section-title {
+    font-size: 1.75rem;
   }
 
-  .feature-card h3,
-  .pricing-card h3,
-  .step h3,
-  .footer-section h3,
-  .footer-section h4 {
-    color: #f5f5f7;
+  .feature-card {
+    padding: 20px;
   }
 
-  .feature-card p,
-  .step p,
-  .about-text p,
-  .footer-section a,
-  .footer-bottom {
-    color: #a1a1a6;
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .feature-text h3 {
+    font-size: 18px;
+  }
+
+  .feature-text p {
+    font-size: 15px;
+  }
+
+  .pricing-card {
+    padding: 24px 20px;
+  }
+
+  .amount {
+    font-size: 32px;
+  }
+
+  .currency {
+    font-size: 18px;
+  }
+
+  .period {
+    font-size: 16px;
+  }
+
+  .features-list li {
+    font-size: 15px;
+  }
+
+  .pricing-btn {
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+}
+
+/* 极小屏幕处理 */
+@media (max-width: 480px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-section {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+/* 移动端导航菜单按钮 */
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.mobile-menu-btn:hover {
+  background: #f3f4f6;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
+/* 优化滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5856D6 0%, #007AFF 100%);
+}
+
+/* 选择文本样式 */
+::selection {
+  background: rgba(16, 185, 129, 0.2);
+  color: #0a0a0a;
+}
+
+/* 焦点样式 */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* 减少动画偏好设置 */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 </style>

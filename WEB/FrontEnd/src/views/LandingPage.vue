@@ -155,7 +155,8 @@
             <div class="float-card card-1">
               <div class="card-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M10 2L3 7v6c0 3.5 3 6 7 7 4-1 7-3.5 7-7V7l-7-5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M10 2L3 7v6c0 3.5 3 6 7 7 4-1 7-3.5 7-7V7l-7-5z" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </div>
               <div class="card-label">HTTP/HTTPS</div>
@@ -163,8 +164,9 @@
             <div class="float-card card-2">
               <div class="card-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
-                  <path d="M10 6v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M10 6v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
                 </svg>
               </div>
               <div class="card-label">TCP/UDP</div>
@@ -172,9 +174,9 @@
             <div class="float-card card-3">
               <div class="card-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <rect x="4" y="6" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
-                  <path d="M7 10h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                  <circle cx="10" cy="10" r="1" fill="currentColor"/>
+                  <rect x="4" y="6" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M7 10h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  <circle cx="10" cy="10" r="1" fill="currentColor" />
                 </svg>
               </div>
               <div class="card-label">安全加密</div>
@@ -281,6 +283,11 @@
 
     <!-- 价格方案区域 -->
     <section id="pricing" class="pricing-section">
+      <!-- TODO: 临时添加的覆盖层，表示暂时无需付费，未来可删除此注释和覆盖层 -->
+      <div class="pricing-overlay">
+        <div class="pricing-overlay-x">×</div>
+        <div class="pricing-overlay-text">现阶段完全免费<br>后期即使开放付费，也会永久提供免费的高质量服务！</div>
+      </div>
       <div class="container">
         <div class="section-header">
           <div class="section-badge">价格方案</div>
@@ -3429,5 +3436,96 @@ a:focus-visible {
   outline: 2px solid #34d399;
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* 价格方案覆盖层 - 临时添加，未来可删除以下样式 */
+.pricing-section {
+  position: relative;
+}
+
+.pricing-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.763);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+  cursor: not-allowed;
+}
+
+.pricing-overlay-x {
+  font-size: 18rem;
+  font-weight: 100;
+  color: #00cb18;
+  line-height: 1;
+  text-shadow: 0 0 20px #00a61376;
+  animation: gentle-float 6s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+.pricing-overlay-text {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #00cb18;
+  background: transparent;
+  padding: 12px 24px;
+  border-radius: 50px;
+}
+
+@keyframes gentle-float {
+
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
+}
+
+/* Dark 模式下的覆盖层样式 */
+:root.dark-theme .pricing-overlay {
+  background: rgba(0, 0, 0, 0.77);
+}
+
+:root.dark-theme .pricing-overlay-x {
+  color: rgba(113, 248, 129);
+  text-shadow: 0 0 30px rgba(113, 248, 129, 0.3);
+}
+
+:root.dark-theme .pricing-overlay-text {
+  color: rgba(113, 248, 133, 0.8);
+  background-color: transparent;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .pricing-overlay-x {
+    font-size: 8rem;
+  }
+
+  .pricing-overlay-text {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-overlay-x {
+    font-size: 6rem;
+  }
+
+  .pricing-overlay-text {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
 }
 </style>

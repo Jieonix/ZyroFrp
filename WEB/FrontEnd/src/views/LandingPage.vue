@@ -822,10 +822,11 @@ export default {
   z-index: 1000;
   height: 3.5rem;
   transition: all 0.3s ease;
+  width: 100vw;
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 70rem;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -938,6 +939,7 @@ export default {
 }
 
 .github-btn svg {
+  height: 1.8rem;
   margin-right: 0.5rem;
 }
 
@@ -1078,7 +1080,7 @@ export default {
 }
 
 .hero-container {
-  max-width: 1200px;
+  max-width: 100rem;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1166,7 +1168,7 @@ export default {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 16px 32px;
+  padding: 1.3rem 2rem;
   border-radius: 16px;
   font-size: 16px;
   font-weight: 600;
@@ -1204,6 +1206,8 @@ export default {
 
 .btn-arrow,
 .btn-play {
+  width: 2rem;
+  height: 1.5rem;
   transition: transform 0.3s ease;
 }
 
@@ -2580,443 +2584,6 @@ html {
   z-index: 2;
 }
 
-/* 响应式设计 */
-@media (max-width: 1024px) {
-  .hero-container {
-    grid-template-columns: 1fr;
-    gap: 60px;
-    text-align: center;
-  }
-
-  .hero-content {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .hero-title {
-    font-size: 3rem;
-  }
-
-  .trust-indicators {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .feature-showcase {
-    grid-template-columns: 1fr;
-    gap: 60px;
-  }
-
-  .showcase-visual {
-    order: -1;
-  }
-
-  .pricing-section .pricing-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 20px;
-    max-width: 800px;
-  }
-
-  .pricing-card.featured {
-    transform: none;
-  }
-
-  .pricing-card.featured:hover {
-    transform: translateY(-8px);
-  }
-
-  .tutorials-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    height: 3rem;
-  }
-
-  /* 移动端优化check-icon效果 */
-  .features-list li:active .check-icon {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4));
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
-  }
-
-  .features-list li:active span {
-    color: #10b981;
-  }
-
-  .nav-container {
-    padding: 0 16px;
-  }
-
-  .nav-menu {
-    display: none;
-  }
-
-  .user-actions {
-    gap: 8px;
-  }
-
-  .github-btn span {
-    display: none;
-  }
-
-  .hero {
-    padding: 80px 0 60px;
-    height: 100vh;
-  }
-
-  .hero-container {
-    padding: 0 16px;
-  }
-
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .hero-subtitle {
-    font-size: 18px;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .cta-primary,
-  .cta-secondary {
-    width: 100%;
-    max-width: 300px;
-    justify-content: center;
-  }
-
-  .trust-indicators {
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .tutorials-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .tutorial-card {
-    padding: 24px 20px;
-  }
-
-  .tutorial-number {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-  }
-
-  .tutorial-content h3 {
-    font-size: 18px;
-  }
-
-  .tutorial-content p {
-    font-size: 15px;
-  }
-
-  .about-text {
-    margin-bottom: 40px;
-  }
-
-  .about-text p {
-    font-size: 16px;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-
-  .stat-card {
-    padding: 32px 20px;
-    min-height: 160px;
-  }
-
-  .stat-icon {
-    font-size: 32px;
-    margin-bottom: 16px;
-  }
-
-  .stat-number {
-    font-size: 28px;
-    margin-bottom: 10px;
-  }
-
-  .stat-label {
-    font-size: 14px;
-  }
-
-  /* 小屏幕额外样式 */
-  .tutorials-section {
-    padding: 80px 0;
-  }
-
-  .tutorial-card {
-    padding: 20px 16px;
-  }
-
-  .tutorial-number {
-    width: 45px;
-    height: 45px;
-    font-size: 18px;
-  }
-
-  .tutorial-content h3 {
-    font-size: 16px;
-  }
-
-  .tutorial-content p {
-    font-size: 14px;
-  }
-
-  .tutorial-icon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .about-section {
-    padding: 80px 0;
-  }
-
-  .about-text p {
-    font-size: 15px;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    margin-top: 40px;
-  }
-
-  .stat-card {
-    padding: 32px 20px;
-    min-height: 140px;
-  }
-
-  .stat-icon {
-    font-size: 28px;
-    margin-bottom: 14px;
-  }
-
-  .stat-number {
-    font-size: 24px;
-    margin-bottom: 8px;
-  }
-
-  .stat-label {
-    font-size: 13px;
-  }
-
-  .footer-content {
-    gap: 32px;
-    padding: 40px 16px 32px;
-  }
-
-  .terminal-window {
-    max-width: 100%;
-  }
-
-  .floating-cards {
-    display: none;
-  }
-
-  .section-header {
-    margin-bottom: 60px;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .features-section .container {
-    gap: 40px;
-  }
-
-  .features-section {
-    height: 100vh;
-  }
-
-  .pricing-section {
-    height: 100vh;
-  }
-
-  .tutorials-section {
-    height: 100vh;
-  }
-
-  .about-section {
-    height: 100vh;
-  }
-
-  .feature-card {
-    padding: 24px;
-  }
-
-  .showcase-content h3 {
-    font-size: 1.5rem;
-  }
-
-  .network-diagram {
-    width: 250px;
-    height: 250px;
-  }
-
-  .pricing-toggle {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .toggle-btn {
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .pricing-section .pricing-grid {
-    grid-template-columns: 1fr !important;
-    gap: 20px;
-    max-width: 500px;
-  }
-
-  .pricing-card {
-    padding: 32px 24px;
-  }
-
-  .amount {
-    font-size: 36px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-
-  .hero-subtitle {
-    font-size: 16px;
-  }
-
-  .section-title {
-    font-size: 1.75rem;
-  }
-
-  .feature-card {
-    padding: 20px;
-  }
-
-  .feature-icon {
-    width: 48px;
-    height: 48px;
-  }
-
-  .feature-text h3 {
-    font-size: 18px;
-  }
-
-  .feature-text p {
-    font-size: 15px;
-  }
-
-  .pricing-card {
-    padding: 24px 20px;
-  }
-
-  .amount {
-    font-size: 32px;
-  }
-
-  .currency {
-    font-size: 18px;
-  }
-
-  .period {
-    font-size: 16px;
-  }
-
-  .features-list li {
-    font-size: 15px;
-  }
-
-  .pricing-btn {
-    padding: 14px 20px;
-    font-size: 15px;
-  }
-}
-
-/* 极小屏幕处理 */
-@media (max-width: 480px) {
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .footer-section {
-    min-width: auto;
-    width: 100%;
-  }
-}
-
-/* 移动端导航菜单按钮 */
-.mobile-menu-btn {
-  display: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: background 0.2s ease;
-}
-
-.mobile-menu-btn:hover {
-  background: #f3f4f6;
-}
-
-@media (max-width: 768px) {
-  .mobile-menu-btn {
-    display: block;
-  }
-}
-
-
-/* 选择文本样式 */
-::selection {
-  background: rgba(16, 185, 129, 0.2);
-  color: #0a0a0a;
-}
-
-/* 焦点样式 */
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid #10b981;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* 减少动画偏好设置 */
-@media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
 /* Dark 模式样式 */
 :root.dark-theme .landing-page {
   color: #f0f0f0;
@@ -3504,28 +3071,5 @@ a:focus-visible {
 :root.dark-theme .pricing-overlay-text {
   color: rgba(113, 248, 133, 0.8);
   background-color: transparent;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .pricing-overlay-x {
-    font-size: 8rem;
-  }
-
-  .pricing-overlay-text {
-    font-size: 1.2rem;
-    padding: 10px 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .pricing-overlay-x {
-    font-size: 6rem;
-  }
-
-  .pricing-overlay-text {
-    font-size: 1rem;
-    padding: 8px 16px;
-  }
 }
 </style>

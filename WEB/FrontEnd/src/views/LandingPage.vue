@@ -478,7 +478,7 @@
     </section>
 
     <!-- 页脚 -->
-    <footer class="footer">
+    <footer_LP class="footer_LP">
       <div class="container">
         <div class="footer-content">
           <div class="footer-section">
@@ -513,7 +513,7 @@
       <div class="footer-bottom">
         <p>&copy; 2024 ZyroFrp. 保留所有权利。</p>
       </div>
-    </footer>
+    </footer_LP>
   </div>
 </template>
 
@@ -2499,12 +2499,11 @@ export default {
 }
 
 /* 页脚 */
-.footer {
+.footer_LP {
   background: #f8fafc;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
-  min-height: 200px;
 }
 
 .footer-content {
@@ -2974,7 +2973,7 @@ html {
   color: #a0a0a0;
 }
 
-:root.dark-theme .footer {
+:root.dark-theme .footer_LP {
   background: #0a0a0a;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }

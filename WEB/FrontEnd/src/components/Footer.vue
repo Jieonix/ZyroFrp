@@ -31,15 +31,14 @@ footer a:hover {
 @media (prefers-color-scheme: dark) {
 
   .footer {
-  background-color: #101014;
-  border-top: 1px solid #232323;
-  color: #ededed;
-}
+    background-color: #101014;
+    border-top: 1px solid #232323;
+    color: #ededed;
+  }
 
   .footer a {
     color: #ededed;
   }
 
 }
-
 </style>

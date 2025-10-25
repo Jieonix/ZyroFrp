@@ -6,7 +6,6 @@ import Loading from '@/components/Loading.vue'
   <div class="check_in">
     <Loading />
     <Header />
-    <div class="container">
       <Sidebar />
       <main class="main-content">
         <section class="welcome">
@@ -45,7 +44,6 @@ D、{{ questionD }}
         <Footer />
       </main>
     </div>
-  </div>
 </template>
 
 <script>

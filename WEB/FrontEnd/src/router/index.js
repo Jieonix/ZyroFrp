@@ -11,6 +11,7 @@ import usingTutorials from '../views/usingTutorials.vue';
 import Login from '../views/Auth/Login.vue';
 import Register from '../views/Auth/Register.vue';
 import ResetPassword from '../views/Auth/ResetPassword.vue';
+import Payment from '../views/Payment.vue';
 import Admin_Home from '@/views/Admin/Admin_Home.vue';
 import Admin_Users from '@/views/Admin/Admin_Users.vue';
 import Admin_Login from '@/views/Auth/Admin_Login.vue';
@@ -73,6 +74,11 @@ const routes = [
     path: '/ResetPassword',
     name: 'ResetPassword',
     component: ResetPassword,
+  },
+  {
+    path: '/payment',
+    name: 'Payment',
+    component: Payment,
   },
   {
     path: '/Admin_Home',

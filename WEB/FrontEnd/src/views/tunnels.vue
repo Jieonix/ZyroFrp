@@ -6,7 +6,6 @@ import Loading from '@/components/Loading.vue'
   <div class="tunnels">
     <Loading />
     <Header />
-    <div class="container">
       <Sidebar />
       <main class="main-content">
         <section class="welcome">
@@ -84,7 +83,6 @@ import Loading from '@/components/Loading.vue'
         </form>
       </div>
     </div>
-  </div>
 </template>
 
 <script>

@@ -10,6 +10,7 @@
 
         <!-- 导航菜单 -->
         <ul class="nav-menu">
+          <li @click="scrollToTop" class="nav-item">首页</li>
           <li @click="goTo('#features')" class="nav-item">功能特色</li>
           <li @click="goTo('#pricing')" class="nav-item">价格方案</li>
           <li @click="goTo('#tutorials')" class="nav-item">使用教程</li>
@@ -62,7 +63,7 @@
             企业级内网穿透解决方案，为开发者和企业提供稳定、高速、安全的网络连接服务
           </p>
           <div class="hero-actions">
-            <button class="cta-primary" @click="goToRegister">
+            <button class="cta-primary" @click="handleFreeTrial">
               <span>免费试用</span>
               <svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -180,7 +181,7 @@
         <div class="features-grid">
           <div v-for="(feature, index) in coreFeatures" :key="index" class="feature-card"
             :class="{ 'featured': feature.featured, 'hovered': hoveredFeature === index }"
-            @mouseenter="featureHover(index)" @mouseleave="featureHover(null)" @click="handleFeatureClick(feature)">
+            @mouseenter="featureHover(index)" @mouseleave="featureHover(null)" @click="handleFeatureClick()">
             <div class="feature-content">
               <div class="feature-icon" :class="feature.iconClass">
                 <svg v-if="feature.iconType === 'lightning'" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -307,8 +308,8 @@
                 <ul class="features-list">
                   <li v-for="(feature, featureIndex) in plan.features" :key="featureIndex"
                     :class="{ 'highlight': feature.highlight }">
-                    <svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M2 8L6 12L14 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M7 12L10.5 15.5L17 9" stroke="currentColor" stroke-width="3" stroke-linecap="round"
                         stroke-linejoin="round" />
                     </svg>
                     <span>{{ feature.text }}</span>
@@ -323,7 +324,11 @@
                   'secondary': !plan.featured,
                   'enterprise': plan.name === '企业版'
                 }" @click="handlePlanSelection(plan)">
-                  {{ plan.buttonText }}
+                  <span>{{ plan.buttonText }}</span>
+                  <svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
                 </button>
               </div>
             </div>
@@ -581,7 +586,7 @@ export default {
             { text: '无限流量', highlight: false },
             { text: '单隧道连接', highlight: false },
             { text: '基础技术支持', highlight: false },
-            { text: 'Web 管理界面', highlight: true }
+            { text: 'Web 管理界面', highlight: false }
           ],
           buttonText: '开始使用',
           featured: false
@@ -589,15 +594,15 @@ export default {
         {
           name: '专业版',
           description: '适合成长型团队和商业项目',
-          monthlyPrice: '29',
-          yearlyPrice: '23',
+          monthlyPrice: '0',
+          yearlyPrice: '0',
           features: [
             { text: '无限流量', highlight: false },
-            { text: '多隧道连接', highlight: true },
-            { text: '多节点负载均衡', highlight: true },
+            { text: '多隧道连接', highlight: false },
+            { text: '多节点负载均衡', highlight: false },
             { text: '优先技术支持', highlight: false },
             { text: '高级监控功能', highlight: false },
-            { text: '自定义域名', highlight: true },
+            { text: '自定义域名', highlight: false },
             { text: 'API 访问权限', highlight: false }
           ],
           buttonText: '立即升级',
@@ -607,13 +612,13 @@ export default {
         {
           name: '企业版',
           description: '适合大型企业和高流量应用',
-          monthlyPrice: '99',
-          yearlyPrice: '79',
+          monthlyPrice: '0',
+          yearlyPrice: '0',
           features: [
             { text: '无限流量', highlight: false },
-            { text: '无限隧道连接', highlight: true },
+            { text: '无限隧道连接', highlight: false },
             { text: '专属节点资源', highlight: true, description: '独享高性能节点' },
-            { text: '24/7 专属支持', highlight: true },
+            { text: '24/7 专属支持', highlight: false },
             { text: '完整 API 权限', highlight: false },
             { text: '私有化部署选项', highlight: true, description: '支持本地部署' },
             { text: '定制化服务', highlight: false }
@@ -688,30 +693,9 @@ export default {
     },
 
     // 处理功能卡片点击
-    handleFeatureClick(feature) {
-      // 根据不同的功能执行不同的操作
-      switch (feature.title) {
-        case '高速连接':
-          this.scrollToSection('#pricing')
-          break
-        case '安全加密':
-          this.goTo('/security')
-          break
-        case '简单易用':
-          this.scrollToTutorials()
-          break
-        case '实时监控':
-          this.goToRegister()
-          break
-        case '多协议支持':
-          this.scrollToSection('#pricing')
-          break
-        case '跨平台兼容':
-          window.open('/download', '_blank')
-          break
-        default:
-          this.scrollToSection('#pricing')
-      }
+    handleFeatureClick() {
+      // 所有功能卡片都跳转到使用教程区域
+      this.goTo('#tutorials')
     },
 
     // 价格卡片悬停效果
@@ -724,6 +708,14 @@ export default {
       this.billingPeriod = period
     },
 
+
+    // 滚动到顶部
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    },
 
     // 滚动到功能区域
     scrollToFeatures() {
@@ -750,15 +742,37 @@ export default {
       }
     },
 
+    // 处理免费试用
+    handleFreeTrial() {
+      // 跳转到Home页面
+      this.goToDashboard()
+    },
+
     // 处理价格方案选择
     handlePlanSelection(plan) {
-      if (plan.name === '企业版') {
-        // 企业版联系销售
-        window.open('mailto:sales@zyrofrp.com?subject=企业版咨询', '_blank')
-      } else {
-        // 其他方案直接注册
-        this.goToRegister()
+      if (plan.name === '免费版') {
+        // 免费版跳转到Home页面
+        this.goToDashboard()
+      } else if (plan.name === '专业版') {
+        // 专业版跳转到支付页面
+        if (this.isLoggedIn) {
+          this.goToPayment()
+        } else {
+          this.goToLogin()
+        }
       }
+      // 企业版不跳转
+    },
+
+    // 跳转到支付页面
+    goToPayment() {
+      // 构建支付页面URL，包含计费周期和价格信息
+      const params = new URLSearchParams({
+        billing: this.billingPeriod,
+        monthly_price: '0',
+        yearly_price: '0'
+      })
+      this.$router.push(`/payment?${params.toString()}`)
     }
   },
   mounted() {
@@ -768,7 +782,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style>
 .landing-page {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: #0a0a0a;
@@ -787,7 +801,7 @@ export default {
   backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   z-index: 1000;
-  height: 72px;
+  height: 3.5rem;
   transition: all 0.3s ease;
 }
 
@@ -825,9 +839,9 @@ export default {
 }
 
 .logo h1 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #0a0a0a;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #006412;
   margin: 0;
   letter-spacing: -0.5px;
 }
@@ -838,20 +852,21 @@ export default {
   margin: 0;
   padding: 0;
   gap: 8px;
+  height: 100%;
 }
 
 .nav-item {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px 16px;
+  padding: 0 16px;
   font-size: 15px;
   font-weight: 500;
   color: #6b7280;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
-  height: 4rem;
+  height: 100%;
 }
 
 .nav-item:hover {
@@ -878,13 +893,21 @@ export default {
 .user-actions {
   display: flex;
   align-items: center;
+  height: 100%;
+}
+
+.user-logged-in,
+.user-logged-out {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 /* 按钮样式 */
 .github-btn {
   display: flex;
   align-items: center;
-  padding: 8px 20px;
+  padding: 0 20px;
   background: transparent;
   color: #6b7280;
   border: none;
@@ -892,7 +915,7 @@ export default {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  height: 4.4rem;
+  height: 100%;
 }
 
 .github-btn svg {
@@ -908,23 +931,24 @@ export default {
 .register-btn,
 .dashboard-btn,
 .logout-btn {
-  padding: 8px 20px;
+  padding: 0 20px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
-  height: 4.4rem;
+  height: 100%;
 }
 
 .login-btn {
   background: transparent;
-  color: #0a0a0a;
+  color: #6b7280;
   border: 1px solid #fcfcfc;
 }
 
 .login-btn:hover {
   background: #f3f4f6;
+  color: #424242;
 }
 
 .register-btn,
@@ -1196,10 +1220,12 @@ export default {
 
 .cta-primary:hover .btn-arrow {
   transform: translateX(4px);
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));
 }
 
 .cta-secondary:hover .btn-play {
   transform: scale(1.1);
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.4));
 }
 
 .trust-indicators {
@@ -1405,32 +1431,32 @@ export default {
 .float-card {
   position: absolute;
   background: white;
-  border-radius: 16px;
-  padding: 16px;
+  border-radius: 12px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  gap: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(10px);
   animation: cardFloat 8s ease-in-out infinite;
 }
 
 .card-1 {
-  top: 20%;
-  right: -20px;
+  top: 15%;
+  right: -10px;
   animation-delay: 0s;
 }
 
 .card-2 {
-  top: 60%;
-  left: -40px;
+  top: 55%;
+  left: -30px;
   animation-delay: 2s;
 }
 
 .card-3 {
-  bottom: 10%;
-  right: 20px;
+  bottom: 15%;
+  right: -2rem;
   animation-delay: 4s;
 }
 
@@ -1442,20 +1468,20 @@ export default {
   }
 
   25% {
-    transform: translateY(-5px) rotate(1deg);
+    transform: translateY(-3px) rotate(0.5deg);
   }
 
   75% {
-    transform: translateY(5px) rotate(-1deg);
+    transform: translateY(3px) rotate(-0.5deg);
   }
 }
 
 .card-icon {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .card-label {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   color: #0a0a0a;
 }
@@ -1463,7 +1489,7 @@ export default {
 /* 区域标题样式 */
 .section-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 3rem;
 }
 
 .section-badge {
@@ -1711,8 +1737,8 @@ export default {
 }
 
 .node.central {
-  top: 50%;
-  left: 50%;
+  top: 55%;
+  left: 34%;
   transform: translate(-50%, -50%);
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
@@ -1721,18 +1747,18 @@ export default {
 }
 
 .node1 {
-  top: 20%;
-  left: 20%;
+  top: 11.4%;
+  left: -11.2%;
 }
 
 .node2 {
-  top: 20%;
-  right: 20%;
+  top: 11.4%;
+  right: 21.2%;
 }
 
 .node3 {
-  bottom: 20%;
-  left: 50%;
+  bottom: 7%;
+  left: 33.5%;
   transform: translateX(-50%);
 }
 
@@ -1760,7 +1786,7 @@ export default {
 
 .conn3 {
   top: 50%;
-  left: 50%;
+  left: 47%;
   width: 80px;
   transform: translate(-50%, -50%) rotate(90deg);
 }
@@ -1812,7 +1838,7 @@ export default {
   padding: 4px;
   border-radius: 16px;
   width: fit-content;
-  margin: 0 auto 60px auto;
+  margin: 0 auto 0.2rem auto;
 }
 
 /* 强制价格网格布局 - 最高优先级 */
@@ -1821,7 +1847,7 @@ export default {
   grid-template-columns: repeat(3, 1fr) !important;
   gap: 24px !important;
   max-width: 1200px !important;
-  margin: 0 auto 60px !important;
+  margin: 0 auto 1rem !important;
   align-items: start !important;
 }
 
@@ -2001,17 +2027,92 @@ export default {
   color: #10b981;
 }
 
+.features-list li {
+  transition: all 0.3s ease;
+}
+
 .check-icon {
-  width: 18px;
-  height: 18px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  width: 20px;
+  height: 20px;
+  background: #e5e7eb;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #6b7280;
   flex-shrink: 0;
   margin-top: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+/* 移除单独的check-icon hover效果，只有pricing-card悬停时才变绿 */
+
+/* pricing-card悬停时check-icon变绿 */
+.pricing-card:hover .check-icon {
+  background: #13e39e;
+  color: #ffffff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(55, 65, 81, 0.25);
+}
+
+/* pricing-card悬停时，再次悬停li元素有更强效果 */
+.pricing-card:hover .features-list li:hover .check-icon {
+  background: #1f2937;
+  color: #059669;
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(31, 41, 55, 0.35);
+}
+
+/* 添加对勾绘制动画效果 */
+.pricing-card:hover .check-icon path {
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  stroke-dasharray: 20;
+  stroke-dashoffset: 0;
+  animation: drawCheckmark 0.4s ease-in-out;
+}
+
+@keyframes drawCheckmark {
+  0% {
+    stroke-dasharray: 0 20;
+    opacity: 0.3;
+    transform: scale(0.7) rotate(-10deg);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  100% {
+    stroke-dasharray: 20 20;
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* 移除SVG路径的单独hover效果 */
+
+/* 添加更强的hover效果 */
+.check-icon.animated-hover {
+  animation: pulse-icon 2s infinite;
+}
+
+@keyframes pulse-icon {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(16, 185, 129, 0));
+  }
+
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4));
+  }
+
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(16, 185, 129, 0));
+  }
 }
 
 .feature-description {
@@ -2045,6 +2146,15 @@ export default {
   border: none;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pricing-btn .btn-arrow {
+  transition: all 0.3s ease;
+  opacity: 0.7;
 }
 
 .pricing-btn.primary {
@@ -2056,6 +2166,12 @@ export default {
 .pricing-btn.primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+}
+
+.pricing-btn.primary:hover .btn-arrow {
+  opacity: 1;
+  transform: translateX(2px);
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));
 }
 
 .pricing-btn.secondary {
@@ -2070,6 +2186,13 @@ export default {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
+.pricing-btn.secondary:hover .btn-arrow {
+  opacity: 1;
+  transform: translateX(2px);
+  color: #10b981;
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.5));
+}
+
 .pricing-btn.enterprise {
   background: #f3f4f6;
   color: #0a0a0a;
@@ -2079,6 +2202,13 @@ export default {
   transform: translateY(-2px);
   background-color: #e6e7eb;
   box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+}
+
+.pricing-btn.enterprise:hover .btn-arrow {
+  opacity: 1;
+  transform: translateX(2px);
+  color: #6b7280;
+  filter: drop-shadow(0 0 6px rgba(107, 114, 128, 0.5));
 }
 
 .pricing-note {
@@ -2491,7 +2621,18 @@ html {
 
 @media (max-width: 768px) {
   .navbar {
-    height: 64px;
+    height: 3rem;
+  }
+
+  /* 移动端优化check-icon效果 */
+  .features-list li:active .check-icon {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4));
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  }
+
+  .features-list li:active span {
+    color: #10b981;
   }
 
   .nav-container {
@@ -2837,23 +2978,6 @@ html {
   }
 }
 
-/* 优化滚动条样式 */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f3f4f6;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #5856D6 0%, #007AFF 100%);
-}
 
 /* 选择文本样式 */
 ::selection {

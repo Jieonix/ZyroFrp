@@ -6,7 +6,6 @@ import Loading from '@/components/Loading.vue'
   <div class="conf">
     <Loading />
     <Header />
-    <div class="container">
       <Sidebar />
       <main class="main-content">
         <section class="welcome">
@@ -32,7 +31,6 @@ import Loading from '@/components/Loading.vue'
         <Footer />
       </main>
     </div>
-  </div>
 </template>
 
 <script>

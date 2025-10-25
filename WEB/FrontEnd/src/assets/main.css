@@ -29,12 +29,11 @@
 .main-content {
   width: calc(100vw - 18rem);
   margin-left: 18rem;
-  padding-top: 40px;
   flex: 1;
   background-color: #fff;
   height: 100vh;
   box-sizing: border-box;
-  padding-top: 80px;
+  padding-top: 6.8rem;
 }
 
 .welcome {

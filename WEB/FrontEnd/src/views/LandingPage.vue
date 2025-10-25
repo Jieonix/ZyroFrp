@@ -286,7 +286,7 @@
       <!-- TODO: 临时添加的覆盖层，表示暂时无需付费，未来可删除此注释和覆盖层 -->
       <div class="pricing-overlay">
         <div class="pricing-overlay-x">×</div>
-        <div class="pricing-overlay-text">现阶段完全免费<br>后期即使开放付费，也会永久提供免费的高质量服务！</div>
+        <div class="pricing-overlay-text">现阶段完全免费<br>后期即使开放付费，也会永久提供免费高质量服务！</div>
       </div>
       <div class="container">
         <div class="section-header">

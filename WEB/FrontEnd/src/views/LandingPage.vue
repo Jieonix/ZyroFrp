@@ -1672,6 +1672,11 @@ export default {
   transition: all 0.3s ease;
 }
 
+.feature-arrow svg {
+  height: 1.5rem;
+  width: 2rem;
+}
+
 .feature-card:hover .feature-arrow {
   color: #10b981;
   transform: translateX(4px);
@@ -1720,6 +1725,11 @@ export default {
   color: #0a0a0a;
   font-weight: 500;
   margin-bottom: 12px;
+}
+
+.showcase-features li svg {
+  height: 1.5rem;
+  width: 2rem;
 }
 
 .showcase-features svg {

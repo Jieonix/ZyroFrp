@@ -6,31 +6,31 @@ import Loading from '@/components/Loading.vue'
   <div class="conf">
     <Loading />
     <Header />
-      <Sidebar />
-      <main class="main-content">
-        <section class="welcome">
-          <h2>欢迎来到 FRP 管理平台</h2>
-          <p>在这里你可以复制你创建的隧道所生成的配置文件，以供在客户端使用</p>
-        </section>
-        <section class="config-section">
-          <h2 class="conf-h2">隧道配置</h2>
-          <div class="tabs">
-            <button class="tabs-btn active">按节点</button>
-            <button class="tabs-btn">按隧道</button>
-          </div>
-          <select v-model="selectedServer" @change="fetchConfig" id="select-server">
-            <option v-for="server in servers" :key="server.id" :value="server.name">
-              {{ server.name }}
-            </option>
-          </select>
-          <pre class="config-code" rows="20" cols="100">
+    <Sidebar />
+    <main class="main-content">
+      <section class="welcome">
+        <h2>欢迎来到 FRP 管理平台</h2>
+        <p>在这里你可以复制你创建的隧道所生成的配置文件，以供在客户端使用</p>
+      </section>
+      <section class="config-section">
+        <h2 class="conf-h2">隧道配置</h2>
+        <div class="tabs">
+          <button class="tabs-btn active">按节点</button>
+          <button class="tabs-btn">按隧道</button>
+        </div>
+        <select v-model="selectedServer" @change="fetchConfig" id="select-server">
+          <option v-for="server in servers" :key="server.id" :value="server.name">
+            {{ server.name }}
+          </option>
+        </select>
+        <pre class="config-code" rows="20" cols="100">
 {{ configFile }}
          </pre>
-          <button @click="copy_button" class="copy">复制</button>
-        </section>
-        <Footer />
-      </main>
-    </div>
+        <button @click="copy_button" class="copy">复制</button>
+      </section>
+      <Footer />
+    </main>
+  </div>
 </template>
 
 <script>
@@ -41,6 +41,8 @@ import { useRouter } from 'vue-router';
 import { validateToken } from '../utils/token.js';
 import axios from 'axios';
 import { useLoadingStore } from '@/stores/loading'
+import { commonMethods } from './shared/common.js'
+import './shared/common.css'
 
 
 export default {
@@ -65,13 +67,7 @@ export default {
     }
   },
   methods: {
-    checkTokenValidity() {
-      const router = useRouter();
-      const token = localStorage.getItem("Token");
-      if (!validateToken(router, token)) {
-        return;
-      }
-    },
+    ...commonMethods,
     async getServers() {
       try {
         const Token = localStorage.getItem('Token');
@@ -199,7 +195,6 @@ export default {
   margin: 1rem;
   box-sizing: border-box;
   border-radius: 5px;
-  margin-bottom: 3rem;
 }
 
 .conf-h2 {
@@ -270,37 +265,16 @@ export default {
   margin-left: 20px;
 }
 
+/* 特定于conf页面的深色主题样式 */
 @media (prefers-color-scheme: dark) {
-
-  body {
-    background-color: #1c1c1c;
-    color: #e0e0e0;
-  }
-
-  .main-content {
-    background-color: #101014;
-  }
-
-  .copy {
-    background-color: #236659;
-  }
-
-  .copy:hover {
-    background-color: #195549;
-  }
-
-  h2 {
-    color: #ededed;
-  }
-
-  .feature-box {
-    background-color: #222222;
-    border: 1px solid #333;
-  }
-
   .tabs-btn {
     background-color: #18181c;
     color: #e0e0e0;
+    border-bottom: 3px solid #18181c;
+  }
+
+  .tabs-btn.active {
+    border-bottom: 3px solid #236659;
   }
 
   #select-server {
@@ -313,14 +287,5 @@ export default {
     border: 1px solid #232323;
     background-color: #18181c;
   }
-
-  .tabs-btn {
-    border-bottom: 3px solid #18181c;
-  }
-
-  .tabs-btn.active {
-    border-bottom: 3px solid #236659;
-  }
-
 }
 </style>

@@ -34,12 +34,13 @@
   border-radius: 0.25rem;
   font-size: 1rem;
   color: #333;
+  height: 2.5rem;
 }
 
 .login-container input:focus,
 .register-container input:focus {
-  border-color: #5a9a6d;
-  outline: none;
+  border-color: #ccc !important;
+  outline: none !important;
 }
 
 .login-container button,
@@ -94,9 +95,9 @@
 
   .login-container input,
   .register-container input {
-    background-color: #323232;
-    color: #ccc;
-    border: none;
+    background-color: #323232 !important;
+    color: #ccc !important;
+    border: none !important;
   }
 
   .login-container button,

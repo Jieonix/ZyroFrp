@@ -31,9 +31,11 @@
   margin-left: 18rem;
   flex: 1;
   background-color: #fff;
-  height: 100vh;
+  min-height: 100vh;
   box-sizing: border-box;
   padding-top: 6.8rem;
+  padding-bottom: 3.5rem;
+  overflow-y: auto;
 }
 
 .welcome {

@@ -11,9 +11,15 @@
   border-top: 1px solid #e6e6e6;
   color: #333;
   text-align: center;
-  padding: 20px;
-  width: 100%;
-  margin-top: 20px;
+  padding: 0.7rem;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  height: 3.5rem;
+  font-size: 0.6rem;
+  box-sizing: border-box;
 }
 
 footer a {
@@ -31,7 +37,7 @@ footer a:hover {
 @media (prefers-color-scheme: dark) {
 
   .footer {
-    background-color: #101014;
+    background-color: #18181c;
     border-top: 1px solid #232323;
     color: #ededed;
   }

@@ -6,62 +6,62 @@ import Loading from '@/components/Loading.vue'
   <div class="auth">
     <Loading />
     <Header />
-      <Sidebar />
-      <main class="main-content">
-        <section class="welcome">
-          <h2>欢迎来到 FRP 管理平台</h2>
-          <p>在这里你可以查看 FRPC 客户端使用教程</p>
-        </section>
-        <section class="features">
-          <div class="feature-box fb1">
-            <div class="h3">
-              <h3>使用帮助</h3>
-            </div>
-
-            <div class="line">
-              <strong class="dowm">
-                <SvgIcon name="Confirm" class="icon" />
-              </strong>
-              <p class="tooltip"><strong>创建隧道</strong></p>
-            </div>
-
-            <div class="arrow">
-              |
-            </div>
-
-            <div class="line">
-              <strong class="dowm">
-                <SvgIcon name="Confirm" class="icon" />
-              </strong>
-              <p class="tooltip"><strong>软件下载</strong></p>
-            </div>
-
-            <div class="arrow">
-              |
-            </div>
-
-            <div class="line">
-              <strong class="dowm">
-                <SvgIcon name="Confirm" class="icon" />
-              </strong>
-              <p class="tooltip"><strong>启动隧道</strong></p>
-            </div>
-
-            <div class="arrow">
-              |
-            </div>
-
-            <div class="line">
-              <strong class="dowm">
-                <SvgIcon name="Confirm2" class="icon2" />
-              </strong>
-              <p class="tooltip"><strong>开始使用</strong></p>
-            </div>
+    <Sidebar />
+    <main class="main-content">
+      <section class="welcome">
+        <h2>欢迎来到 FRP 管理平台</h2>
+        <p>在这里你可以查看 FRPC 客户端使用教程</p>
+      </section>
+      <section class="features">
+        <div class="feature-box fb1">
+          <div class="h3">
+            <h3>使用帮助</h3>
           </div>
-        </section>
-        <Footer />
-      </main>
-    </div>
+
+          <div class="line">
+            <strong class="dowm">
+              <SvgIcon name="Confirm" class="icon" />
+            </strong>
+            <p class="tooltip"><strong>创建隧道</strong></p>
+          </div>
+
+          <div class="arrow">
+            |
+          </div>
+
+          <div class="line">
+            <strong class="dowm">
+              <SvgIcon name="Confirm" class="icon" />
+            </strong>
+            <p class="tooltip"><strong>软件下载</strong></p>
+          </div>
+
+          <div class="arrow">
+            |
+          </div>
+
+          <div class="line">
+            <strong class="dowm">
+              <SvgIcon name="Confirm" class="icon" />
+            </strong>
+            <p class="tooltip"><strong>启动隧道</strong></p>
+          </div>
+
+          <div class="arrow">
+            |
+          </div>
+
+          <div class="line">
+            <strong class="dowm">
+              <SvgIcon name="Confirm2" class="icon2" />
+            </strong>
+            <p class="tooltip"><strong>开始使用</strong></p>
+          </div>
+        </div>
+      </section>
+      <Footer />
+    </main>
+  </div>
 </template>
 
 <script>
@@ -71,6 +71,8 @@ import Footer from '@/components/Footer.vue';
 import { useRouter } from 'vue-router';
 import { validateToken } from '../utils/token.js';
 import { useLoadingStore } from '@/stores/loading'
+import { commonMethods } from './shared/common.js'
+import './shared/common.css'
 
 
 export default {
@@ -81,13 +83,7 @@ export default {
     Footer
   },
   methods: {
-    checkTokenValidity() {
-      const router = useRouter();
-      const token = localStorage.getItem("Token");
-      if (!validateToken(router, token)) {
-        return;
-      }
-    },
+    ...commonMethods,
   },
   mounted() {
     this.checkTokenValidity();
@@ -100,8 +96,6 @@ export default {
   width: calc(100vw - 18rem - 2rem);
   padding: 3rem;
   margin: 1rem;
-  margin-bottom: 16.5rem;
-  padding-bottom: 5rem;
 }
 
 h3 {
@@ -214,38 +208,12 @@ strong {
 }
 
 @media (prefers-color-scheme: dark) {
-
-  body {
-    background-color: #1c1c1c;
-    color: #e0e0e0;
-  }
-
-  .main-content {
-    background-color: #101014;
-  }
-
-  h2 {
-    color: #ededed;
-  }
-
-  .feature-box {
-    background-color: #18181c;
-    border: 1px solid #232323;
-  }
-
   p {
     color: #a3a3a3;
   }
 
-  pre {
-    background-color: #555555;
-    border: 1px solid #6a6a6a;
+  .fb1 {
+    background-color: #18181c;
   }
-
-  code {
-    color: #5ccea8;
-    font-size: 0.9rem;
-  }
-
 }
 </style>

@@ -105,6 +105,8 @@ import { validateToken } from '../utils/token.js';
 import { ref } from 'vue';
 import axios from 'axios';
 import { useLoadingStore } from '@/stores/loading'
+import { commonMethods } from './shared/common.js'
+import './shared/common.css'
 
 
 export default {
@@ -179,13 +181,7 @@ export default {
     }
   },
   methods: {
-    checkTokenValidity() {
-      const router = useRouter();
-      const token = localStorage.getItem("Token");
-      if (!validateToken(router, token)) {
-        return;
-      }
-    },
+    ...commonMethods,
 
     async getUserInfo() {
       try {
@@ -464,26 +460,8 @@ export default {
   width: 1.1rem;
 }
 
+/* 特定于Home页面的深色主题样式 */
 @media (prefers-color-scheme: dark) {
-
-  body {
-    background-color: #1c1c1c;
-    color: #e0e0e0;
-  }
-
-  .main-content {
-    background-color: #101014;
-  }
-
-  h2 {
-    color: #ededed;
-  }
-
-  .feature-box {
-    background-color: #18181c;
-    border: 1px solid #232323;
-  }
-
   .line {
     background-color: #282828;
   }
@@ -507,9 +485,12 @@ export default {
     border-color: #292929;
   }
 
-  .fb1 {
+  .fb1,
+  .fb2,
+  .fb3,
+  .fb5 {
     background-color: #18181c;
   }
-
+  
 }
 </style>

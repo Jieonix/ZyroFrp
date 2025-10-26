@@ -6,83 +6,81 @@ import Loading from '@/components/Loading.vue'
   <div class="tunnels">
     <Loading />
     <Header />
-      <Sidebar />
-      <main class="main-content">
-        <section class="welcome">
-          <h2>欢迎来到 FRP 管理平台</h2>
-          <p>在这里你可以管理 FRP 隧道，实现编辑、删除、停用等操作</p>
-        </section>
-        <div class="qqq">
-          <ul class="tunnels2">
-            <li v-for="tunnel in tunnels" :key="tunnel.id" class="tunnels-li">
-              <div class="feature-box">
-                <h2 class="feature-title">{{ tunnel.tunnel_name }}</h2>
-                <div class="feature-tags">
-                  <p class="tag-green">{{ tunnel.tunnel_type }}</p>
-                  <p class="tag-red">{{ tunnel.server_name }}</p>
-                </div>
-                <p class="feature-ip">节点IP： <br>{{ tunnel.server_ip }}</p>
-                <div class="feature-footer">
-                  <button @click="openEditBox(tunnel)">编辑</button>
-                  <button @click="deleteTunnel(tunnel)">删除</button>
-                </div>
-              </div>
-            </li>
-          </ul>
+    <Sidebar />
+    <main class="main-content">
+      <section class="welcome">
+        <h2>欢迎来到 FRP 管理平台</h2>
+        <p>在这里你可以管理 FRP 隧道，实现编辑、删除、停用等操作</p>
+      </section>
+      <ul class="tunnels2">
+        <li v-for="tunnel in tunnels" :key="tunnel.id" class="tunnels-li">
+          <div class="feature-box">
+            <h2 class="feature-title">{{ tunnel.tunnel_name }}</h2>
+            <div class="feature-tags">
+              <p class="tag-green">{{ tunnel.tunnel_type }}</p>
+              <p class="tag-red">{{ tunnel.server_name }}</p>
+            </div>
+            <p class="feature-ip">节点IP： <br>{{ tunnel.server_ip }}</p>
+            <div class="feature-footer">
+              <button @click="openEditBox(tunnel)">编辑</button>
+              <button @click="deleteTunnel(tunnel)">删除</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <Footer />
+    </main>
+  </div>
+  <div v-if="isEditBoxVisible" class="edit-box-overlay" @click="closeEditBox">
+    <div class="edit-box" @click.stop>
+      <h3>编辑隧道</h3>
+      <form>
+        <label for="Servers">服务器</label>
+        <select name="Servers" id="Servers" v-model="selectedServer">
+          <option v-for="server in servers" :key="server.id" :value="server.name">
+            {{ server.name }}
+          </option>
+        </select>
+        <label for="tunnel-name">隧道名称</label>
+        <input autocomplete="off" type="text" id="tunnel_name" v-model="tunnel_name">
+        <label for="tunnel_setting">隧道设置</label>
+        <select name="Protocol" id="Protocol" v-model="selectedProtocol">
+          <option v-for="protocol in protocols" :key="protocol" :value="protocol">
+            {{ protocol }}
+          </option>
+        </select>
+        <label for="local_ip">内网IP</label>
+        <input autocomplete="off" type="text" id="local_ip" v-model="local_ip">
+        <div class="port_div">
+          <div class="port">
+            <label for="local_port">内网端口</label>
+            <input autocomplete="off" type="text" id="local_port" v-model="local_port">
+          </div>
+          <div class="port" v-if="selectedProtocol === 'TCP' || selectedProtocol === 'UDP'">
+            <label for="remote-port" class="form-label">远程端口</label>
+            <input autocomplete="off" class="border-color" type="text" id="remote_port" name="remote_port"
+              v-model="remote_port" placeholder="">
+          </div>
+
+          <div class="port" v-if="selectedProtocol === 'HTTP' || selectedProtocol === 'HTTPS'">
+            <label for="custom-domains" class="form-label">自定义域名</label>
+            <input autocomplete="off" class="border-color" type="text" id="custom_domains" name="custom_domains"
+              v-model="custom_domain" placeholder="">
+          </div>
+
+          <div class="port" v-if="selectedProtocol === 'XTCP' || selectedProtocol === 'STCP'">
+            <label for="secret-key" class="form-label">密钥</label>
+            <input autocomplete="off" class="border-color" type="text" id="secret_key" name="secret_key"
+              v-model="secret_key" placeholder="">
+          </div>
         </div>
-        <Footer />
-      </main>
+        <div class="button_div">
+          <button type="button" @click="save">保存</button>
+          <button type="button" @click="closeEditBox">取消</button>
+        </div>
+      </form>
     </div>
-    <div v-if="isEditBoxVisible" class="edit-box-overlay" @click="closeEditBox">
-      <div class="edit-box" @click.stop>
-        <h3>编辑隧道</h3>
-        <form>
-          <label for="Servers">服务器</label>
-          <select name="Servers" id="Servers" v-model="selectedServer">
-            <option v-for="server in servers" :key="server.id" :value="server.name">
-              {{ server.name }}
-            </option>
-          </select>
-          <label for="tunnel-name">隧道名称</label>
-          <input autocomplete="off" type="text" id="tunnel_name" v-model="tunnel_name">
-          <label for="tunnel_setting">隧道设置</label>
-          <select name="Protocol" id="Protocol" v-model="selectedProtocol">
-            <option v-for="protocol in protocols" :key="protocol" :value="protocol">
-              {{ protocol }}
-            </option>
-          </select>
-          <label for="local_ip">内网IP</label>
-          <input autocomplete="off" type="text" id="local_ip" v-model="local_ip">
-          <div class="port_div">
-            <div class="port">
-              <label for="local_port">内网端口</label>
-              <input autocomplete="off" type="text" id="local_port" v-model="local_port">
-            </div>
-            <div class="port" v-if="selectedProtocol === 'TCP' || selectedProtocol === 'UDP'">
-              <label for="remote-port" class="form-label">远程端口</label>
-              <input autocomplete="off" class="border-color" type="text" id="remote_port" name="remote_port"
-                v-model="remote_port" placeholder="">
-            </div>
-
-            <div class="port" v-if="selectedProtocol === 'HTTP' || selectedProtocol === 'HTTPS'">
-              <label for="custom-domains" class="form-label">自定义域名</label>
-              <input autocomplete="off" class="border-color" type="text" id="custom_domains" name="custom_domains"
-                v-model="custom_domain" placeholder="">
-            </div>
-
-            <div class="port" v-if="selectedProtocol === 'XTCP' || selectedProtocol === 'STCP'">
-              <label for="secret-key" class="form-label">密钥</label>
-              <input autocomplete="off" class="border-color" type="text" id="secret_key" name="secret_key"
-                v-model="secret_key" placeholder="">
-            </div>
-          </div>
-          <div class="button_div">
-            <button type="button" @click="save">保存</button>
-            <button type="button" @click="closeEditBox">取消</button>
-          </div>
-        </form>
-      </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -93,6 +91,8 @@ import { useRouter } from 'vue-router';
 import { validateToken } from '../utils/token.js';
 import axios from 'axios';
 import { useLoadingStore } from '@/stores/loading'
+import { commonMethods } from './shared/common.js'
+import './shared/common.css'
 
 
 export default {
@@ -121,13 +121,7 @@ export default {
     }
   },
   methods: {
-    checkTokenValidity() {
-      const router = useRouter();
-      const token = localStorage.getItem("Token");
-      if (!validateToken(router, token)) {
-        return;
-      }
-    },
+    ...commonMethods,
     async getTunnels() {
       try {
         const Token = localStorage.getItem('Token');
@@ -248,12 +242,13 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 30px;
   width: 100%;
-  height: 2rem;
+  height: 100%;
   justify-items: center;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 2rem;
   box-sizing: border-box;
   list-style: none;
+  padding-bottom: 3.5rem;
 }
 
 .tunnels-li {
@@ -266,12 +261,8 @@ export default {
 }
 
 .qqq {
-  min-height: 59.4rem;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
   padding: 0 2rem;
-  box-sizing: border-box;
+  padding-bottom: 10rem;
 }
 
 .feature-box {
@@ -354,10 +345,6 @@ export default {
 
 .feature-footer button:hover {
   background-color: #cbeadb;
-}
-
-.footer {
-  margin-top: 90px;
 }
 
 .edit-box-overlay {
@@ -472,32 +459,16 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
+  margin-bottom: 1rem;
+  height: 3rem;
 }
 
 .button_div button {
   width: 48%;
 }
 
+/* 特定于tunnels页面的深色主题样式 */
 @media (prefers-color-scheme: dark) {
-
-  body {
-    background-color: #1c1c1c;
-    color: #e0e0e0;
-  }
-
-  .main-content {
-    background-color: #101014;
-  }
-
-  h2 {
-    color: #ededed;
-  }
-
-  .feature-box {
-    background-color: #18181c;
-    border: 1px solid #232323;
-  }
-
   .tag-green {
     background-color: #0a5831;
     color: #9dd7b8;
@@ -526,30 +497,41 @@ export default {
   }
 
   .edit-box {
-    background-color: #2c2c2c;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-color: #24242a;
   }
 
-  #tunnel_name,
-  #tunnel_setting,
-  #local_ip,
-  #local_port,
-  #remote_port,
-  #Protocol,
-  #Servers {
-    background-color: #3a3a3a;
-    border: 1px solid #4e4e4e;
+  .edit-box h3 {
     color: #d4d4d4;
   }
 
-  #tunnel_name:focus,
-  #tunnel_setting:focus,
-  #local_ip:focus,
-  #local_port:focus,
-  #remote_port:focus,
-  #Protocol:focus,
-  #Servers:focus {
-    border: 1px solid #444444;
+  .edit-box label {
+    color: #e0e0e0;
+  }
+
+  .edit-box input {
+    background-color: #1a1a20;
+    border: 1px solid #353543 !important;
+    color: #d4d4d4;
+  }
+
+  .edit-box input:focus {
+    border: 1px solid #353543;
+    outline: none;
+  }
+
+  .edit-box input::placeholder {
+    color: #7f7f7f37;
+  }
+
+  .edit-box select {
+    background-color: #1a1a20;
+    border: 1px solid #353543 !important;
+    color: #d4d4d4;
+  }
+
+  .edit-box select:focus {
+    border: 1px solid #353543;
+    outline: none;
   }
 
   .edit-box button[type="button"] {
@@ -560,9 +542,13 @@ export default {
     background-color: #28684f;
   }
 
-  .edit-box h3 {
-    color: #d4d4d4;
+  .feature-box {
+    background-color: #18181c;
+    border-color: #232323;
   }
 
+  .feature-ip {
+    color: #b0b0b0;
+  }
 }
 </style>

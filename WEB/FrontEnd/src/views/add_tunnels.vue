@@ -1,101 +1,101 @@
 <script setup>
 import Loading from '@/components/Loading.vue'
-;
+  ;
 </script>
 
 <template>
   <div class="add_tunnels">
     <Loading />
     <Header />
-      <Sidebar />
-      <main class="main-content">
-        <section class="welcome">
-          <h2>欢迎来到 FRP 管理平台</h2>
-          <p>在这里你可以创建 FRP 隧道，各种隧道皆可创建</p>
-        </section>
-        <section class="add-tunnel">
-          <h1>添加隧道</h1>
-          <form @submit.prevent="handleSubmit">
-            <div class="form-group">
-              <label for="server" class="form-label">选择服务器</label>
-              <select class="border-color" id="server" name="server" v-model="selectedServer"
-                @change="handleServerChange">
-                <option v-for="server in lists" :key="server.id" :value="server.name">{{ server.name }}</option>
-              </select>
-              <div class="big">
-                <div class="vip" :class="vipClass" v-if="vipOnly">{{ vip }}</div>
-                <div class="vip" :class="vipClass" v-else>{{ no_vip }}</div>
-                <div class="udp" :class="udpClass">{{ udp }}</div>
-                <div class="website" :class="websiteClass">{{ web }}</div>
-                <div class="traffic" :class="trafficClass">{{ traffic }}</div>
-                <div class="status" :class="statusClass">{{ s_status }}</div>
+    <Sidebar />
+    <main class="main-content">
+      <section class="welcome">
+        <h2>欢迎来到 FRP 管理平台</h2>
+        <p>在这里你可以创建 FRP 隧道，各种隧道皆可创建</p>
+      </section>
+      <section class="add-tunnel">
+        <h1>添加隧道</h1>
+        <form @submit.prevent="handleSubmit">
+          <div class="form-group">
+            <label for="server" class="form-label">选择服务器</label>
+            <select class="border-color" id="server" name="server" v-model="selectedServer"
+              @change="handleServerChange">
+              <option v-for="server in lists" :key="server.id" :value="server.name">{{ server.name }}</option>
+            </select>
+            <div class="big">
+              <div class="vip" :class="vipClass" v-if="vipOnly">{{ vip }}</div>
+              <div class="vip" :class="vipClass" v-else>{{ no_vip }}</div>
+              <div class="udp" :class="udpClass">{{ udp }}</div>
+              <div class="website" :class="websiteClass">{{ web }}</div>
+              <div class="traffic" :class="trafficClass">{{ traffic }}</div>
+              <div class="status" :class="statusClass">{{ s_status }}</div>
+            </div>
+            <div class="ServerInfo">
+              <p class="title">服务器信息：</p>
+              <p class="content"><b class="left">服务器名：</b>{{ server_name }}</p>
+              <p class="content"><b class="left">服务器简介：</b>{{ server_Info }}</p>
+              <p class="content"><b class="left">服务器IP：</b>{{ server_ip }}</p>
+              <p class="content"><b class="left">服务器域名：</b>{{ server_domain }}</p>
+              <p class="content"><b class="left">服务器用户数量：</b>{{ server_current_clients }} / {{ server_max_clients }} 人
+              </p>
+              <p class="content"><b class="left">当前隧道数量：</b>{{ server_current_tunnels }} 条</p>
+              <p class="content"><b class="left">可用端口范围：</b>{{ server_portRange }}</p>
+            </div>
+          </div>
+
+          <div class="form-group fg1">
+            <div class="form-group-div-01">
+              <label for="tunnel-name" class="form-label">隧道名</label>
+              <input autocomplete="off" class="border-color" type="text" id="tunnel-name" name="tunnel-name"
+                v-model="tunnelName" placeholder="隧道名">
+            </div>
+            <div class="form-group-div-02">
+              <label class="form-label">隧道设置</label>
+              <div class="settings">
+                <button v-for="protocol in protocols" :key="protocol" class="select-button"
+                  :class="{ 'active': selectedProtocol === protocol }" @click="selectProtocol(protocol)">
+                  {{ protocol }}
+                </button>
               </div>
-              <div class="ServerInfo">
-                <p class="title">服务器信息：</p>
-                <p class="content"><b class="left">服务器名：</b>{{ server_name }}</p>
-                <p class="content"><b class="left">服务器简介：</b>{{ server_Info }}</p>
-                <p class="content"><b class="left">服务器IP：</b>{{ server_ip }}</p>
-                <p class="content"><b class="left">服务器域名：</b>{{ server_domain }}</p>
-                <p class="content"><b class="left">服务器用户数量：</b>{{ server_current_clients }} / {{ server_max_clients }} 人
-                </p>
-                <p class="content"><b class="left">当前隧道数量：</b>{{ server_current_tunnels }} 条</p>
-                <p class="content"><b class="left">可用端口范围：</b>{{ server_portRange }}</p>
-              </div>
             </div>
+          </div>
 
-            <div class="form-group fg1">
-              <div class="form-group-div-01">
-                <label for="tunnel-name" class="form-label">隧道名</label>
-                <input autocomplete="off" class="border-color" type="text" id="tunnel-name" name="tunnel-name"
-                  v-model="tunnelName" placeholder="隧道名">
-              </div>
-              <div class="form-group-div-02">
-                <label class="form-label">隧道设置</label>
-                <div class="settings">
-                  <button v-for="protocol in protocols" :key="protocol" class="select-button"
-                    :class="{ 'active': selectedProtocol === protocol }" @click="selectProtocol(protocol)">
-                    {{ protocol }}
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div class="form-group">
+            <label for="local-ip" class="form-label">内网IP</label>
+            <input autocomplete="off" class="border-color" type="text" id="local-ip" name="local-ip" v-model="localIP"
+              value="127.0.0.1" placeholder="127.0.0.1">
+          </div>
 
-            <div class="form-group">
-              <label for="local-ip" class="form-label">内网IP</label>
-              <input autocomplete="off" class="border-color" type="text" id="local-ip" name="local-ip" v-model="localIP"
-                value="127.0.0.1" placeholder="127.0.0.1">
-            </div>
+          <div class="form-group">
+            <label for="local-ports" class="form-label">内网端口</label>
+            <input autocomplete="off" class="border-color" type="text" id="local-ports" name="local-ports"
+              v-model="localPorts" placeholder="TCP:21  SSH:22  MySql:3306  MC:25565/19132  Terraria:7777">
+          </div>
 
-            <div class="form-group">
-              <label for="local-ports" class="form-label">内网端口</label>
-              <input autocomplete="off" class="border-color" type="text" id="local-ports" name="local-ports"
-                v-model="localPorts" placeholder="TCP:21  SSH:22  MySql:3306  MC:25565/19132  Terraria:7777">
-            </div>
+          <div class="form-group" v-if="selectedProtocol === 'TCP' || selectedProtocol === 'UDP'">
+            <label for="remote-port" class="form-label">远程端口</label>
+            <input autocomplete="off" class="border-color" type="text" id="remote-port" name="remote-port"
+              v-model="remotePort" placeholder="映射到远程服务器上的端口">
+          </div>
 
-            <div class="form-group" v-if="selectedProtocol === 'TCP' || selectedProtocol === 'UDP'">
-              <label for="remote-port" class="form-label">远程端口</label>
-              <input autocomplete="off" class="border-color" type="text" id="remote-port" name="remote-port"
-                v-model="remotePort" placeholder="映射到远程服务器上的端口">
-            </div>
+          <div class="form-group" v-if="selectedProtocol === 'HTTP' || selectedProtocol === 'HTTPS'">
+            <label for="custom-domains" class="form-label">自定义域名</label>
+            <input autocomplete="off" class="border-color" type="text" id="custom-domains" name="custom-domains"
+              v-model="custom_domain" placeholder="输入自定义域名">
+          </div>
 
-            <div class="form-group" v-if="selectedProtocol === 'HTTP' || selectedProtocol === 'HTTPS'">
-              <label for="custom-domains" class="form-label">自定义域名</label>
-              <input autocomplete="off" class="border-color" type="text" id="custom-domains" name="custom-domains"
-                v-model="custom_domain" placeholder="输入自定义域名">
-            </div>
+          <div class="form-group" v-if="selectedProtocol === 'XTCP' || selectedProtocol === 'STCP'">
+            <label for="secret-key" class="form-label">密钥</label>
+            <input autocomplete="off" class="border-color" type="text" id="secret-key" name="secret-key"
+              v-model="secret_key" placeholder="输入密钥">
+          </div>
 
-            <div class="form-group" v-if="selectedProtocol === 'XTCP' || selectedProtocol === 'STCP'">
-              <label for="secret-key" class="form-label">密钥</label>
-              <input autocomplete="off" class="border-color" type="text" id="secret-key" name="secret-key"
-                v-model="secret_key" placeholder="输入密钥">
-            </div>
-
-            <button class="button" type="submit" @click="SubmitTunnel">创建</button>
-          </form>
-        </section>
-        <Footer />
-      </main>
-    </div>
+          <button class="button" type="submit" @click="SubmitTunnel">创建</button>
+        </form>
+      </section>
+      <Footer />
+    </main>
+  </div>
 </template>
 
 <script>
@@ -107,6 +107,8 @@ import { validateToken } from '../utils/token.js';
 import axios from 'axios';
 ;
 import { useLoadingStore } from '@/stores/loading'
+import { commonMethods } from './shared/common.js'
+import './shared/common.css'
 
 
 export default {
@@ -150,15 +152,9 @@ export default {
     }
   },
   methods: {
+    ...commonMethods,
     selectProtocol(protocol) {
       this.selectedProtocol = protocol;
-    },
-    checkTokenValidity() {
-      const router = useRouter();
-      const token = localStorage.getItem("Token");
-      if (!validateToken(router, token)) {
-        return;
-      }
     },
     async ServersList() {
       try {
@@ -315,7 +311,6 @@ export default {
 <style scoped>
 .add-tunnel {
   margin-top: 20px;
-  height: 60.4rem;
   margin-left: 80px;
   margin-bottom: 70px;
 }
@@ -389,7 +384,7 @@ h1 {
 .select-button {
   width: 5rem;
   height: 2.3rem;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   text-align: center;
   background-color: #fff;
@@ -420,7 +415,7 @@ h1 {
   color: rgb(255, 255, 255);
   font-weight: 700;
   border-color: #378068;
-  height: 35px;
+  height: 37px;
 }
 
 .border-color {
@@ -434,7 +429,7 @@ h1 {
 }
 
 input::placeholder {
-  color: #c5c5c537;
+  color: #cbcbcb7f;
   font-size: 1rem;
   font-style: italic;
 }
@@ -537,26 +532,8 @@ input::placeholder {
   margin: 3px 0;
 }
 
+/* 特定于add_tunnels页面的深色主题样式 */
 @media (prefers-color-scheme: dark) {
-
-  body {
-    background-color: #1c1c1c;
-    color: #e0e0e0;
-  }
-
-  .main-content {
-    background-color: #101014;
-  }
-
-  h2 {
-    color: #ededed;
-  }
-
-  .feature-box {
-    background-color: #222222;
-    border: 1px solid #333;
-  }
-
   .select-button {
     background-color: #28282c;
     border: 1px solid #212121;
@@ -570,48 +547,37 @@ input::placeholder {
     border-color: #09360b;
   }
 
-  .button {
-    background-color: #236659;
-    color: rgb(255, 255, 255);
-  }
-
-  .button:hover {
-    background-color: #195549;
-  }
-
-  input[type="text"],
-  select {
+  .border-color {
     background-color: #1a1a20;
-    color: #dddddd;
-    border: 1px solid #232323;
+    border: 1px solid #282832;
+    color: #d4d4d4;
   }
 
-  input[type="text"]:focus,
-  select:focus {
+  .border-color:focus {
+    border: 1px solid #282832;
     outline: none;
-    border: 1px solid #232323;
-    box-shadow: none;
-  }
-
-  #server {
-    outline: none;
-    border: 1px solid #232323;
   }
 
   input::placeholder {
-    color: #c5c5c537;
-    font-size: 14px;
-    font-style: italic;
+    color: #7f7f7f37;
   }
 
   .ServerInfo {
     background-color: #2d7a6a;
   }
 
-  .ServerInfo title,
+  .ServerInfo .title,
+  .ServerInfo .content,
   .ServerInfo p {
     color: #d1d1d1;
   }
 
+  .title {
+    color: #e0e0e0;
+  }
+
+  .content {
+    color: #b0b0b0;
+  }
 }
 </style>

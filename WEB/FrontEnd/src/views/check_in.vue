@@ -6,44 +6,44 @@ import Loading from '@/components/Loading.vue'
   <div class="check_in">
     <Loading />
     <Header />
-      <Sidebar />
-      <main class="main-content">
-        <section class="welcome">
-          <h2>欢迎来到 FRP 管理平台</h2>
-          <p>在这里你可以答题获得高额流量，答对答错都有奖励！</p>
-        </section>
-        <section class="features">
-          <div class="feature-box fb1">
-            <div v-if="!isQuiz">
-              <h3 class="fb1-h3">每日答题（获得流量）</h3>
-              <p class="fb1-p">{{ questionText }}</p>
-              <pre class="fb1-pre">
+    <Sidebar />
+    <main class="main-content">
+      <section class="welcome">
+        <h2>欢迎来到 FRP 管理平台</h2>
+        <p>在这里你可以答题获得高额流量，答对答错都有奖励！</p>
+      </section>
+      <section class="features">
+        <div class="feature-box fb1">
+          <div v-if="!isQuiz">
+            <h3 class="fb1-h3">每日答题（获得流量）</h3>
+            <p class="fb1-p">{{ questionText }}</p>
+            <pre class="fb1-pre">
 A、{{ questionA }}
 B、{{ questionB }}
 C、{{ questionC }}
 D、{{ questionD }}
               </pre>
-              <div class="form-group">
-                <select v-model="answer" name="question" id="question" class="select-box">
-                  <option value="">请选择</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                </select>
-                <button @click="submitAnswer" class="primary-button">提交</button>
-              </div>
-            </div>
-            <div v-else>
-              <h1 class="Answered_h1">今日已答题 ！</h1>
-              <h3 class="Answered_h3">{{ randomMsg }}</h3>
-              <img class="Emoticon" src="/public/Emoticon.png" alt="">
+            <div class="form-group">
+              <select v-model="answer" name="question" id="question" class="select-box">
+                <option value="">请选择</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+              </select>
+              <button @click="submitAnswer" class="primary-button">提交</button>
             </div>
           </div>
-        </section>
-        <Footer />
-      </main>
-    </div>
+          <div v-else>
+            <h1 class="Answered_h1">今日已答题 ！</h1>
+            <h3 class="Answered_h3">{{ randomMsg }}</h3>
+            <img class="Emoticon" src="/public/Emoticon.png" alt="">
+          </div>
+        </div>
+      </section>
+      <Footer />
+    </main>
+  </div>
 </template>
 
 <script>
@@ -54,6 +54,8 @@ import { useRouter } from 'vue-router';
 import { validateToken } from '../utils/token.js';
 import axios from 'axios';
 import { useLoadingStore } from '@/stores/loading'
+import { commonMethods } from './shared/common.js'
+import './shared/common.css'
 
 
 export default {
@@ -88,13 +90,7 @@ export default {
     }
   },
   methods: {
-    checkTokenValidity() {
-      const router = useRouter();
-      const token = localStorage.getItem("Token");
-      if (!validateToken(router, token)) {
-        return;
-      }
-    },
+    ...commonMethods,
     async fetchQuestion() {
       try {
         const loadingStore = useLoadingStore();
@@ -181,7 +177,7 @@ export default {
 
 <style scoped>
 .fb1 {
-  margin: 0 1rem 44.2rem 1rem;
+  margin: 0 1rem;
   height: auto;
   padding-left: 3rem;
   width: calc(100vw - 18rem - 2rem);
@@ -219,12 +215,8 @@ export default {
   margin-left: -1px;
 }
 
-.select-box:focus {
-  outline: none;
-}
-
 .primary-button {
-  height: 1.8rem;
+  height: 1.9rem;
   width: 3rem;
   font-size: 0.7rem;
   font-weight: 700;
@@ -261,26 +253,8 @@ export default {
   font-weight: 400;
 }
 
+/* 特定于check_in页面的深色主题样式 */
 @media (prefers-color-scheme: dark) {
-
-  body {
-    background-color: #1c1c1c;
-    color: #e0e0e0;
-  }
-
-  .main-content {
-    background-color: #101014;
-  }
-
-  h2 {
-    color: #ededed;
-  }
-
-  .feature-box {
-    background-color: #18181c;
-    border: 1px solid #232323;
-  }
-
   .select-box {
     background-color: #505050;
     color: #ededed;
@@ -296,5 +270,8 @@ export default {
     background-color: #195549;
   }
 
+  .fb1 {
+    background-color: #18181c;
+  }
 }
 </style>

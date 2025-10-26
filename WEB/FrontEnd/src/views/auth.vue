@@ -6,33 +6,33 @@ import Loading from '@/components/Loading.vue'
   <div class="auth">
     <Loading />
     <Header />
-      <Sidebar />
-      <main class="main-content">
-        <section class="welcome">
-          <h2>欢迎来到 FRP 管理平台</h2>
-          <p>在这里你可以实名认证，确保服务的正常使用和运行</p>
-        </section>
-        <section class="features">
-          <div class="feature-box fb1" v-if="!realNameVerified">
-            <h3 class="fb1-h3">实名认证</h3>
-            <div class="fb1_div">
-              <p class="top_p">身份信息将调用第三方API验证,后期如发现利用本站Frp服务从事违法违纪活动,本站有权将身份信息交由警方处理！</p>
-              <p class="top_p_2">本站允许未成年用户使用，请勿使用他人身份信息，以避免不必要的麻烦</p>
-              <label for="name">姓名</label>
-              <input autocomplete="off" class="form-label" type="text" id="name" v-model="name" placeholder="请输入姓名" />
-              <label class="cardid" for="idCard">身份证号</label>
-              <input autocomplete="off" class="form-label" type="text" id="idCard" v-model="idCard"
-                placeholder="请输入身份证号" />
-              <button class="submit-btn" @click="handleSubmit">提交</button>
-            </div>
+    <Sidebar />
+    <main class="main-content">
+      <section class="welcome">
+        <h2>欢迎来到 FRP 管理平台</h2>
+        <p>在这里你可以实名认证，确保服务的正常使用和运行</p>
+      </section>
+      <section class="features">
+        <div class="feature-box fb1" v-if="!realNameVerified">
+          <h3 class="fb1-h3">实名认证</h3>
+          <div class="fb1_div">
+            <p class="top_p">身份信息将调用第三方API验证,后期如发现利用本站Frp服务从事违法违纪活动,本站有权将身份信息交由警方处理！</p>
+            <p class="top_p_2">本站允许未成年用户使用，请勿使用他人身份信息，以避免不必要的麻烦</p>
+            <label for="name">姓名</label>
+            <input autocomplete="off" class="form-label" type="text" id="name" v-model="name" placeholder="请输入姓名" />
+            <label class="cardid" for="idCard">身份证号</label>
+            <input autocomplete="off" class="form-label" type="text" id="idCard" v-model="idCard"
+              placeholder="请输入身份证号" />
+            <button class="submit-btn" @click="handleSubmit">提交</button>
           </div>
-          <div class="feature-box fb2" v-else>
-            <p>实名认证已完成，可正常使用所有功能！</p>
-          </div>
-        </section>
-        <Footer />
-      </main>
-    </div>
+        </div>
+        <div class="feature-box fb2" v-else>
+          <p>实名认证已完成，可正常使用所有功能！</p>
+        </div>
+      </section>
+      <Footer />
+    </main>
+  </div>
 </template>
 
 <script>
@@ -43,6 +43,8 @@ import { useRouter } from 'vue-router';
 import { validateToken } from '../utils/token.js';
 import axios from 'axios';
 import { useLoadingStore } from '@/stores/loading'
+import { commonMethods } from './shared/common.js'
+import './shared/common.css'
 
 
 export default {
@@ -60,13 +62,7 @@ export default {
     };
   },
   methods: {
-    checkTokenValidity() {
-      const router = useRouter();
-      const token = localStorage.getItem("Token");
-      if (!validateToken(router, token)) {
-        return;
-      }
-    },
+    ...commonMethods,
     handleSubmit() {
       const appcode = '783aa29e972e4e409046fb80696048da';
       const url = 'https://idcard.market.alicloudapi.com/lianzhuo/idcard';
@@ -152,8 +148,7 @@ export default {
   margin: 15px;
   height: 3%;
   width: calc(100vw - 18rem - 2rem);
-  margin: 1rem;
-  margin-bottom: 37.4rem;
+  margin: 0 1rem;
   padding: 2rem;
 }
 
@@ -223,7 +218,6 @@ export default {
   align-items: center;
   font-size: 17px;
   padding-left: 15px;
-  margin-bottom: 56.6rem;
 }
 
 .fb2 p {
@@ -241,55 +235,41 @@ export default {
 }
 
 input::placeholder {
-  color: #00000037;
+  color: #cbcbcb7f;
   font-size: 1rem;
   font-style: italic;
 }
 
+input:focus {
+  border-color: #cecece;
+  outline: none;
+}
+
+/* 特定于auth页面的深色主题样式 */
 @media (prefers-color-scheme: dark) {
-  body {
-    background-color: #1c1c1c;
-    color: #e0e0e0;
-  }
-
-  .main-content {
-    background-color: #101014;
-  }
-
-  h2 {
-    color: #ededed;
-  }
-
-  .feature-box {
-    background-color: #18181c;
-    border: 1px solid #232323;
-  }
-
-  .input-group input {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #444;
-  }
-
-  input[type="text"] {
-    border: 1px solid #232323;
-  }
-
-  .submit-btn:hover {
-    background-color: #5acaa5;
-  }
-
   .form-label {
     background-color: #1a1a20;
-    border: #333 1px solid;
-    color: white;
+    border: 1px solid #282832;
+    color: #d4d4d4;
   }
 
-  input::placeholder {
-    color: #c5c5c537;
-    font-size: 1rem;
-    font-style: italic;
+  .form-label:focus {
+    border: 1px solid #282832;
+    outline: none;
   }
 
+  .form-label::placeholder {
+    color: #7f7f7f37;
+  }
+
+  .fb1,
+  .fb2 {
+    background-color: #18181c;
+  }
+
+  .top_p,
+  .top_p_2 {
+    color: #b0b0b0;
+  }
 }
 </style>

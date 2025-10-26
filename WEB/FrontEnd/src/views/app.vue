@@ -6,64 +6,64 @@ import Loading from '@/components/Loading.vue'
   <div class="app">
     <Loading />
     <Header />
-      <Sidebar />
-      <main class="main-content">
-        <section class="welcome">
-          <h2>欢迎来到 FRP 管理平台</h2>
-          <p>在这里你可以下载 FRPC 客户端，以使用本服务</p>
-        </section>
-        <section class="features">
-          <div class="feature-box fb1">
-            <h2>MacOS</h2>
-            <div class="version-description">
-              <a class="version" :href="`${BASE_URL}frpc/macos/frpc-macos-amd64.tar.gz`">
-                ZyroFrp_darwin_amd64
-              </a>
-              <p class="description">适用于 MacOS AMD64 版本</p>
-            </div>
-            <div class="version-description">
-              <a class="version" :href="`${BASE_URL}frpc/macos/frpc-macos-arm64.tar.gz`">
-                ZyroFrp_darwin_arm64
-              </a>
-              <p class="description">适用于 MacOS ARM64 版本</p>
-            </div>
+    <Sidebar />
+    <main class="main-content">
+      <section class="welcome">
+        <h2>欢迎来到 FRP 管理平台</h2>
+        <p>在这里你可以下载 FRPC 客户端，以使用本服务</p>
+      </section>
+      <section class="features">
+        <div class="feature-box fb1">
+          <h2>MacOS</h2>
+          <div class="version-description">
+            <a class="version" :href="`${BASE_URL}frpc/macos/frpc-macos-amd64.tar.gz`">
+              ZyroFrp_darwin_amd64
+            </a>
+            <p class="description">适用于 MacOS AMD64 版本</p>
           </div>
-
-          <div class="feature-box fb2">
-            <h2>Linux</h2>
-            <div class="version-description">
-              <a class="version" :href="`${BASE_URL}frpc/linux/frpc-linux-amd64.tar.gz`">
-                ZyroFrp_linux_amd64
-              </a>
-              <p class="description">适用于 Linux AMD64 版本</p>
-            </div>
-            <div class="version-description">
-              <a class="version" :href="`${BASE_URL}frpc/linux/frpc-linux-arm64.tar.gz`">
-                ZyroFrp_linux_arm64
-              </a>
-              <p class="description">适用于 Linux ARM64 版本</p>
-            </div>
+          <div class="version-description">
+            <a class="version" :href="`${BASE_URL}frpc/macos/frpc-macos-arm64.tar.gz`">
+              ZyroFrp_darwin_arm64
+            </a>
+            <p class="description">适用于 MacOS ARM64 版本</p>
           </div>
+        </div>
 
-          <div class="feature-box fb3">
-            <h2>Windows</h2>
-            <div class="version-description">
-              <a class="version" :href="`${BASE_URL}frpc/windows/frpc-windows-amd64.tar.gz`">
-                ZyroFrp_win_amd64
-              </a>
-              <p class="description">适用于 Windows AMD64 版本</p>
-            </div>
-            <div class="version-description">
-              <a class="version" :href="`${BASE_URL}frpc/windows/frpc-windows-arm64.tar.gz`">
-                ZyroFrp_win_arm64
-              </a>
-              <p class="description">适用于 Windows ARM64 位版本</p>
-            </div>
+        <div class="feature-box fb2">
+          <h2>Linux</h2>
+          <div class="version-description">
+            <a class="version" :href="`${BASE_URL}frpc/linux/frpc-linux-amd64.tar.gz`">
+              ZyroFrp_linux_amd64
+            </a>
+            <p class="description">适用于 Linux AMD64 版本</p>
           </div>
-        </section>
+          <div class="version-description">
+            <a class="version" :href="`${BASE_URL}frpc/linux/frpc-linux-arm64.tar.gz`">
+              ZyroFrp_linux_arm64
+            </a>
+            <p class="description">适用于 Linux ARM64 版本</p>
+          </div>
+        </div>
 
-        <Footer />
-      </main>
+        <div class="feature-box fb3">
+          <h2>Windows</h2>
+          <div class="version-description">
+            <a class="version" :href="`${BASE_URL}frpc/windows/frpc-windows-amd64.tar.gz`">
+              ZyroFrp_win_amd64
+            </a>
+            <p class="description">适用于 Windows AMD64 版本</p>
+          </div>
+          <div class="version-description">
+            <a class="version" :href="`${BASE_URL}frpc/windows/frpc-windows-arm64.tar.gz`">
+              ZyroFrp_win_arm64
+            </a>
+            <p class="description">适用于 Windows ARM64 位版本</p>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
   </div>
 </template>
 
@@ -74,6 +74,8 @@ import Footer from '@/components/Footer.vue';
 import { useRouter } from 'vue-router';
 import { validateToken } from '../utils/token.js';
 import { useLoadingStore } from '@/stores/loading'
+import { commonMethods } from './shared/common.js'
+import './shared/common.css'
 
 
 export default {
@@ -89,13 +91,7 @@ export default {
     }
   },
   methods: {
-    checkTokenValidity() {
-      const router = useRouter();
-      const token = localStorage.getItem("Token");
-      if (!validateToken(router, token)) {
-        return;
-      }
-    },
+    ...commonMethods,
   },
   mounted() {
     this.checkTokenValidity();
@@ -119,7 +115,7 @@ export default {
 }
 
 .fb3 {
-  margin-bottom: 20.2rem;
+  margin-bottom: 1rem;
 }
 
 .version {
@@ -148,27 +144,10 @@ h2 {
 
 @media (prefers-color-scheme: dark) {
 
-  body {
-    background-color: #1c1c1c;
-    color: #e0e0e0;
-  }
-
-  .main-content {
-    background-color: #101014;
-  }
-
-  h2 {
-    color: #ededed;
-  }
-
-  .feature-box {
+  .fb1,
+  .fb2,
+  .fb3 {
     background-color: #18181c;
-    border: 1px solid #232323;
   }
-
-  .version {
-    color: #7bcbaa;
-  }
-
 }
 </style>

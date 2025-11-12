@@ -27,8 +27,8 @@ spring:
             required: true
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/ZyroFrp
-    username: ZyroFrp
+    url: jdbc:mysql://db.zyroo.cn:3306/ZyroFrp
+    username: root
     password: Shajie@123
 
   jpa:

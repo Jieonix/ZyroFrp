@@ -1,50 +1,50 @@
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Email.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/UsersService.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/AuthController.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/QuestionService.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Question.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/EditUserRequest.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/LoginRequest.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/pw.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/conf/WebConfig.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/UsersRepository.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/FrpTunnelController.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/QuizController.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/FrpTunnelRepository.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/ResetPasswordRequest.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/FrpTunnelService.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Announcements.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/UserInfoController.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/UserInfoRepository.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/utils/EncryptionUtil.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Servers.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/AnnouncementsService.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/utils/ApiResponse.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/ServersRepository.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/UserAnswersService.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/RegisterRequest.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/ServersService.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/exception/BizException.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/conf/StaticResourceConfig.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/utils/JwtUtil.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/UserAnswersRepository.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/ServersController.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/IdCardController.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/EmailController.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/QuestionRepository.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/IdCardRequest.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/advice/GlobalExceptionHandler.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/BackendApplication.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/AnnouncementsRepository.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/FrpTunnel.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/UpdateFrpTunnelRequest.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/AnnouncementsController.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/UserInfoService.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/IdCardService.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/EmailRepository.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Users.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/utils/ResponseCode.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/EmailService.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/TokenRequest.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/UserAnswers.java
-/Users/kelvin-serendipity/Documents/同步空间/GitHub Desktop/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/AnswerRequest.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Servers.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/AuthController.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/UsersRepository.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/utils/ApiResponse.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/pw.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/AnnouncementsService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/QuestionService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Users.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/EditUserRequest.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/TokenRequest.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/advice/GlobalExceptionHandler.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/IdCardController.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/UserAnswersService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/QuestionRepository.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/QuizController.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Announcements.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/IdCardRequest.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/UserInfoController.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/UpdateFrpTunnelRequest.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/UserInfoRepository.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/ResetPasswordRequest.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/conf/WebConfig.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/utils/ResponseCode.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/ServersService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/exception/BizException.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Question.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/ServersController.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/AnnouncementsController.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/FrpTunnelService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/conf/StaticResourceConfig.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/utils/JwtUtil.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/IdCardService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/EmailService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/RegisterRequest.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/UsersService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/FrpTunnelController.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/AnnouncementsRepository.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/UserAnswersRepository.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/UserInfoService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/ServersRepository.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/FrpTunnel.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/EmailRepository.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/UserAnswers.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/utils/EncryptionUtil.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Email.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/BackendApplication.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/AnswerRequest.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/LoginRequest.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/FrpTunnelRepository.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/EmailController.java

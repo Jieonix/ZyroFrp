@@ -46,6 +46,8 @@ public class Users {
 
   private LocalDate vip_end_time;
 
+  private LocalDateTime last_active_time;
+
 
   public String generateToken() {
     SecureRandom random = new SecureRandom();
@@ -171,6 +173,14 @@ public class Users {
 
   public void setIs_trial_user(int is_trial_user) {
     this.is_trial_user = is_trial_user;
+  }
+
+  public LocalDateTime getLast_active_time() {
+    return last_active_time;
+  }
+
+  public void setLast_active_time(LocalDateTime last_active_time) {
+    this.last_active_time = last_active_time;
   }
 
 }

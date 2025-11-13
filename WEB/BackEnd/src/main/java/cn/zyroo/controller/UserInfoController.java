@@ -11,6 +11,7 @@ import cn.zyroo.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -81,6 +82,26 @@ public class UserInfoController {
     user.setPassword("");
     user.setId_card("");
     return ApiResponse.success(user);
+  }
+
+  @PostMapping("/update-last-active")
+  public ApiResponse<String> updateLastActiveTime(@RequestHeader("Authorization") String authHeader) {
+    try {
+      String token = authHeader.replace("Bearer ", "");
+      String email = jwtUtil.getEmailFromToken(token);
+
+      Users user = usersRepository.findByEmail(email);
+      if (user == null) {
+        return ApiResponse.error(ResponseCode.USERINFO_USER_NOT_FOUND);
+      }
+
+      user.setLast_active_time(LocalDateTime.now());
+      usersRepository.save(user);
+
+      return ApiResponse.success("活跃时间更新成功");
+    } catch (Exception e) {
+      return ApiResponse.error(ResponseCode.USERINFO_TOKEN_INVALID);
+    }
   }
 
 }

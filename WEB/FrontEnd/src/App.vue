@@ -4,7 +4,7 @@ import AnnouncementModal from './components/AnnouncementModal.vue'
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" v-activity-track="['click', 'touchstart', 'keydown', 'scroll']">
     <AnnouncementModal />
     <RouterView />
   </div>

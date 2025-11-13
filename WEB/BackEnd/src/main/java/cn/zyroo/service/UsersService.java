@@ -128,9 +128,14 @@ public class UsersService {
       return ApiResponse.error(ResponseCode.LOGIN_PASSWORD_ERROR);
     }
 
+    // 更新最后活跃时间
+    user.setLast_active_time(LocalDateTime.now());
+
     String token = generateToken(user);
 
     if (token != null) {
+      // 保存用户信息（包含更新后的活跃时间）
+      usersRepository.save(user);
       return ApiResponse.success(token);
     }
 
@@ -178,9 +183,14 @@ public class UsersService {
       return ApiResponse.error(ResponseCode.LOGIN_INSUFFICIENT_PERMISSIONS);
     }
 
+    // 更新最后活跃时间
+    user.setLast_active_time(LocalDateTime.now());
+
     String token = generateToken(user);
 
     if (token != null) {
+      // 保存用户信息（包含更新后的活跃时间）
+      usersRepository.save(user);
       return ApiResponse.success(token);
     }
 

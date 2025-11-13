@@ -18,6 +18,7 @@ import axios from "axios"
 import qs from 'qs'
 import { validateEmail } from '../../utils/validate.js'
 import router from "@/router/index.js"
+import activityTracker from '../../utils/activityTracker.js'
 
 const { proxy } = getCurrentInstance()
 
@@ -49,6 +50,9 @@ const login = async () => {
     }
 
     localStorage.setItem("AdminToken", response.data.data)
+
+    // 管理员登录成功后也启动活跃时间跟踪器
+    activityTracker.start()
 
     setTimeout(() => {
       router.push('/Admin_Home')

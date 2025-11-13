@@ -6,210 +6,206 @@ import Loading from '@/components/Loading.vue'
   <div class="Admin_Users">
     <Loading />
     <Header />
-    <div class="container">
-      <Admin_Sidebar />
-      <main class="main-content">
-        <Loading />
-        <h1>用户管理页</h1>
-        <section class="features">
-          <div class="features-box">
-            <div class="top">
-              <button class="search_button" @click="search_style_function">查询</button>
-              <button class="add_button" @click="add_style_function">新增</button>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th class="head user-id">用户ID</th>
-                  <th class="head email">邮箱</th>
-                  <th class="head user-key">用户密钥</th>
-                  <th class="head role">用户权限</th>
-                  <th class="head remaining-traffic">剩余流量</th>
-                  <th class="head upload-limit">上行限速</th>
-                  <th class="head download-limit">下行限速</th>
-                  <th class="head is-trial-user">先锋测试用户</th>
-                  <th class="head vip-start-time">会员开始时间</th>
-                  <th class="head vip-end-time">会员结束时间</th>
-                  <th class="head vip-status">会员状态</th>
-                  <th class="head real-name">真实姓名</th>
-                  <th class="head real-name-status">实名状态</th>
-                  <th class="head created-at">创建日期</th>
-                  <th class="head updated-at">更新日期</th>
-                  <th class="head edit-t">编辑</th>
-                  <th class="head delete">删除</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="user in users" :key="user.user_id">
-                  <td class="user-id">{{ user.user_id }}</td>
-                  <td class="email">{{ user.email }}</td>
-                  <td class="email">{{ user.user_key }}</td>
-                  <td class="role">{{ user.role }}</td>
-                  <td class="remaining-traffic">{{ user.remaining_traffic }}</td>
-                  <td class="upload-limit">{{ user.upload_limit }}</td>
-                  <td class="download-limit">{{ user.download_limit }}</td>
-                  <td class="is-trial-user">{{ user.is_trial_user ? '是' : '否' }}</td>
-                  <td class="vip-start-time">{{ formatDate(user.vip_start_time) }}</td>
-                  <td class="vip-end-time">{{ formatDate(user.vip_end_time) }}</td>
-                  <td class="vip-status">{{ user.vip_status ? 'VIP' : '非VIP' }}</td>
-                  <td class="real-name">{{ user.real_name }}</td>
-                  <td class="real-name-status">{{ user.real_name_status ? '已实名' : '未实名' }}</td>
-                  <td class="created-at">{{ formatDate(user.created_at) }}</td>
-                  <td class="updated-at">{{ formatDate(user.updated_at) }}</td>
-                  <td class="td_edit"><button class="edit_button" @click="edit_style_function(user.user_id)">编辑</button>
-                  </td>
-                  <td class="td_delete"><button class="edit_delete" @click="deleteUser(user.user_id)">删除</button></td>
-                </tr>
-              </tbody>
-            </table>
+    <Admin_Sidebar />
+    <main class="main-content">
+      <Loading />
+      <h1>用户管理页</h1>
+      <section class="features">
+        <div class="features-box">
+          <div class="top">
+            <button class="search_button" @click="search_style_function">查询</button>
+            <button class="add_button" @click="add_style_function">新增</button>
           </div>
-          <div v-if="add_style" class="overlay_1">
-            <div class="add">
-              <h1>新增用户</h1>
-              <label for="">账号*</label><input id="email" v-model="email" type="text">
-              <label for="">密码*</label><input id="password" v-model="password" type="password">
-              <label for="">权限</label>
-              <select v-model="role" id="role">
-                <option value="User">User</option>
-                <option value="Admin">Admin</option>
-                <option value="SuperAdmin">SuperAdmin</option>
-              </select>
-              <label for="">总流量 (GB)</label><input v-model="remaining_traffic" id="remaining_traffic" type="number"
-                value="4000">
-              <label for="">上行限速 (Mb)</label><input v-model="upload_limit" id="upload_limit" type="number"
-                value="51888">
-              <label for="">下行限速 (Mb)</label><input v-model="download_limit" id="download_limit" type="number"
-                value="51888">
-              <label for="">先锋体验用户</label>
-              <select v-model.number="is_trial_user" id="is_trial_user">
-                <option value="1">是</option>
-                <option value="0">否</option>
-              </select>
+          <table>
+            <thead>
+              <tr>
+                <th class="head user-id">用户ID</th>
+                <th class="head email">邮箱</th>
+                <th class="head user-key">用户密钥</th>
+                <th class="head role">用户权限</th>
+                <th class="head remaining-traffic">剩余流量</th>
+                <th class="head upload-limit">上行限速</th>
+                <th class="head download-limit">下行限速</th>
+                <th class="head is-trial-user">先锋测试用户</th>
+                <th class="head vip-start-time">会员开始时间</th>
+                <th class="head vip-end-time">会员结束时间</th>
+                <th class="head vip-status">会员状态</th>
+                <th class="head real-name">真实姓名</th>
+                <th class="head real-name-status">实名状态</th>
+                <th class="head created-at">创建日期</th>
+                <th class="head updated-at">更新日期</th>
+                <th class="head edit-t">编辑</th>
+                <th class="head delete">删除</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="user in users" :key="user.user_id">
+                <td class="user-id">{{ user.user_id }}</td>
+                <td class="email">{{ user.email }}</td>
+                <td class="email">{{ user.user_key }}</td>
+                <td class="role">{{ user.role }}</td>
+                <td class="remaining-traffic">{{ user.remaining_traffic }}</td>
+                <td class="upload-limit">{{ user.upload_limit }}</td>
+                <td class="download-limit">{{ user.download_limit }}</td>
+                <td class="is-trial-user">{{ user.is_trial_user ? '是' : '否' }}</td>
+                <td class="vip-start-time">{{ formatDate(user.vip_start_time) }}</td>
+                <td class="vip-end-time">{{ formatDate(user.vip_end_time) }}</td>
+                <td class="vip-status">{{ user.vip_status ? 'VIP' : '非VIP' }}</td>
+                <td class="real-name">{{ user.real_name }}</td>
+                <td class="real-name-status">{{ user.real_name_status ? '已实名' : '未实名' }}</td>
+                <td class="created-at">{{ formatDate(user.created_at) }}</td>
+                <td class="updated-at">{{ formatDate(user.updated_at) }}</td>
+                <td class="td_edit"><button class="edit_button" @click="edit_style_function(user.user_id)">编辑</button>
+                </td>
+                <td class="td_delete"><button class="edit_delete" @click="deleteUser(user.user_id)">删除</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div v-if="add_style" class="overlay_1">
+          <div class="add">
+            <h1>新增用户</h1>
+            <label for="">账号*</label><input id="email" v-model="email" type="text">
+            <label for="">密码*</label><input id="password" v-model="password" type="password">
+            <label for="">权限</label>
+            <select v-model="role" id="role">
+              <option value="User">User</option>
+              <option value="Admin">Admin</option>
+              <option value="SuperAdmin">SuperAdmin</option>
+            </select>
+            <label for="">总流量 (GB)</label><input v-model="remaining_traffic" id="remaining_traffic" type="number"
+              value="4000">
+            <label for="">上行限速 (Mb)</label><input v-model="upload_limit" id="upload_limit" type="number" value="51888">
+            <label for="">下行限速 (Mb)</label><input v-model="download_limit" id="download_limit" type="number"
+              value="51888">
+            <label for="">先锋体验用户</label>
+            <select v-model.number="is_trial_user" id="is_trial_user">
+              <option value="1">是</option>
+              <option value="0">否</option>
+            </select>
 
-              <label>真实姓名</label>
-              <input v-model="real_name" id="real_name" type="text" placeholder="张xx">
+            <label>真实姓名</label>
+            <input v-model="real_name" id="real_name" type="text" placeholder="张xx">
 
-              <label>身份证号（加密）</label>
-              <input v-model="id_card" id="id_card" type="text" placeholder="652xxxxxxxxxxxxxxx">
+            <label>身份证号（加密）</label>
+            <input v-model="id_card" id="id_card" type="text" placeholder="652xxxxxxxxxxxxxxx">
 
-              <label>是否实名</label>
-              <select v-model.number="real_name_status" id="real_name_status">
-                <option value="1">已实名</option>
-                <option value="0">未实名</option>
-              </select>
+            <label>是否实名</label>
+            <select v-model.number="real_name_status" id="real_name_status">
+              <option value="1">已实名</option>
+              <option value="0">未实名</option>
+            </select>
 
-              <label>会员开始时间</label>
-              <input v-model="vip_start_time" id="vip_start_time" type="date">
+            <label>会员开始时间</label>
+            <input v-model="vip_start_time" id="vip_start_time" type="date">
 
-              <label>会员结束时间</label>
-              <input v-model="vip_end_time" id="vip_end_time" type="date">
+            <label>会员结束时间</label>
+            <input v-model="vip_end_time" id="vip_end_time" type="date">
 
-              <label>会员状态</label>
-              <select v-model.number="vip_status" id="vip_status">
-                <option value="0">非VIP</option>
-                <option value="1">VIP</option>
-              </select>
+            <label>会员状态</label>
+            <select v-model.number="vip_status" id="vip_status">
+              <option value="0">非VIP</option>
+              <option value="1">VIP</option>
+            </select>
 
-              <div>
-                <button type="button" @click="confirmTheAddition" class="confirm">确认新增</button>
-                <button type="button" @click="add_style = false" class="cancel">取消</button>
-              </div>
+            <div>
+              <button type="button" @click="confirmTheAddition" class="confirm">确认新增</button>
+              <button type="button" @click="add_style = false" class="cancel">取消</button>
             </div>
           </div>
-          <div v-if="edit_style" class="overlay_1">
-            <div class="edit">
-              <h1>修改用户</h1>
-              <label for="">账号*</label><input id="email" v-model="email" type="text">
-              <label for="">密码*（默认不显示）</label><input id="password" v-model="password" type="text">
-              <label for="">权限</label>
-              <select v-model="role" id="role">
-                <option value="User">User</option>
-                <option value="Admin">Admin</option>
-                <option value="SuperAdmin">SuperAdmin</option>
-              </select>
-              <label for="">总流量 (GB)</label><input v-model="remaining_traffic" id="remaining_traffic" type="number"
-                value="4000">
-              <label for="">上行限速 (Mb)</label><input v-model="upload_limit" id="upload_limit" type="number"
-                value="51888">
-              <label for="">下行限速 (Mb)</label><input v-model="download_limit" id="download_limit" type="number"
-                value="51888">
-              <label for="">先锋体验用户</label>
-              <select v-model.number="is_trial_user" id="is_trial_user">
-                <option value="1">是</option>
-                <option value="0">否</option>
-              </select>
+        </div>
+        <div v-if="edit_style" class="overlay_1">
+          <div class="edit">
+            <h1>修改用户</h1>
+            <label for="">账号*</label><input id="email" v-model="email" type="text">
+            <label for="">密码*（默认不显示）</label><input id="password" v-model="password" type="text">
+            <label for="">权限</label>
+            <select v-model="role" id="role">
+              <option value="User">User</option>
+              <option value="Admin">Admin</option>
+              <option value="SuperAdmin">SuperAdmin</option>
+            </select>
+            <label for="">总流量 (GB)</label><input v-model="remaining_traffic" id="remaining_traffic" type="number"
+              value="4000">
+            <label for="">上行限速 (Mb)</label><input v-model="upload_limit" id="upload_limit" type="number" value="51888">
+            <label for="">下行限速 (Mb)</label><input v-model="download_limit" id="download_limit" type="number"
+              value="51888">
+            <label for="">先锋体验用户</label>
+            <select v-model.number="is_trial_user" id="is_trial_user">
+              <option value="1">是</option>
+              <option value="0">否</option>
+            </select>
 
-              <label>真实姓名</label>
-              <input v-model="real_name" id="real_name" type="text" placeholder="">
+            <label>真实姓名</label>
+            <input v-model="real_name" id="real_name" type="text" placeholder="">
 
-              <label>身份证号（默认不显示）</label>
-              <input v-model="id_card" id="id_card" type="text" placeholder="">
+            <label>身份证号（默认不显示）</label>
+            <input v-model="id_card" id="id_card" type="text" placeholder="">
 
-              <label>是否实名</label>
-              <select v-model.number="real_name_status" id="real_name_status">
-                <option value="1">已实名</option>
-                <option value="0">未实名</option>
-              </select>
+            <label>是否实名</label>
+            <select v-model.number="real_name_status" id="real_name_status">
+              <option value="1">已实名</option>
+              <option value="0">未实名</option>
+            </select>
 
-              <label>会员开始时间</label>
-              <input v-model="vip_start_time" id="vip_start_time" type="date">
+            <label>会员开始时间</label>
+            <input v-model="vip_start_time" id="vip_start_time" type="date">
 
-              <label>会员结束时间</label>
-              <input v-model="vip_end_time" id="vip_end_time" type="date">
+            <label>会员结束时间</label>
+            <input v-model="vip_end_time" id="vip_end_time" type="date">
 
-              <label>会员状态</label>
-              <select v-model.number="vip_status" id="vip_status">
-                <option value="0">非VIP</option>
-                <option value="1">VIP</option>
-              </select>
+            <label>会员状态</label>
+            <select v-model.number="vip_status" id="vip_status">
+              <option value="0">非VIP</option>
+              <option value="1">VIP</option>
+            </select>
 
-              <div>
-                <button type="button" @click="confirmTheEdit(this.user_id)" class="confirm">确认修改</button>
-                <button type="button" @click="edit_style = false" class="cancel">取消</button>
-              </div>
+            <div>
+              <button type="button" @click="confirmTheEdit(this.user_id)" class="confirm">确认修改</button>
+              <button type="button" @click="edit_style = false" class="cancel">取消</button>
             </div>
           </div>
-          <div v-if="search_style" class="overlay_1">
-            <div class="add">
-              <h1>查询用户</h1>
-              <label for="">账号*</label><input id="email" v-model="email" type="text">
-              <label for="">权限</label>
-              <select v-model="role" id="role">
-                <option value="User">User</option>
-                <option value="Admin">Admin</option>
-                <option value="SuperAdmin">SuperAdmin</option>
-              </select>
-              <label for="">先锋体验用户</label>
-              <select v-model.number="is_trial_user" id="is_trial_user">
-                <option value="1">是</option>
-                <option value="0">否</option>
-              </select>
+        </div>
+        <div v-if="search_style" class="overlay_1">
+          <div class="add">
+            <h1>查询用户</h1>
+            <label for="">账号*</label><input id="email" v-model="email" type="text">
+            <label for="">权限</label>
+            <select v-model="role" id="role">
+              <option value="User">User</option>
+              <option value="Admin">Admin</option>
+              <option value="SuperAdmin">SuperAdmin</option>
+            </select>
+            <label for="">先锋体验用户</label>
+            <select v-model.number="is_trial_user" id="is_trial_user">
+              <option value="1">是</option>
+              <option value="0">否</option>
+            </select>
 
-              <label>真实姓名</label>
-              <input v-model="real_name" id="real_name" type="text" placeholder="张xx">
+            <label>真实姓名</label>
+            <input v-model="real_name" id="real_name" type="text" placeholder="张xx">
 
-              <label>是否实名</label>
-              <select v-model.number="real_name_status" id="real_name_status">
-                <option value="1">已实名</option>
-                <option value="0">未实名</option>
-              </select>
+            <label>是否实名</label>
+            <select v-model.number="real_name_status" id="real_name_status">
+              <option value="1">已实名</option>
+              <option value="0">未实名</option>
+            </select>
 
-              <label>会员状态</label>
-              <select v-model.number="vip_status" id="vip_status">
-                <option value="0">非VIP</option>
-                <option value="1">VIP</option>
-              </select>
+            <label>会员状态</label>
+            <select v-model.number="vip_status" id="vip_status">
+              <option value="0">非VIP</option>
+              <option value="1">VIP</option>
+            </select>
 
-              <div>
-                <button type="button" @click="confirmTheSearch" class="confirm">开始查询</button>
-                <button type="button" @click="search_style = false" class="cancel">取消</button>
-              </div>
+            <div>
+              <button type="button" @click="confirmTheSearch" class="confirm">开始查询</button>
+              <button type="button" @click="search_style = false" class="cancel">取消</button>
             </div>
           </div>
-        </section>
-        <Footer />
-      </main>
-    </div>
+        </div>
+      </section>
+      <Footer />
+    </main>
   </div>
 </template>
 

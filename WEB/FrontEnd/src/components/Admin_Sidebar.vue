@@ -22,6 +22,7 @@
   border-right: 1px solid #e6e6e6;
   height: 100vh;
   position: fixed;
+  padding-top: 68px;
 }
 
 .sidebar ul {

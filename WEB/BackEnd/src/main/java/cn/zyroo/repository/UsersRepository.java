@@ -17,4 +17,7 @@ public interface UsersRepository extends JpaRepository<Users,Long> {
   @Query(value = "SELECT * FROM users WHERE user_id = :user_id", nativeQuery = true)
   Users findByUserId(@Param("user_id") Long userId);
 
+  @Query("SELECT u.email FROM Users u WHERE u.email IS NOT NULL AND u.email != ''")
+  List<String> findAllEmails();
+
 }

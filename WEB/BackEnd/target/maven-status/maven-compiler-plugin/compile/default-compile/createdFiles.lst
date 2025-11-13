@@ -2,7 +2,6 @@ cn/zyroo/service/FrpTunnelService.class
 cn/zyroo/exception/BizException.class
 cn/zyroo/conf/WebConfig.class
 cn/zyroo/dto/ResetPasswordRequest.class
-cn/zyroo/controller/EmailController.class
 cn/zyroo/repository/UsersRepository.class
 cn/zyroo/dto/AnswerRequest.class
 cn/zyroo/model/Servers.class

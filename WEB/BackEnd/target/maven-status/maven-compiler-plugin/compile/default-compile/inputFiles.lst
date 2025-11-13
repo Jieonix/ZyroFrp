@@ -1,3 +1,4 @@
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/BulkEmail.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/model/Servers.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/AuthController.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/UsersRepository.java
@@ -9,6 +10,7 @@
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/EditUserRequest.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/dto/TokenRequest.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/advice/GlobalExceptionHandler.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/BulkEmailRepository.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/controller/IdCardController.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/service/UserAnswersService.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/repository/QuestionRepository.java

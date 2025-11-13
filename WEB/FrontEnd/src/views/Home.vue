@@ -138,18 +138,18 @@ export default {
         ? {
           backgroundColor: "#606060",
           color: "#dfdfdf",
-          fontWeight: "900",
-          fontSize: "13px",
-          padding: "3px 5px",
+          fontWeight: "bold",
+          fontSize: "0.7rem",
+          padding: "2px 5px",
           margin: "0 3px 0 5px",
           borderRadius: "3px",
         }
         : {
           backgroundColor: "#606060",
           color: "#dfdfdf",
-          fontWeight: "900",
-          fontSize: "13px",
-          padding: "3px 5px",
+          fontWeight: "bold",
+          fontSize: "0.7rem",
+          padding: "2px 5px",
           margin: "0 3px 0 5px",
           borderRadius: "3px",
         },
@@ -491,6 +491,6 @@ export default {
   .fb5 {
     background-color: #18181c;
   }
-  
+
 }
 </style>

@@ -8,6 +8,7 @@
       <li><router-link to="/Admin_Announcements" active-class="active">公告管理</router-link></li>
       <li><router-link to="/Admin_Answer" active-class="active">答题管理</router-link></li>
       <li><router-link to="/Admin_Questions" active-class="active">题目管理</router-link></li>
+      <li><router-link to="/Admin_Email" active-class="active">邮件群发</router-link></li>
       <li><router-link to="/Admin_EmailCode" active-class="active">验证码管理</router-link></li>
       <li><router-link to="/Admin_Servers" active-class="active">服务器管理</router-link></li>
     </ul>

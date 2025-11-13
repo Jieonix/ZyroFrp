@@ -26,6 +26,11 @@ public class ApiResponse<T> {
     return new ApiResponse<>(responseCode.getCode(), responseCode.getMessage(), null);
   }
 
+  // 失败返回（只有消息）
+  public static <T> ApiResponse<T> error(String message) {
+    return new ApiResponse<>("500", message, null);
+  }
+
   public String getCode() {
     return code;
   }

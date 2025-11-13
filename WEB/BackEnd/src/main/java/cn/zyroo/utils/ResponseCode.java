@@ -64,6 +64,12 @@ public enum ResponseCode {
   // 注销用户错误代码
   UNAUTHORIZED_TO_DEACTIVATE_ACCOUNT("DEACTIVATION_4801", "无权注销该账号"),
 
+  // 权限相关错误代码
+  PERMISSION_DENIED("PERMISSION_4802", "权限不足"),
+
+  // 通用错误代码
+  FAILED("FAILED_4999", "操作失败"),
+
   // 用户相关错误代码
   USER_NOT_FOUND("USER_4901", "用户不存在");
 

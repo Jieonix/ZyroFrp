@@ -14,6 +14,7 @@ import ResetPassword from '../views/Auth/ResetPassword.vue';
 import Payment from '../views/Payment.vue';
 import Admin_Home from '@/views/Admin/Admin_Home.vue';
 import Admin_Users from '@/views/Admin/Admin_Users.vue';
+import Admin_Email from '@/views/Admin/Admin_Email.vue';
 import Admin_Login from '@/views/Auth/Admin_Login.vue';
 
 const routes = [
@@ -89,6 +90,11 @@ const routes = [
     path: '/Admin_Users',
     name: 'Admin_Users',
     component: Admin_Users,
+  },
+  {
+    path: '/Admin_Email',
+    name: 'Admin_Email',
+    component: Admin_Email,
   },
   {
     path: '/Admin_Login',

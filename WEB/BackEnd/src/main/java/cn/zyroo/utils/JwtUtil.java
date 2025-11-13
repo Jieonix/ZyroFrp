@@ -61,6 +61,16 @@ public class JwtUtil {
     }
   }
 
+  // 获取Token中的指定claim
+  public String getClaimFromToken(String token, String claimName) {
+    try {
+      DecodedJWT decodedJWT = JWT.decode(token);
+      return decodedJWT.getClaim(claimName).asString();
+    } catch (JWTDecodeException e) {
+      throw new BizException("Token 解析失败");
+    }
+  }
+
   private boolean validateUserPermissions(String email, String TokenRole) {
     Users user = usersRepository.findByEmail(email);
     if (user == null || !user.getRole().equals(TokenRole)) {

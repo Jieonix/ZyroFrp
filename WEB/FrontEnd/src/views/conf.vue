@@ -125,13 +125,8 @@ export default {
         }
       });
 
-      let configContent = `### 此 ZyroFrpc 为业务定制版本\n`;
-      configContent += `### 此版本仅能与ZyroFrp内网穿透服务平台适配\n\n`;
-      configContent += `# serverAddr为必填项-服务器ip/服务器域名\n`;
-      configContent += `serverAddr = "${this.server_ip}"\n`;
-      configContent += `# serverPort为必填项-服务器内网穿透专用端口\n`;
+      let configContent = `serverAddr = "${this.server_ip}"\n`;
       configContent += `serverPort = ${this.server_port}\n`;
-      configContent += `# userKey为必填项\n`;
       configContent += `userKey = "${this.userKey}"\n\n`;
 
       if (this.configData && this.configData.length > 0) {
@@ -265,7 +260,6 @@ export default {
   margin-left: 20px;
 }
 
-/* 特定于conf页面的深色主题样式 */
 @media (prefers-color-scheme: dark) {
   .tabs-btn {
     background-color: #18181c;

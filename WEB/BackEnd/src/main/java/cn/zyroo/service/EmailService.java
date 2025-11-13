@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -76,6 +77,20 @@ public class EmailService {
   return String.valueOf(randomCode);
  }
 
+
+ // 批量发送邮件给所有用户
+ public void sendBulkEmail(List<String> emailList, String subject, String content) throws MailException {
+  SimpleMailMessage message = new SimpleMailMessage();
+  message.setFrom(fromEmail);
+  message.setSubject(subject);
+  message.setText(content);
+
+  // 转换为字符串数组
+  String[] toEmails = emailList.toArray(new String[0]);
+  message.setTo(toEmails);
+
+  mailSender.send(message);
+ }
 
  @Scheduled(fixedRate = 1000 * 60 * 1)
  public void expireOldCodes() {

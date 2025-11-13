@@ -506,18 +506,17 @@ h1 {
 .features-box {
   margin: 0 auto;
   text-align: center;
-  min-height: 86vh;
 }
 
 .head {
-  padding: 10px 20px;
-  background-color: #e1e1e1;
+  padding: 0.6rem 0.9rem;
+  background-color: #cbf1dc;
 }
 
 td {
-  max-width: 180px;
+  max-width: 8rem;
   padding: 10px 20px;
-  background-color: #f5f5f5;
+  background-color: #eaf5ef;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -534,7 +533,7 @@ td {
   height: 45px;
   width: 100px;
   cursor: pointer;
-  background-color: #e4e4e4;
+  background-color: #d9f1e4;
   border: none;
   color: #2c3e50;
   transition: all 0.1s;
@@ -542,7 +541,7 @@ td {
 
 .edit_delete:hover,
 .edit_button:hover {
-  background-color: #a8a8a8;
+  background-color: #ccf4df;
 }
 
 table {
@@ -555,7 +554,7 @@ tr,
 td,
 th {
   border-collapse: collapse;
-  border: 2px solid rgb(194, 194, 194);
+  border: 2px solid #c2c2c2;
 }
 
 .overlay_1 {
@@ -640,21 +639,24 @@ th {
   background-color: #45a049;
 }
 
+.search_button,
 .add_button {
-  height: 35px;
-  width: 50px;
-  background-color: #767676;
+  height: 3rem;
+  width: 5rem;
+  background-color: #3ecb90;
   border: none;
   border-radius: 5px;
   color: white;
   cursor: pointer;
   transition: all 0.2s;
-  font-size: 13px;
+  font-size: 1rem;
   margin-bottom: 20px;
+  margin-left: 1rem;
 }
 
+.search_button:hover,
 .add_button:hover {
-  background-color: #686868;
+  background-color: #5aac8a;
 }
 
 .top {

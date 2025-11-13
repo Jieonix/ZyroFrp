@@ -30,6 +30,20 @@ import Loading from '@/components/Loading.vue'
               <div class="traffic" :class="trafficClass">{{ traffic }}</div>
               <div class="status" :class="statusClass">{{ s_status }}</div>
             </div>
+            <div class="tips">
+              <div class="tip_1">
+                <div class="one"></div>
+                <p class="tips_p">vip用户专用节点</p>
+              </div>
+              <div class="tip_2">
+                <div class="two"></div>
+                <p class="tips_p">通用节点、服务器在线、允许的服务</p>
+              </div>
+              <div class="tip_3">
+                <div class="three"></div>
+                <p class="tips_p">服务器离线、不允许的服务</p>
+              </div>
+            </div>
             <div class="ServerInfo">
               <p class="title">服务器信息：</p>
               <p class="content"><b class="left">服务器名：</b>{{ server_name }}</p>
@@ -137,8 +151,8 @@ export default {
       status: true,
       vip: 'vip',
       no_vip: '通用节点',
-      web: 'WEB-81/444',
-      traffic: '大流量',
+      web: '网站部署',
+      traffic: '超大流量',
       udp: 'UDP',
       s_status: 'ONLINE',
       server_name: '',
@@ -452,9 +466,9 @@ input::placeholder {
 }
 
 .red {
-  background-color: #f7dddd;
-  border: 1px solid #e67d7d;
-  color: #e12200;
+  background-color: #f7e6dd;
+  border: 1px solid #e6a77d;
+  color: #e14f00;
 }
 
 .golden {
@@ -475,7 +489,7 @@ input::placeholder {
 
 
 .big {
-  width: 27vw;
+  width: 35rem;
   display: flex;
   margin-top: 20px;
 }
@@ -492,7 +506,7 @@ input::placeholder {
 }
 
 .udp {
-  width: 15%;
+  width: 20%;
 }
 
 .vip {
@@ -500,11 +514,11 @@ input::placeholder {
 }
 
 .website {
-  width: 30%;
+  width: 20%;
 }
 
 .traffic {
-  width: 15%;
+  width: 20%;
 }
 
 .status {
@@ -532,7 +546,60 @@ input::placeholder {
   margin: 3px 0;
 }
 
-/* 特定于add_tunnels页面的深色主题样式 */
+.tips {
+  display: flex;
+  width: 35rem;
+  margin: 0.9rem 0;
+}
+
+.tip_1,
+.tip_2,
+.tip_3 {
+  display: flex;
+  align-items: center;
+  margin-right: 1.3rem;
+  font-weight: 1900;
+}
+
+.one,
+.two,
+.three {
+  margin: 0;
+  margin-right: 0.7rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: none;
+  border-radius: 0.2rem;
+}
+
+.one {
+  background-color: #ffc800;
+}
+
+.two {
+  background-color: #00ff80;
+}
+
+.three {
+  background-color: #ff5900;
+}
+
+.tips_p {
+  font-size: 0.6rem;
+}
+
+.tip_1 {
+  color: #ffc800;
+}
+
+.tip_2 {
+  color: #00ff80;
+}
+
+.tip_3 {
+  color: #ff5900;
+}
+
 @media (prefers-color-scheme: dark) {
   .select-button {
     background-color: #28282c;
@@ -579,5 +646,6 @@ input::placeholder {
   .content {
     color: #b0b0b0;
   }
+
 }
 </style>

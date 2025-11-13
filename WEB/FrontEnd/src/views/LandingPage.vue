@@ -653,18 +653,35 @@ export default {
     }
   },
   methods: {
-    // 检查登录状态
     checkLoginStatus() {
       const token = localStorage.getItem('Token')
-      this.isLoggedIn = !!token
+      if (!token) {
+        this.isLoggedIn = false
+        return
+      }
+
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]))
+        const currentTime = Date.now() / 1000
+
+        if (payload.exp && payload.exp < currentTime) {
+          localStorage.removeItem('Token')
+          this.isLoggedIn = false
+        } else {
+          console.log('Token 有效')
+          this.isLoggedIn = true
+        }
+      } catch (error) {
+        console.error('Token 解析失败:', error)
+        localStorage.removeItem('Token')
+        this.isLoggedIn = false
+      }
     },
 
-    // 打开 GitHub
     openGitHub() {
       window.open('https://github.com/Jieonix/ZyroFrp', '_blank')
     },
 
-    // 跳转页面
     goToDashboard() {
       this.$router.push('/Home')
     },
@@ -753,17 +770,19 @@ export default {
 
     // 初始化 Dark 模式
     initDarkMode() {
-      // 检查系统主题偏好
-      if (window.matchMedia) {
-        this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-        this.isDarkMode = this.mediaQuery.matches
-        this.mediaQuery.addListener(this.handleMediaQueryChange)
-      }
-
-      // 检查本地存储的主题设置
+      // 检查本地存储的主题设置（优先级最高）
       const savedTheme = localStorage.getItem('theme')
       if (savedTheme) {
         this.isDarkMode = savedTheme === 'dark'
+      } else {
+        // 没有保存的主题设置，检查系统主题偏好
+        if (window.matchMedia) {
+          this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+          this.isDarkMode = this.mediaQuery.matches
+
+          // 使用 addEventListener 而不是 addListener（更现代的 API）
+          this.mediaQuery.addEventListener('change', this.handleMediaQueryChange)
+        }
       }
 
       // 应用主题
@@ -772,8 +791,12 @@ export default {
 
     // 处理系统主题变化
     handleMediaQueryChange(e) {
-      this.isDarkMode = e.matches
-      this.applyTheme()
+      // 只有在没有用户手动设置主题时才跟随系统
+      const savedTheme = localStorage.getItem('theme')
+      if (!savedTheme) {
+        this.isDarkMode = e.matches
+        this.applyTheme()
+      }
     },
 
     // 应用主题到页面
@@ -785,16 +808,41 @@ export default {
         root.classList.remove('dark-theme')
       }
       localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light')
+    },
+
+    // 手动切换主题（可以被外部调用）
+    toggleTheme() {
+      this.isDarkMode = !this.isDarkMode
+      this.applyTheme()
+    },
+
+    // 监听 storage 事件（跨标签页同步）
+    handleStorageChange(e) {
+      if (e.key === 'theme') {
+        this.isDarkMode = e.newValue === 'dark'
+        this.applyTheme()
+      }
     }
   },
   mounted() {
     this.checkLoginStatus()
     this.initDarkMode()
+
+    // 每5分钟检查一次token状态
+    this.tokenCheckInterval = setInterval(() => {
+      this.checkLoginStatus()
+    }, 5 * 60 * 1000)
   },
   beforeDestroy() {
     // 清理监听器
     if (this.mediaQuery) {
-      this.mediaQuery.removeListener(this.handleMediaQueryChange)
+      // 使用 removeEventListener 而不是 removeListener
+      this.mediaQuery.removeEventListener('change', this.handleMediaQueryChange)
+    }
+
+    // 清理定时器
+    if (this.tokenCheckInterval) {
+      clearInterval(this.tokenCheckInterval)
     }
   }
 }
@@ -2686,7 +2734,6 @@ html {
   color: #a0a0a0;
 }
 
-/* Dark 模式终端窗口 - 白色主题 */
 :root.dark-theme .terminal-window {
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);

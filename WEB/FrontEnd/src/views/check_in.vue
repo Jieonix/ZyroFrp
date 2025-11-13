@@ -37,7 +37,7 @@ D、{{ questionD }}
           <div v-else>
             <h1 class="Answered_h1">今日已答题 ！</h1>
             <h3 class="Answered_h3">{{ randomMsg }}</h3>
-            <img class="Emoticon" src="/public/Emoticon.png" alt="">
+            <img class="Emoticon" src="/Emoticon.png" alt="">
           </div>
         </div>
       </section>

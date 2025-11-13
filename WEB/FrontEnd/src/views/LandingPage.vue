@@ -2623,6 +2623,7 @@ html {
 :root.dark-theme .dashboard-btn,
 :root.dark-theme .logout-btn {
   color: #a0a0a0;
+  border: 1px solid #0c0c0c;
 }
 
 :root.dark-theme .github-btn:hover,

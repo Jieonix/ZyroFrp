@@ -27,7 +27,6 @@ class ActivityTracker {
       this.updateLastActive();
     }, this.updateInterval);
 
-    console.log('活跃时间跟踪器已启动');
   }
 
   // 停止跟踪
@@ -43,7 +42,6 @@ class ActivityTracker {
     this.removePageVisibilityHandlers();
     this.removeBeforeUnloadHandler();
 
-    console.log('活跃时间跟踪器已停止');
   }
 
   // 更新最后活跃时间（带防抖）
@@ -84,7 +82,6 @@ class ActivityTracker {
       });
 
       this.lastUpdateTime = Date.now();
-      console.log('活跃时间更新成功');
     } catch (error) {
       console.error('活跃时间更新失败:', error.message);
 

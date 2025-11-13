@@ -668,7 +668,6 @@ export default {
           localStorage.removeItem('Token')
           this.isLoggedIn = false
         } else {
-          console.log('Token 有效')
           this.isLoggedIn = true
         }
       } catch (error) {

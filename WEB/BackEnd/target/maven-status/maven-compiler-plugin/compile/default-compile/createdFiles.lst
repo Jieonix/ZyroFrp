@@ -2,6 +2,7 @@ cn/zyroo/service/FrpTunnelService.class
 cn/zyroo/exception/BizException.class
 cn/zyroo/conf/WebConfig.class
 cn/zyroo/dto/ResetPasswordRequest.class
+cn/zyroo/controller/EmailController.class
 cn/zyroo/repository/UsersRepository.class
 cn/zyroo/dto/AnswerRequest.class
 cn/zyroo/model/Servers.class
@@ -36,6 +37,7 @@ cn/zyroo/controller/AnnouncementsController.class
 cn/zyroo/utils/EncryptionUtil.class
 cn/zyroo/model/Users.class
 cn/zyroo/service/AnnouncementsService.class
+cn/zyroo/repository/BulkEmailRepository.class
 cn/zyroo/service/IdCardService.class
 cn/zyroo/repository/UserAnswersRepository.class
 cn/zyroo/service/UserInfoService.class
@@ -44,6 +46,7 @@ cn/zyroo/repository/UserInfoRepository.class
 cn/zyroo/model/UserAnswers.class
 cn/zyroo/service/UserAnswersService.class
 cn/zyroo/dto/UpdateFrpTunnelRequest.class
+cn/zyroo/model/BulkEmail.class
 cn/zyroo/repository/EmailRepository.class
 cn/zyroo/model/Question.class
 cn/zyroo/utils/ResponseCode.class

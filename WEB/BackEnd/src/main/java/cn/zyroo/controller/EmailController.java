@@ -54,7 +54,6 @@ public class EmailController {
   @GetMapping("/all-emails")
   public ApiResponse<List<String>> getAllEmails(@RequestHeader("Authorization") String token) {
     try {
-      // 验证管理员权限 - 移除Bearer前缀
       String actualToken = token.startsWith("Bearer ") ? token.substring(7) : token;
       log.info("收到的token: {}", actualToken.substring(0, Math.min(10, actualToken.length())) + "...");
 

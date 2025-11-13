@@ -2,11 +2,14 @@ package cn.zyroo.service;
 
 import cn.zyroo.model.Email;
 import cn.zyroo.repository.EmailRepository;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +32,7 @@ public class EmailService {
  private String fromEmail;
 
  private static final Map<String, String> emailTypeMap = new HashMap<>();
+
  static {
   emailTypeMap.put("REGISTER", "注册");
   emailTypeMap.put("RESET_PASSWORD", "重置密码");
@@ -54,21 +58,28 @@ public class EmailService {
  }
 
  // 邮件格式
- private void sendEmail(String toEmail, String code, String type) throws MailException {
-  SimpleMailMessage message = new SimpleMailMessage();
-  message.setFrom(fromEmail);
-  message.setTo(toEmail);
-  String subject = emailTypeMap.get(type);
+ private void sendEmail(String toEmail, String code, String type) {
+  try {
+   MimeMessage message = mailSender.createMimeMessage();
+   MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-  if (subject == null) {
-   throw new IllegalArgumentException("未知的邮件类型: " + type);
+   String subject = emailTypeMap.get(type);
+   if (subject == null) {
+    throw new IllegalArgumentException("未知的邮件类型: " + type);
+   }
+
+   helper.setTo(toEmail);
+   helper.setSubject("验证码 - " + subject);
+   helper.setText("您的验证码为： " + code + "\n请不要泄露给他人，验证码有效期为 5 分钟。");
+   helper.setFrom(new InternetAddress(fromEmail, "ZyroFrp 内网穿透服务平台", "UTF-8"));
+
+   mailSender.send(message);
+  } catch (Exception e) {
+   e.printStackTrace();
+   throw new RuntimeException("邮件发送失败：" + e.getMessage());
   }
-
-  message.setSubject("验证码 - " + subject);
-  message.setText("您的验证码为： " + code + "\n请不要泄露给他人，验证码有效期为 5 分钟。");
-
-  mailSender.send(message);
  }
+
 
  // 生成4位验证码逻辑
  private String generateRandomCode() {
@@ -79,23 +90,23 @@ public class EmailService {
 
 
  // 批量发送邮件给所有用户
- public void sendBulkEmail(List<String> emailList, String subject, String content) throws MailException {
-  SimpleMailMessage message = new SimpleMailMessage();
-  message.setFrom(fromEmail);
-  message.setSubject(subject);
-  message.setText(content);
+ // 批量发送邮件给所有用户
+ public void sendBulkEmail(List<String> emailList, String subject, String content) {
+  try {
+   MimeMessage message = mailSender.createMimeMessage();
+   MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-  // 转换为字符串数组
-  String[] toEmails = emailList.toArray(new String[0]);
-  message.setTo(toEmails);
+   // 转换为字符串数组
+   String[] toEmails = emailList.toArray(new String[0]);
+   helper.setTo(toEmails);
+   helper.setSubject(subject);
+   helper.setText(content, false); // false 表示纯文本邮件；true 可支持 HTML
+   helper.setFrom(new InternetAddress(fromEmail, "ZyroFrp 内网穿透服务平台", "UTF-8"));
 
-  mailSender.send(message);
+   mailSender.send(message);
+  } catch (Exception e) {
+   e.printStackTrace();
+   throw new RuntimeException("群发邮件失败：" + e.getMessage());
+  }
  }
-
- @Scheduled(fixedRate = 1000 * 60 * 1)
- public void expireOldCodes() {
-  emailRepository.expireExpiredCodesByType("REGISTER");
-  emailRepository.expireExpiredCodesByType("RESET_PASSWORD");
- }
-
 }

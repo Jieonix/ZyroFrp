@@ -1,5 +1,6 @@
 <script setup>
 import Loading from '@/components/Loading.vue'
+import ConfirmDialog from '@/components/ConfirmDialog.vue'
 </script>
 
 <template>
@@ -9,105 +10,148 @@ import Loading from '@/components/Loading.vue'
     <Admin_Sidebar />
     <main class="main-content">
       <Loading />
-      <h1>用户管理页</h1>
       <section class="features">
-        <div class="features-box">
-          <div class="top">
-            <button class="search_button" @click="search_style_function">查询</button>
-            <button class="add_button" @click="add_style_function">新增</button>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th class="head user-id">用户ID</th>
-                <th class="head email">邮箱</th>
-                <th class="head user-key">用户密钥</th>
-                <th class="head role">用户权限</th>
-                <th class="head remaining-traffic">剩余流量</th>
-                <th class="head upload-limit">上行限速</th>
-                <th class="head download-limit">下行限速</th>
-                <th class="head is-trial-user">先锋测试用户</th>
-                <th class="head vip-start-time">会员开始时间</th>
-                <th class="head vip-end-time">会员结束时间</th>
-                <th class="head vip-status">会员状态</th>
-                <th class="head real-name">真实姓名</th>
-                <th class="head real-name-status">实名状态</th>
-                <th class="head created-at">创建日期</th>
-                <th class="head updated-at">更新日期</th>
-                <th class="head edit-t">编辑</th>
-                <th class="head delete">删除</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="user in users" :key="user.user_id">
-                <td class="user-id">{{ user.user_id }}</td>
-                <td class="email">{{ user.email }}</td>
-                <td class="email">{{ user.user_key }}</td>
-                <td class="role">{{ user.role }}</td>
-                <td class="remaining-traffic">{{ user.remaining_traffic }}</td>
-                <td class="upload-limit">{{ user.upload_limit }}</td>
-                <td class="download-limit">{{ user.download_limit }}</td>
-                <td class="is-trial-user">{{ user.is_trial_user ? '是' : '否' }}</td>
-                <td class="vip-start-time">{{ formatDate(user.vip_start_time) }}</td>
-                <td class="vip-end-time">{{ formatDate(user.vip_end_time) }}</td>
-                <td class="vip-status">{{ user.vip_status ? 'VIP' : '非VIP' }}</td>
-                <td class="real-name">{{ user.real_name }}</td>
-                <td class="real-name-status">{{ user.real_name_status ? '已实名' : '未实名' }}</td>
-                <td class="created-at">{{ formatDate(user.created_at) }}</td>
-                <td class="updated-at">{{ formatDate(user.updated_at) }}</td>
-                <td class="td_edit"><button class="edit_button" @click="edit_style_function(user.user_id)">编辑</button>
-                </td>
-                <td class="td_delete"><button class="edit_delete" @click="deleteUser(user.user_id)">删除</button></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="top">
+          <button class="search_button" @click="search_style_function">查询</button>
+          <button class="add_button" @click="add_style_function">新增</button>
         </div>
+        <table>
+          <thead>
+            <tr>
+              <th class="head user-id">用户ID</th>
+              <th class="head email">邮箱</th>
+              <th class="head user-key">用户密钥</th>
+              <th class="head role">用户权限</th>
+              <th class="head remaining-traffic">剩余流量</th>
+              <th class="head upload-limit">上行限速</th>
+              <th class="head download-limit">下行限速</th>
+              <th class="head is-trial-user">先锋测试用户</th>
+              <th class="head vip-start-time">会员开始时间</th>
+              <th class="head vip-end-time">会员结束时间</th>
+              <th class="head vip-status">会员状态</th>
+              <th class="head real-name">真实姓名</th>
+              <th class="head real-name-status">实名状态</th>
+              <th class="head created-at">创建日期</th>
+              <th class="head updated-at">更新日期</th>
+              <th class="head edit-t">编辑</th>
+              <th class="head delete">删除</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in users" :key="user.user_id">
+              <td class="user-id clickable" @click="copyToClipboard(user.user_id)">{{ user.user_id }}</td>
+              <td class="email clickable" @click="copyToClipboard(user.email)">{{ user.email }}</td>
+              <td class="email clickable" @click="copyToClipboard(user.user_key)">{{ user.user_key }}</td>
+              <td class="role clickable" @click="copyToClipboard(user.role)">{{ user.role }}</td>
+              <td class="remaining-traffic clickable" @click="copyToClipboard(user.remaining_traffic)">{{
+                user.remaining_traffic }}</td>
+              <td class="upload-limit clickable" @click="copyToClipboard(user.upload_limit)">{{ user.upload_limit }}
+              </td>
+              <td class="download-limit clickable" @click="copyToClipboard(user.download_limit)">{{ user.download_limit
+                }}</td>
+              <td class="is-trial-user clickable" @click="copyToClipboard(user.is_trial_user ? '是' : '否')">{{
+                user.is_trial_user ? '是' : '否' }}</td>
+              <td class="vip-start-time clickable" @click="copyToClipboard(formatDate(user.vip_start_time))">{{
+                formatDate(user.vip_start_time) }}</td>
+              <td class="vip-end-time clickable" @click="copyToClipboard(formatDate(user.vip_end_time))">{{
+                formatDate(user.vip_end_time) }}</td>
+              <td class="vip-status clickable" @click="copyToClipboard(user.vip_status ? 'VIP' : '非VIP')">{{
+                user.vip_status ? 'VIP' : '非VIP' }}</td>
+              <td class="real-name clickable" @click="copyToClipboard(user.real_name)">{{ user.real_name }}</td>
+              <td class="real-name-status clickable" @click="copyToClipboard(user.real_name_status ? '已实名' : '未实名')">{{
+                user.real_name_status ? '已实名' : '未实名' }}</td>
+              <td class="created-at clickable" @click="copyToClipboard(formatDate(user.created_at))">{{
+                formatDate(user.created_at) }}</td>
+              <td class="updated-at clickable" @click="copyToClipboard(formatDate(user.updated_at))">{{
+                formatDate(user.updated_at) }}</td>
+              <td class="td_edit"><button class="edit_button" @click="edit_style_function(user.user_id)">编辑</button>
+              </td>
+              <td class="td_delete"><button class="edit_delete" @click="deleteUser(user.user_id)">删除</button></td>
+            </tr>
+          </tbody>
+        </table>
         <div v-if="add_style" class="overlay_1">
           <div class="add">
             <h1>新增用户</h1>
-            <label for="">账号*</label><input id="email" v-model="email" type="text">
-            <label for="">密码*</label><input id="password" v-model="password" type="password">
-            <label for="">权限</label>
-            <select v-model="role" id="role">
-              <option value="User">User</option>
-              <option value="Admin">Admin</option>
-              <option value="SuperAdmin">SuperAdmin</option>
-            </select>
-            <label for="">总流量 (GB)</label><input v-model="remaining_traffic" id="remaining_traffic" type="number"
-              value="4000">
-            <label for="">上行限速 (Mb)</label><input v-model="upload_limit" id="upload_limit" type="number" value="51888">
-            <label for="">下行限速 (Mb)</label><input v-model="download_limit" id="download_limit" type="number"
-              value="51888">
-            <label for="">先锋体验用户</label>
-            <select v-model.number="is_trial_user" id="is_trial_user">
-              <option value="1">是</option>
-              <option value="0">否</option>
-            </select>
-
-            <label>真实姓名</label>
-            <input v-model="real_name" id="real_name" type="text" placeholder="张xx">
-
-            <label>身份证号（加密）</label>
-            <input v-model="id_card" id="id_card" type="text" placeholder="652xxxxxxxxxxxxxxx">
-
-            <label>是否实名</label>
-            <select v-model.number="real_name_status" id="real_name_status">
-              <option value="1">已实名</option>
-              <option value="0">未实名</option>
-            </select>
-
-            <label>会员开始时间</label>
-            <input v-model="vip_start_time" id="vip_start_time" type="date">
-
-            <label>会员结束时间</label>
-            <input v-model="vip_end_time" id="vip_end_time" type="date">
-
-            <label>会员状态</label>
-            <select v-model.number="vip_status" id="vip_status">
-              <option value="0">非VIP</option>
-              <option value="1">VIP</option>
-            </select>
-
+            <div class="form-row">
+              <div class="form-field">
+                <label for="">账号*</label>
+                <input id="email" v-model="email" type="text">
+              </div>
+              <div class="form-field">
+                <label for="">密码*</label>
+                <input id="password" v-model="password" type="password">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="">权限</label>
+                <select v-model="role" id="role">
+                  <option value="User">User</option>
+                  <option value="Admin">Admin</option>
+                  <option value="SuperAdmin">SuperAdmin</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="">总流量 (GB)</label>
+                <input v-model="remaining_traffic" id="remaining_traffic" type="number" value="4000">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="">上行限速 (Mb)</label>
+                <input v-model="upload_limit" id="upload_limit" type="number" value="51888">
+              </div>
+              <div class="form-field">
+                <label for="">下行限速 (Mb)</label>
+                <input v-model="download_limit" id="download_limit" type="number" value="51888">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="">先锋体验用户</label>
+                <select v-model.number="is_trial_user" id="is_trial_user">
+                  <option value="1">是</option>
+                  <option value="0">否</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>真实姓名</label>
+                <input v-model="real_name" id="real_name" type="text" placeholder="张xx">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>身份证号（加密）</label>
+                <input v-model="id_card" id="id_card" type="text" placeholder="652xxxxxxxxxxxxxxx">
+              </div>
+              <div class="form-field">
+                <label>是否实名</label>
+                <select v-model.number="real_name_status" id="real_name_status">
+                  <option value="1">已实名</option>
+                  <option value="0">未实名</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>会员开始时间</label>
+                <input v-model="vip_start_time" id="vip_start_time" type="date">
+              </div>
+              <div class="form-field">
+                <label>会员结束时间</label>
+                <input v-model="vip_end_time" id="vip_end_time" type="date">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>会员状态</label>
+                <select v-model.number="vip_status" id="vip_status">
+                  <option value="0">非VIP</option>
+                  <option value="1">VIP</option>
+                </select>
+              </div>
+            </div>
             <div>
               <button type="button" @click="confirmTheAddition" class="confirm">确认新增</button>
               <button type="button" @click="add_style = false" class="cancel">取消</button>
@@ -117,49 +161,85 @@ import Loading from '@/components/Loading.vue'
         <div v-if="edit_style" class="overlay_1">
           <div class="edit">
             <h1>修改用户</h1>
-            <label for="">账号*</label><input id="email" v-model="email" type="text">
-            <label for="">密码*（默认不显示）</label><input id="password" v-model="password" type="text">
-            <label for="">权限</label>
-            <select v-model="role" id="role">
-              <option value="User">User</option>
-              <option value="Admin">Admin</option>
-              <option value="SuperAdmin">SuperAdmin</option>
-            </select>
-            <label for="">总流量 (GB)</label><input v-model="remaining_traffic" id="remaining_traffic" type="number"
-              value="4000">
-            <label for="">上行限速 (Mb)</label><input v-model="upload_limit" id="upload_limit" type="number" value="51888">
-            <label for="">下行限速 (Mb)</label><input v-model="download_limit" id="download_limit" type="number"
-              value="51888">
-            <label for="">先锋体验用户</label>
-            <select v-model.number="is_trial_user" id="is_trial_user">
-              <option value="1">是</option>
-              <option value="0">否</option>
-            </select>
-
-            <label>真实姓名</label>
-            <input v-model="real_name" id="real_name" type="text" placeholder="">
-
-            <label>身份证号（默认不显示）</label>
-            <input v-model="id_card" id="id_card" type="text" placeholder="">
-
-            <label>是否实名</label>
-            <select v-model.number="real_name_status" id="real_name_status">
-              <option value="1">已实名</option>
-              <option value="0">未实名</option>
-            </select>
-
-            <label>会员开始时间</label>
-            <input v-model="vip_start_time" id="vip_start_time" type="date">
-
-            <label>会员结束时间</label>
-            <input v-model="vip_end_time" id="vip_end_time" type="date">
-
-            <label>会员状态</label>
-            <select v-model.number="vip_status" id="vip_status">
-              <option value="0">非VIP</option>
-              <option value="1">VIP</option>
-            </select>
-
+            <div class="form-row">
+              <div class="form-field">
+                <label for="">账号*</label>
+                <input id="email" v-model="email" type="text">
+              </div>
+              <div class="form-field">
+                <label for="">密码*（默认不显示）</label>
+                <input id="password" v-model="password" type="text">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="">权限</label>
+                <select v-model="role" id="role">
+                  <option value="User">User</option>
+                  <option value="Admin">Admin</option>
+                  <option value="SuperAdmin">SuperAdmin</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="">总流量 (GB)</label>
+                <input v-model="remaining_traffic" id="remaining_traffic" type="number" value="4000">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="">上行限速 (Mb)</label>
+                <input v-model="upload_limit" id="upload_limit" type="number" value="51888">
+              </div>
+              <div class="form-field">
+                <label for="">下行限速 (Mb)</label>
+                <input v-model="download_limit" id="download_limit" type="number" value="51888">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="">先锋体验用户</label>
+                <select v-model.number="is_trial_user" id="is_trial_user">
+                  <option value="1">是</option>
+                  <option value="0">否</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>真实姓名</label>
+                <input v-model="real_name" id="real_name" type="text" placeholder="">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>身份证号（默认不显示）</label>
+                <input v-model="id_card" id="id_card" type="text" placeholder="">
+              </div>
+              <div class="form-field">
+                <label>是否实名</label>
+                <select v-model.number="real_name_status" id="real_name_status">
+                  <option value="1">已实名</option>
+                  <option value="0">未实名</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>会员开始时间</label>
+                <input v-model="vip_start_time" id="vip_start_time" type="date">
+              </div>
+              <div class="form-field">
+                <label>会员结束时间</label>
+                <input v-model="vip_end_time" id="vip_end_time" type="date">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>会员状态</label>
+                <select v-model.number="vip_status" id="vip_status">
+                  <option value="0">非VIP</option>
+                  <option value="1">VIP</option>
+                </select>
+              </div>
+            </div>
             <div>
               <button type="button" @click="confirmTheEdit(this.user_id)" class="confirm">确认修改</button>
               <button type="button" @click="edit_style = false" class="cancel">取消</button>
@@ -169,34 +249,49 @@ import Loading from '@/components/Loading.vue'
         <div v-if="search_style" class="overlay_1">
           <div class="add">
             <h1>查询用户</h1>
-            <label for="">账号*</label><input id="email" v-model="email" type="text">
-            <label for="">权限</label>
-            <select v-model="role" id="role">
-              <option value="User">User</option>
-              <option value="Admin">Admin</option>
-              <option value="SuperAdmin">SuperAdmin</option>
-            </select>
-            <label for="">先锋体验用户</label>
-            <select v-model.number="is_trial_user" id="is_trial_user">
-              <option value="1">是</option>
-              <option value="0">否</option>
-            </select>
-
-            <label>真实姓名</label>
-            <input v-model="real_name" id="real_name" type="text" placeholder="张xx">
-
-            <label>是否实名</label>
-            <select v-model.number="real_name_status" id="real_name_status">
-              <option value="1">已实名</option>
-              <option value="0">未实名</option>
-            </select>
-
-            <label>会员状态</label>
-            <select v-model.number="vip_status" id="vip_status">
-              <option value="0">非VIP</option>
-              <option value="1">VIP</option>
-            </select>
-
+            <div class="form-row">
+              <div class="form-field">
+                <label for="">账号*</label>
+                <input id="email" v-model="email" type="text">
+              </div>
+              <div class="form-field">
+                <label for="">权限</label>
+                <select v-model="role" id="role">
+                  <option value="User">User</option>
+                  <option value="Admin">Admin</option>
+                  <option value="SuperAdmin">SuperAdmin</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="">先锋体验用户</label>
+                <select v-model.number="is_trial_user" id="is_trial_user">
+                  <option value="1">是</option>
+                  <option value="0">否</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>真实姓名</label>
+                <input v-model="real_name" id="real_name" type="text" placeholder="张xx">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>是否实名</label>
+                <select v-model.number="real_name_status" id="real_name_status">
+                  <option value="1">已实名</option>
+                  <option value="0">未实名</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>会员状态</label>
+                <select v-model.number="vip_status" id="vip_status">
+                  <option value="0">非VIP</option>
+                  <option value="1">VIP</option>
+                </select>
+              </div>
+            </div>
             <div>
               <button type="button" @click="confirmTheSearch" class="confirm">开始查询</button>
               <button type="button" @click="search_style = false" class="cancel">取消</button>
@@ -204,6 +299,21 @@ import Loading from '@/components/Loading.vue'
           </div>
         </div>
       </section>
+
+      <!-- 自定义确认弹窗 -->
+      <ConfirmDialog
+        :visible="confirmDialog.show"
+        :title="confirmDialog.title"
+        :message="confirmDialog.message"
+        :confirmText="confirmDialog.confirmText"
+        :cancelText="confirmDialog.cancelText"
+        :loading="confirmDialog.loading"
+        :loadingText="confirmDialog.loadingText"
+        @confirm="handleConfirm"
+        @cancel="handleCancel"
+        @close="handleCancel"
+      />
+
       <Footer />
     </main>
   </div>
@@ -257,9 +367,73 @@ export default {
         "REGISTER_4006",
         "EMAIL_SEND_4301"
       ],
+      // 确认弹窗相关数据
+      confirmDialog: {
+        show: false,
+        title: '',
+        message: '',
+        confirmText: '确认',
+        cancelText: '取消',
+        loading: false,
+        loadingText: '处理中...',
+        callback: null,
+        callbackArgs: []
+      },
     };
   },
   methods: {
+    // 显示确认弹窗
+    showConfirm(options) {
+      this.confirmDialog = {
+        show: true,
+        title: options.title || '确认操作',
+        message: options.message || '确定要执行此操作吗？',
+        confirmText: options.confirmText || '确认',
+        cancelText: options.cancelText || '取消',
+        loading: false,
+        loadingText: options.loadingText || '处理中...',
+        callback: options.callback || null,
+        callbackArgs: options.callbackArgs || []
+      };
+    },
+
+    // 处理确认按钮点击
+    async handleConfirm() {
+      if (this.confirmDialog.callback) {
+        this.confirmDialog.loading = true;
+        try {
+          await this.confirmDialog.callback(...this.confirmDialog.callbackArgs);
+        } catch (error) {
+          // 确认操作失败处理
+        } finally {
+          this.confirmDialog.loading = false;
+          this.confirmDialog.show = false;
+        }
+      }
+    },
+
+    // 处理取消和关闭
+    handleCancel() {
+      this.confirmDialog.show = false;
+      this.confirmDialog.loading = false;
+    },
+
+    copyToClipboard(text) {
+      if (!text) return;
+
+      navigator.clipboard.writeText(text.toString()).then(() => {
+        this.$message.success('已复制到剪贴板: ' + text);
+      }).catch(err => {
+        // 复制失败，使用降级方案
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        this.$message.success('已复制到剪贴板: ' + text);
+      });
+    },
     checkTokenValidity() {
       const router = useRouter();
       const AdminToken = localStorage.getItem("AdminToken");
@@ -321,7 +495,7 @@ export default {
         this.edit_style = true;
 
       } catch (err) {
-        console.error("获取用户信息失败：", err);
+        // 静默处理错误，不输出调试信息
       }
     },
     search_style_function() {
@@ -335,23 +509,7 @@ export default {
       return `${year}-${month}-${day}`;
     },
     async confirmTheAddition() {
-      const userData = {
-        email: this.email,
-        password: this.password,
-        role: this.role,
-        remaining_traffic: this.remaining_traffic,
-        upload_limit: this.upload_limit,
-        download_limit: this.download_limit,
-        is_trial_user: this.is_trial_user,
-        real_name: this.real_name,
-        id_card: this.id_card,
-        real_name_status: this.real_name_status,
-        vip_start_time: this.vip_start_time,
-        vip_end_time: this.vip_end_time,
-        vip_status: this.vip_status,
-      };
-
-      // 邮箱校验
+      // 表单验证
       if (!emailRegex.test(this.email)) {
         this.$message.error("您的邮箱格式不符合条件，请更换后重试...");
         return;
@@ -369,6 +527,32 @@ export default {
         return;
       }
 
+      // 显示确认弹窗
+      this.showConfirm({
+        title: '新增用户',
+        message: `确定要新增用户 "${this.email}" 吗？\n\n请检查填写的信息是否正确。`,
+        confirmText: '确认新增',
+        loadingText: '正在新增...',
+        callback: this.doAddUser
+      });
+    },
+
+    async doAddUser() {
+      const userData = {
+        email: this.email,
+        password: this.password,
+        role: this.role,
+        remaining_traffic: this.remaining_traffic,
+        upload_limit: this.upload_limit,
+        download_limit: this.download_limit,
+        is_trial_user: this.is_trial_user,
+        real_name: this.real_name,
+        id_card: this.id_card,
+        real_name_status: this.real_name_status,
+        vip_start_time: this.vip_start_time,
+        vip_end_time: this.vip_end_time,
+        vip_status: this.vip_status,
+      };
 
       try {
         const response = await axios.post('/auth/register_backstage', userData)
@@ -385,10 +569,25 @@ export default {
         }, 1000)
 
       } catch (error) {
-        console.error("失败：", error)
+        // 静默处理错误，不输出调试信息
+        this.$message.error('新增用户失败');
+        throw error;
       }
     },
     async deleteUser(id) {
+      const user = this.users.find(u => u.user_id === id);
+
+      this.showConfirm({
+        title: '删除用户',
+        message: `确定要删除用户 "${user.email}" 吗？\n\n此操作不可撤销！`,
+        confirmText: '确认删除',
+        loadingText: '正在删除...',
+        callback: this.doDeleteUser,
+        callbackArgs: [id]
+      });
+    },
+
+    async doDeleteUser(id) {
       try {
         const AdminToken = localStorage.getItem("AdminToken")
         const response = await axios.delete(`/auth/delete/${id}`, {
@@ -401,13 +600,25 @@ export default {
         setTimeout(() => {
           window.location.reload();
         }, 1000)
-
       }
       catch (error) {
-        console.error(error);
+        // 静默处理错误，不输出调试信息
+        this.$message.error('删除用户失败');
+        throw error;
       }
     },
     async confirmTheEdit() {
+      // 显示确认弹窗
+      this.showConfirm({
+        title: '修改用户',
+        message: `确定要修改用户 "${this.email}" 的信息吗？\n\n请检查填写的信息是否正确。`,
+        confirmText: '确认修改',
+        loadingText: '正在修改...',
+        callback: this.doEditUser
+      });
+    },
+
+    async doEditUser() {
       try {
         const AdminToken = localStorage.getItem("AdminToken");
 
@@ -454,7 +665,9 @@ export default {
         }, 1000)
 
       } catch (error) {
-        console.error(error);
+        // 静默处理错误，不输出调试信息
+        this.$message.error('修改用户信息失败');
+        throw error;
       }
     },
     async confirmTheSearch() {
@@ -473,9 +686,9 @@ export default {
           params: params, // 这里将查询条件作为 params 传递
         });
 
-        console.log(response.data); // 输出查询结果
+        // 移除调试日志，处理查询结果
       } catch (error) {
-        console.error("Error during search:", error);
+        // 静默处理错误，不输出调试信息
       }
     },
     autoCloseMessageBox() {
@@ -498,63 +711,95 @@ export default {
 
 <style scoped>
 h1 {
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
-  margin-bottom: 20px;
-}
-
-.features-box {
-  margin: 0 auto;
-  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 2rem;
 }
 
 .head {
-  padding: 0.6rem 0.9rem;
-  background-color: #cbf1dc;
+  padding: 12px 16px;
+  background-color: #4caf50;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 td {
-  max-width: 8rem;
-  padding: 10px 20px;
-  background-color: #eaf5ef;
+  padding: 12px 16px;
+  background-color: #f1f8e9;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-bottom: 1px solid #c8e6c9;
+  max-width: 120px;
 }
 
+td.clickable {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+td.clickable:hover {
+  background-color: #dcedc8;
+}
 
 .td_delete,
 .td_edit {
-  padding: 0;
+  padding: 8px;
+  background: transparent;
 }
 
 .edit_delete,
 .edit_button {
-  height: 45px;
-  width: 100px;
+  height: 2.5rem;
+  width: 5rem;
   cursor: pointer;
-  background-color: #d9f1e4;
   border: none;
-  color: #2c3e50;
-  transition: all 0.1s;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  font-size: 13px;
 }
 
-.edit_delete:hover,
+.edit_button {
+  background-color: #66bb6a;
+}
+
+.edit_delete {
+  background-color: #f44336;
+}
+
 .edit_button:hover {
-  background-color: #ccf4df;
+  background-color: #4caf50;
+}
+
+.edit_delete:hover {
+  background-color: #d32f2f;
 }
 
 table {
-  border-radius: 30px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-collapse: separate;
+  border-spacing: 0;
   margin-bottom: 30px;
 }
 
-table,
-tr,
-td,
-th {
-  border-collapse: collapse;
-  border: 2px solid #c2c2c2;
+table thead {
+  border-radius: 12px 12px 0 0;
+}
+
+
+
+table th,
+table td {
+  border: none;
 }
 
 .overlay_1 {
@@ -563,23 +808,65 @@ th {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(78, 78, 78, 0.5);
-  z-index: 999;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .edit,
 .add {
-  width: 22vw;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
   background-color: #ffffff;
-  position: fixed;
-  top: 50%;
-  left: 56%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  border-radius: 8px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
-  padding: 30px 60px;
+  padding: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease;
+  overflow-y: auto;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.edit h1,
+.add h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1.5rem;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  padding: 10px 0;
+  z-index: 10;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .edit select,
@@ -587,83 +874,274 @@ th {
 .add select,
 .add input {
   width: 100%;
-  height: 30px;
-  border: 1px solid rgb(178, 178, 178);
-  padding: 0 10px;
+  height: 46px;
+  border: 2px solid #e1e8ed;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
-#email,
-#password,
-#role,
-#remaining_traffic,
-#upload_limit,
-#download_limit,
-#is_trial_user,
-#real_name,
-#id_card,
-#real_name_status,
-#vip_start_time,
-#vip_end_time,
-#vip_status {
-  margin-bottom: 10px;
+.edit select:focus,
+.edit input:focus,
+.add select:focus,
+.add input:focus {
+  outline: none;
 }
 
-#vip_status {
-  margin-bottom: 30px;
+.edit input::placeholder,
+.add input::placeholder {
+  color: #aab8c2;
 }
 
 .edit label,
 .add label {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  order: -1;
+}
+
+.edit>div:last-child,
+.add>div:last-child {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+  position: sticky;
+  bottom: 0;
+  background-color: #ffffff;
+  padding-bottom: 10px;
+}
+
+/* 暗黑模式下的按钮容器背景 */
+@media (prefers-color-scheme: dark) {
+
+  .edit>div:last-child,
+  .add>div:last-child {
+    border-top-color: #4a5568;
+    background-color: #1e1e1e;
+  }
 }
 
 .confirm {
-  margin-right: 20px;
+  margin-right: 16px;
+  background-color: #4caf50;
 }
 
 .confirm,
 .cancel {
-  height: 35px;
-  width: 80px;
-  background-color: #4caf50;
+  height: 3rem;
+  width: 5rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   color: white;
   cursor: pointer;
-  transition: all 0.2s;
-  font-size: 13px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.confirm:hover,
-.cancel:hover {
+.cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+.confirm:hover {
   background-color: #45a049;
+}
+
+.cancel:hover {
+  background-color: #d32f2f;
 }
 
 .search_button,
 .add_button {
-  height: 3rem;
+  height: 2.5rem;
   width: 5rem;
-  background-color: #3ecb90;
+  background-color: #4caf50;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   color: white;
   cursor: pointer;
-  transition: all 0.2s;
-  font-size: 1rem;
-  margin-bottom: 20px;
-  margin-left: 1rem;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search_button,
+.add_button {
+  background-color: #4caf50;
 }
 
 .search_button:hover,
 .add_button:hover {
-  background-color: #5aac8a;
+  background-color: #3c9f3f;
 }
 
 .top {
   display: flex;
   justify-content: flex-end;
+  padding: 0 20px;
 }
 
+.features {
+  display: block;
+  padding: 0 20px;
+}
 
-@media (prefers-color-scheme: dark) {}
+/* 响应式优化 */
+@media (max-width: 1200px) {
+  td {
+    max-width: 100px;
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .edit_delete,
+  .edit_button {
+    width: 60px;
+    height: 30px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .features {
+    padding: 10px;
+    overflow-x: auto;
+  }
+
+  table {
+    font-size: 12px;
+    min-width: 800px;
+  }
+
+  .head {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  td {
+    max-width: 80px;
+    padding: 6px 8px;
+  }
+
+  .edit,
+  .add {
+    width: 95%;
+    max-width: none;
+    padding: 20px;
+    max-height: 90vh;
+  }
+
+  .edit h1,
+  .add h1 {
+    font-size: 1.2rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-field {
+    width: 100%;
+  }
+
+  .edit select,
+  .edit input,
+  .add select,
+  .add input {
+    height: 44px;
+  }
+}
+
+/* 暗黑模式 */
+@media (prefers-color-scheme: dark) {
+  h1 {
+    color: #e9ecef;
+  }
+
+  .features-box {
+    background: #1e1e1e;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .head {
+    background-color: #2e7d32;
+  }
+
+  td {
+    background-color: #2d3748;
+    color: #e9ecef;
+    border-bottom-color: #1e1e1e;
+  }
+
+  td.clickable:hover {
+    background-color: #37474f;
+  }
+
+  .edit,
+  .add {
+    background-color: #1e1e1e;
+    color: #e9ecef;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .edit h1,
+  .add h1 {
+    color: #e9ecef;
+    background-color: #1e1e1e;
+  }
+
+  .edit select,
+  .edit input,
+  .add select,
+  .add input {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    color: #e9ecef;
+  }
+
+  
+  .edit input::placeholder,
+  .add input::placeholder {
+    color: #a0aec0;
+  }
+
+  .edit label,
+  .add label {
+    color: #e9ecef;
+  }
+
+  .cancel {
+    background-color: #424242;
+    color: #e9ecef;
+  }
+
+  .cancel:hover {
+    background-color: #616161;
+  }
+
+  .search_button,
+  .add_button {
+    background-color: #2e7d32;
+  }
+
+  .add_button {
+    background-color: #388e3c;
+  }
+
+  .edit_button {
+    background-color: #388e3c;
+  }
+}
 </style>

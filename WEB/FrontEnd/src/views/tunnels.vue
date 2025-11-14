@@ -20,7 +20,21 @@ import Loading from '@/components/Loading.vue'
               <p class="tag-green">{{ tunnel.tunnel_type }}</p>
               <p class="tag-red">{{ tunnel.server_name }}</p>
             </div>
-            <p class="feature-ip">节点IP： <br>{{ tunnel.server_ip }}</p>
+            <div class="feature-middle">
+              <div class="left">
+                <p v-if="tunnel.tunnel_type === 'tcp' || tunnel.tunnel_type === 'udp'" class="port">远程端口：</p>
+                <p v-if="tunnel.tunnel_type === 'http' || tunnel.tunnel_type === 'https'" class="domain">域名：</p>
+                <p v-if="tunnel.tunnel_type === 'xtcp' || tunnel.tunnel_type === 'stcp'">密钥：</p>
+              </div>
+              <div class="right">
+                <p v-if="tunnel.tunnel_type === 'tcp' || tunnel.tunnel_type === 'udp'" class="port">{{
+                  tunnel.remote_port }}</p>
+                <p v-if="tunnel.tunnel_type === 'http' || tunnel.tunnel_type === 'https'" class="domain">{{
+                  tunnel.custom_domain }}</p>
+                <p v-if="tunnel.tunnel_type === 'xtcp' || tunnel.tunnel_type === 'stcp'">{{ tunnel.secret_key }}</p>
+              </div>
+            </div>
+            <p class="feature-ip">节点IP：{{ tunnel.server_ip }}</p>
             <div class="feature-footer">
               <button @click="openEditBox(tunnel)">编辑</button>
               <button @click="deleteTunnel(tunnel)">删除</button>
@@ -314,7 +328,7 @@ export default {
 }
 
 .feature-ip {
-  margin: 60px 40px 20px 20px;
+  margin: 0 1rem;
   font-weight: 500;
 }
 
@@ -465,6 +479,16 @@ export default {
 
 .button_div button {
   width: 48%;
+}
+
+.feature-middle {
+  display: flex;
+  margin: 4.5rem 1rem 0.5rem 1rem;
+}
+
+.feature-middle .left p,
+.feature-middle .right p {
+  font-weight: 500;
 }
 
 /* 特定于tunnels页面的深色主题样式 */

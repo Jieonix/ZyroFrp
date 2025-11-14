@@ -1,0 +1,512 @@
+/**
+ * 统一按钮样式库
+ * 提供项目中的所有按钮样式定义，避免重复
+ */
+
+/* 基础按钮类 */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn:disabled,
+.btn.disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* 主要按钮样式 */
+.btn-primary {
+  color: #fff;
+  background-color: #42997c;
+  border-color: #42997c;
+}
+
+.btn-primary:hover:not(:disabled) {
+  color: #fff;
+  background-color: #5acaa5;
+  border-color: #5acaa5;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(66, 153, 124, 0.25);
+}
+
+.btn-primary:active {
+  color: #fff;
+  background-color: #368567;
+  border-color: #368567;
+}
+
+/* 次要按钮样式 */
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  color: #fff;
+  background-color: #545b62;
+  border-color: #545b62;
+}
+
+.btn-secondary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+}
+
+/* 深色按钮样式 */
+.btn-dark {
+  color: #fff;
+  background-color: #333;
+  border-color: #333;
+}
+
+.btn-dark:hover:not(:disabled) {
+  color: #fff;
+  background-color: #444;
+  border-color: #444;
+}
+
+.btn-dark:focus {
+  box-shadow: 0 0 0 0.2rem rgba(51, 51, 51, 0.25);
+}
+
+/* 浅色按钮样式 */
+.btn-light {
+  color: #333;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+
+.btn-light:hover:not(:disabled) {
+  color: #333;
+  background-color: #e2e6ea;
+  border-color: #dae0e5;
+}
+
+/* 危险按钮样式 */
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover:not(:disabled) {
+  color: #fff;
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.btn-danger:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* 成功按钮样式 */
+.btn-success {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover:not(:disabled) {
+  color: #fff;
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn-success:focus {
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* 按钮尺寸变体 */
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+}
+
+.btn-lg {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+}
+
+.btn-xl {
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  border-radius: 0.3rem;
+}
+
+/* 按钮宽度变体 */
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.btn-full-width {
+  width: 100%;
+  padding: 0.75rem;
+}
+
+/* 表单按钮样式 */
+.submit-btn {
+  width: 5rem;
+  height: 2.3rem;
+  padding: 0.2rem 0.4rem;
+  background-color: #42997c;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  border-radius: 5px;
+  font-weight: 700;
+  transition: all 0.3s;
+  font-size: 1.1rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: #5acaa5;
+}
+
+.primary-button {
+  height: 1.8rem;
+  width: 3rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: #42997c;
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.primary-button:hover:not(:disabled) {
+  background-color: #5acaa5;
+}
+
+/* 登录/注册表单按钮 */
+.login-container button,
+.register-container button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #333;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.login-container button:hover:not(:disabled),
+.register-container button:hover:not(:disabled) {
+  background-color: #444;
+}
+
+/* 验证码按钮样式 */
+.code-button {
+  height: 42px;
+  margin-left: 10px;
+  padding: 12px;
+  background-color: #444;
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.code-button:hover:not(:disabled) {
+  background-color: #555;
+  color: #999;
+}
+
+.code-button:disabled {
+  background-color: #666;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 支付按钮样式 */
+.pay-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.pay-button:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.pay-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
+}
+
+.retry-button {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.retry-button:hover {
+  background-color: #e0a800;
+}
+
+/* 公告按钮样式 */
+.announcement-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.announcement-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.announcement-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+/* 复制按钮样式 */
+.copy {
+  background-color: #42997c;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.copy:hover {
+  background-color: #5acaa5;
+}
+
+/* 工具类 */
+.btn-rounded {
+  border-radius: 50px;
+}
+
+.btn-square {
+  border-radius: 0;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-width: 2px;
+}
+
+.btn-outline-primary {
+  color: #42997c;
+  border-color: #42997c;
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #42997c;
+}
+
+/* 加载状态 */
+.btn-loading {
+  position: relative;
+  cursor: wait;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  border-top-color: currentColor;
+  animation: btn-spin 1s linear infinite;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 深色主题适配 */
+@media (prefers-color-scheme: dark) {
+  /* 主要按钮深色主题 */
+  .btn-primary,
+  .submit-btn,
+  .primary-button,
+  .copy {
+    background-color: #236659;
+    color: #fff;
+  }
+
+  .btn-primary:hover:not(:disabled),
+  .submit-btn:hover:not(:disabled),
+  .primary-button:hover:not(:disabled),
+  .copy:hover {
+    background-color: #195549;
+  }
+
+  /* 深色按钮深色主题 */
+  .btn-dark,
+  .login-container button,
+  .register-container button,
+  .code-button {
+    background-color: #323232;
+    color: #ccc;
+  }
+
+  .btn-dark:hover:not(:disabled),
+  .login-container button:hover:not(:disabled),
+  .register-container button:hover:not(:disabled) {
+    background-color: #404040;
+  }
+
+  .code-button:hover:not(:disabled) {
+    background-color: #444;
+    color: #999;
+  }
+
+  .code-button:disabled {
+    background-color: #222;
+    color: #666;
+  }
+
+  /* 浅色按钮深色主题 */
+  .btn-light {
+    color: #e0e0e0;
+    background-color: #495057;
+    border-color: #495057;
+  }
+
+  .btn-light:hover:not(:disabled) {
+    color: #e0e0e0;
+    background-color: #5a6268;
+    border-color: #545b62;
+  }
+
+  /* 公告按钮深色主题 */
+  .announcement-button {
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    box-shadow: 0 4px 15px rgba(74, 85, 104, 0.4);
+  }
+
+  .announcement-button:hover {
+    box-shadow: 0 6px 20px rgba(74, 85, 104, 0.5);
+  }
+
+  .announcement-button:active {
+    box-shadow: 0 2px 10px rgba(74, 85, 104, 0.3);
+  }
+}
+
+/* 工具类组合 */
+.btn {
+  /* 默认属性已在上文定义 */
+}
+
+.btn.btn-primary.btn-lg.btn-block {
+  /* 组合示例：大型块级主要按钮 */
+}
+
+/* 可访问性增强 */
+.btn:focus-visible {
+  outline: 2px solid #42997c;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+
+  .btn-loading::after {
+    animation: none;
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .btn-lg {
+    font-size: 1.1rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .btn-xl {
+    font-size: 1.3rem;
+    padding: 0.8rem 1.6rem;
+  }
+}

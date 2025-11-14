@@ -43,23 +43,7 @@
   outline: none !important;
 }
 
-.login-container button,
-.register-container button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #333;
-  color: #fff;
-  font-size: 1rem;
-  border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
-}
-
-.login-container button:hover,
-.register-container button:hover {
-  background-color: #444;
-}
+/* 按钮样式已迁移至 buttons.css，使用 .btn.btn-primary.btn-full-width 类 */
 
 .login-container p,
 .register-container p {
@@ -100,11 +84,7 @@
     border: none !important;
   }
 
-  .login-container button,
-  .register-container button {
-    color: #ccc;
-    background-color: #323232;
-  }
+  /* 按钮深色主题样式已迁移至 buttons.css */
 
   .login-container p,
   .register-container p {

@@ -1,7 +1,7 @@
 import './modules/common/assets/styles/main.css'
 import './modules/common/assets/styles/L&R.css'
+import './modules/common/assets/styles/buttons.css'
 import './modules/common/utils/api-config.js'
-import './modules/auth/utils/validate.js'
 import './modules/auth/utils/token.js'
 import './modules/common/utils/validation.js'
 import './modules/common/utils/message.css'

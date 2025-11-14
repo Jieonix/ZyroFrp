@@ -40,23 +40,7 @@
     font-style: italic;
   }
 
-  /* 共享的按钮样式 */
-  .submit-btn,
-  .primary-button,
-  .edit-box button,
-  .button,
-  .copy {
-    background-color: #236659;
-    color: #fff;
-  }
-
-  .submit-btn:hover,
-  .primary-button:hover,
-  .edit-box button:hover,
-  .button:hover,
-  .copy:hover {
-    background-color: #195549;
-  }
+  /* 按钮深色主题样式已迁移至 buttons.css */
 
   /* 共享的表单标签样式 */
   label {
@@ -68,7 +52,6 @@
     font-size: 0.9rem;
   }
 
-  /* 共享的链接深色样式 */
   .version {
     color: #7bcbaa;
   }
@@ -87,64 +70,8 @@
 
 /* 共享的表单元素样式 */
 
-.submit-btn {
-  width: 5rem;
-  height: 2.3rem;
-  padding: 0.2rem 0.4rem;
-  background-color: #42997c;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
-  border-radius: 5px;
-  font-weight: 700;
-  transition: all 0.3s;
-  font-size: 1.1rem;
-}
-
-.submit-btn:hover {
-  background-color: #5acaa5;
-}
-
-.primary-button {
-  height: 1.8rem;
-  width: 3rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #fff;
-  background-color: #42997c;
-  border: none;
-  border-radius: 0.2rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 20px;
-  box-sizing: border-box;
-  padding: 0;
-}
-
-.primary-button:hover {
-  background-color: #5acaa5;
-}
-
-/* 共享的按钮通用样式 */
-.button {
-  width: 5rem;
-  height: 2.3rem;
-  padding: 0.2rem 0.4rem;
-  background-color: #42997c;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
-  border-radius: 5px;
-  transition: all 0.3s;
-  box-sizing: border-box;
-  font-size: 1.1rem;
-}
-
-.button:hover {
-  background-color: #5acaa5;
-}
+/* 按钮样式已迁移至 buttons.css */
+/* 使用 .btn, .submit-btn, .primary-button, .button 类 */
 
 /* 共享的输入框和选择框样式 */
 input[type="text"],

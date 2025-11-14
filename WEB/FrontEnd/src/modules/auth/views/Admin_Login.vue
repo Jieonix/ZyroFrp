@@ -5,7 +5,7 @@
       <h2>登录</h2>
       <input type="text" v-model="Email" placeholder="邮箱" />
       <input type="password" v-model="password" placeholder="密码" />
-      <button @click="login">登录</button>
+      <button class="btn btn-primary btn-full-width" @click="login">登录</button>
       <p>仅管理员帐号可登录</p>
     </div>
   </div>
@@ -15,7 +15,7 @@
 import { ref, getCurrentInstance } from "vue"
 import Header from "@/modules/common/components/Header.vue"
 import axios from "axios"
-import { validateEmail } from '@/modules/auth/utils/validate.js'
+import { validateEmail } from '@/modules/common/utils/validation.js'
 import router from "@/router/index.js"
 import activityTracker from '@/modules/common/utils/activityTracker.js'
 

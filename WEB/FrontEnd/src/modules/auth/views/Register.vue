@@ -6,12 +6,12 @@
       <input type="text" v-model="Email" placeholder="邮箱" />
       <div class="code-container">
         <input type="text" v-model="code" placeholder="验证码" />
-        <button @click="sendCode" :disabled="isCounting || isSending">
+        <button class="code-button" @click="sendCode" :disabled="isCounting || isSending">
           {{ isSending ? "发送中..." : isCounting ? `${countdown}s` : "获取验证码" }}
         </button>
       </div>
       <input type="password" v-model="password" placeholder="密码" />
-      <button @click="register">注册</button>
+      <button class="btn btn-primary btn-full-width" @click="register">注册</button>
       <p>已有账号? <router-link :to="{ name: 'Login' }">登录</router-link></p>
     </div>
   </div>
@@ -21,7 +21,7 @@
 import { ref, getCurrentInstance } from "vue"
 import Header from "@/modules/common/components/Header.vue"
 import axios from "axios"
-import { validateEmail, validatePassword, validateCode } from '@/modules/auth/utils/validate.js'
+import { validateEmail, validatePassword, validateCode } from '@/modules/common/utils/validation.js'
 import router from "@/router/index.js"
 
 const { proxy } = getCurrentInstance()
@@ -138,31 +138,5 @@ const register = async () => {
   width: 200px;
 }
 
-.code-container button {
-  height: 42px;
-  margin-left: 10px;
-  padding: 12px;
-  background-color: #444;
-  color: white;
-  border: none;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-
-.code-container button:hover {
-  background-color: #555;
-  cursor: not-allowed;
-  cursor: pointer;
-  color: #999;
-}
-
-
-@media (prefers-color-scheme: dark) {
-
-  .code-container button {
-    color: #777777;
-    background-color: #323232;
-  }
-
-}
+/* 使用统一的按钮样式库 */
 </style>

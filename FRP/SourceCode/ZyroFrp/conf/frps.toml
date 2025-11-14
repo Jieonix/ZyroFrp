@@ -11,8 +11,8 @@ vhostHTTPSPort = 443
 
 # [database]为必填项-鉴权数据库信息
 [database]
-dbUser = "root"
-dbPassword = "database_password"
 dbHost = "database_host"
-dbPort = 3306
 dbName = "ZyroFrp"
+dbPassword = "database_password"
+dbPort = 3306
+dbUser = "root"

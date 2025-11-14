@@ -8,53 +8,89 @@ serverPort = 7788
 # userKey为必填项
 userKey = "your_user_key"
 
-
 ### 以下为各隧道格式示例，可供参考，用户按需保留
 
 # TCP 隧道示例
 [[proxies]]
-name = "test-tcp"
-type = "tcp"
 localIP = "127.0.0.1"
 localPort = 22
+name = "test-tcp"
 remotePort = 6000
+type = "tcp"
 
 # UDP 隧道示例
 [[proxies]]
-name = "test-udp"
-type = "udp"
 localIP = "127.0.0.1"
 localPort = 53
+name = "test-udp"
 remotePort = 6001
+type = "udp"
 
 # HTTP 隧道示例
 [[proxies]]
-name = "test-http"
-type = "http"
+customDomains = ["example.com"]
 localIP = "127.0.0.1"
 localPort = 80
-customDomains = ["example.com"]
+name = "test-http"
+type = "http"
 
 # HTTPS 隧道示例
 [[proxies]]
-name = "test-https"
-type = "https"
+customDomains = ["secure.example.com"]
 localIP = "127.0.0.1"
 localPort = 443
-customDomains = ["secure.example.com"]
+name = "test-https"
+type = "https"
 
 # XTCP 隧道示例 (P2P)
 [[proxies]]
-name = "test-xtcp"
-type = "xtcp"
 localIP = "127.0.0.1"
 localPort = 22
+name = "test-xtcp"
 secretKey = "your_xtcp_secret_key"
+type = "xtcp"
 
 # STCP 隧道示例 (安全TCP)
 [[proxies]]
-name = "test-stcp"
-type = "stcp"
 localIP = "127.0.0.1"
 localPort = 22
+name = "test-stcp"
 secretKey = "your_stcp_secret_key"
+type = "stcp"
+
+### 访问者配置示例 (用于连接安全隧道)
+### 访问者配置用于从另一台机器连接到上述的安全隧道
+
+# STCP 访问者示例 (连接到 STCP 隧道)
+[[visitors]]
+bindAddr = "127.0.0.1"
+bindPort = 6002
+name = "test-stcp-visitor"
+secretKey = "your_stcp_secret_key"
+serverName = "test-stcp"
+type = "stcp"
+
+# XTCP 访问者示例 (P2P连接到 XTCP 隧道)
+[[visitors]]
+bindAddr = "127.0.0.1"
+bindPort = 6003
+name = "test-xtcp-visitor"
+secretKey = "your_xtcp_secret_key"
+serverName = "test-xtcp"
+type = "xtcp"
+
+### 配置说明:
+### 1. STCP (Secure TCP): 安全TCP隧道，只有知道密钥的访问者才能连接
+###    - 适用于需要安全访问的场景
+###    - 通过服务器中转，稳定但不是P2P
+###
+### 2. XTCP (eXtended TCP): 扩展TCP隧道，支持P2P直连
+###    - 适用于需要高性能的场景
+###    - 尝试建立P2P直连，失败时可回退到STCP模式
+###
+### 3. 访问者配置注意事项:
+###    - 使用 [[visitors]] 而不是 [[proxies]]
+###    - serverName 必须与要连接的隧道名称一致
+###    - secretKey 必须与隧道的密钥一致
+###    - bindAddr 是本地绑定的IP地址
+###    - bindPort 是本地监听的端口

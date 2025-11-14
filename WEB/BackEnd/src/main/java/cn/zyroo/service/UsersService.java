@@ -332,4 +332,13 @@ public class UsersService {
     }
   }
 
+  /**
+   * 根据邮箱查找用户
+   * @param email 用户邮箱
+   * @return 用户对象，如果不存在则返回null
+   */
+  public Users findByEmail(String email) {
+    return usersRepository.findByEmail(email);
+  }
+
 }

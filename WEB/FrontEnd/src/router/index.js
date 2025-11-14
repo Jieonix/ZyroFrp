@@ -15,6 +15,8 @@ import Payment from '../views/Payment.vue';
 import Admin_Home from '@/views/Admin/Admin_Home.vue';
 import Admin_Users from '@/views/Admin/Admin_Users.vue';
 import Admin_Email from '@/views/Admin/Admin_Email.vue';
+import Admin_Logs from '@/views/Admin/Admin_Logs.vue';
+import Admin_LogStatistics from '@/views/Admin/Admin_LogStatistics.vue';
 import Admin_Login from '@/views/Auth/Admin_Login.vue';
 
 const routes = [
@@ -100,6 +102,16 @@ const routes = [
     path: '/Admin_Login',
     name: 'Admin_Login',
     component: Admin_Login,
+  },
+  {
+    path: '/Admin_Logs',
+    name: 'Admin_Logs',
+    component: Admin_Logs,
+  },
+  {
+    path: '/Admin_LogStatistics',
+    name: 'Admin_LogStatistics',
+    component: Admin_LogStatistics,
   },
 ];
 

@@ -728,7 +728,8 @@ h1 {
 }
 
 td {
-  padding: 12px 16px;
+  padding: 1rem;
+  text-align: center;
   background-color: #f1f8e9;
   white-space: nowrap;
   overflow: hidden;

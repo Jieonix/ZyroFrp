@@ -11,6 +11,8 @@
       <li><router-link to="/Admin_Email" active-class="active">邮件群发</router-link></li>
       <li><router-link to="/Admin_EmailCode" active-class="active">验证码管理</router-link></li>
       <li><router-link to="/Admin_Servers" active-class="active">服务器管理</router-link></li>
+      <li><router-link to="/Admin_Logs" active-class="active">操作日志</router-link></li>
+      <li><router-link to="/Admin_LogStatistics" active-class="active">日志统计</router-link></li>
     </ul>
   </nav>
 </template>
@@ -41,6 +43,23 @@
   font-weight: 500;
   font-size: 14px;
   padding: 0;
+}
+
+.sidebar ul li.menu-group {
+  font-weight: bold;
+  font-size: 16px;
+  color: #666;
+  padding: 15px 20px 5px 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+  cursor: default;
+  background: none;
+}
+
+.sidebar ul li.menu-group:hover {
+  background: none;
+  color: #666;
 }
 
 .sidebar ul li:hover {
@@ -79,6 +98,15 @@
   .sidebar ul li a.active {
     color: #5ccea8;
     background-color: #233633;
+  }
+
+  .sidebar ul li.menu-group {
+    color: #999;
+  }
+
+  .sidebar ul li.menu-group:hover {
+    color: #999;
+    background: none;
   }
 
 }

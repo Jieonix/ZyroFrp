@@ -21,7 +21,6 @@
 import { ref } from "vue"
 import Header from "@/modules/common/components/Header.vue"
 import axios from "axios"
-import qs from 'qs'
 import { validateEmail, validatePassword, validateCode } from '@/modules/auth/utils/validate.js'
 import router from "@/router/index.js"
 

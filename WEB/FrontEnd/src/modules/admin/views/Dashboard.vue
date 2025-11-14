@@ -64,5 +64,4 @@ export default {
   min-height: 91vh;
 }
 
-@media (prefers-color-scheme: dark) {}
 </style>

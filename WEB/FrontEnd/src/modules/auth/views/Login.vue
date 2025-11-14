@@ -16,7 +16,6 @@
 import { ref, getCurrentInstance } from "vue"
 import Header from "@/modules/common/components/Header.vue"
 import axios from "axios"
-import qs from 'qs'
 import { validateEmail } from '@/modules/auth/utils/validate.js'
 import router from "@/router/index.js"
 import activityTracker from '@/modules/common/utils/activityTracker.js'
@@ -62,6 +61,3 @@ const login = async () => {
 }
 
 </script>
-
-<style scoped>
-</style>

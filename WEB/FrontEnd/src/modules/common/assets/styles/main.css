@@ -7,8 +7,6 @@
   font-weight: normal;
 }
 
-@media (hover: hover) {}
-
 @media (min-width: 1024px) {
   body {
     display: block;

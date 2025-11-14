@@ -123,5 +123,4 @@ import SvgIcon from '@/modules/common/components/SvgIcon.vue';
 
 }
 
-@media (max-width: 768px) {}
 </style>

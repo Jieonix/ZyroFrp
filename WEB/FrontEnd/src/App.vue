@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import AnnouncementModal from './components/AnnouncementModal.vue'
+import AnnouncementModal from './modules/common/components/AnnouncementModal.vue'
 </script>
 
 <template>

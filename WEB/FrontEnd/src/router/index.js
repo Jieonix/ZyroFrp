@@ -1,23 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import LandingPage from '../views/LandingPage.vue';
-import Home from '../views/Home.vue';
-import check_in from '../views/check_in.vue';
-import auth from '../views/auth.vue';
-import tunnels from '../views/tunnels.vue';
-import add_tunnels from '../views/add_tunnels.vue';
-import conf from '../views/conf.vue';
-import app from '../views/app.vue';
-import usingTutorials from '../views/usingTutorials.vue';
-import Login from '../views/Auth/Login.vue';
-import Register from '../views/Auth/Register.vue';
-import ResetPassword from '../views/Auth/ResetPassword.vue';
-import Payment from '../views/Payment.vue';
-import Admin_Home from '@/views/Admin/Admin_Home.vue';
-import Admin_Users from '@/views/Admin/Admin_Users.vue';
-import Admin_Email from '@/views/Admin/Admin_Email.vue';
-import Admin_Logs from '@/views/Admin/Admin_Logs.vue';
-import Admin_LogStatistics from '@/views/Admin/Admin_LogStatistics.vue';
-import Admin_Login from '@/views/Auth/Admin_Login.vue';
+import LandingPage from '../modules/landing/views/LandingPage.vue';
+import Home from '../modules/user/views/UserDashboard.vue';
+import check_in from '../modules/user/views/UserCheckIn.vue';
+import auth from '../modules/user/views/RealNameAuth.vue';
+import tunnels from '../modules/user/views/TunnelList.vue';
+import add_tunnels from '../modules/user/views/AddTunnel.vue';
+import conf from '../modules/user/views/TunnelConfig.vue';
+import app from '../modules/user/views/FRPDownloads.vue';
+import usingTutorials from '../modules/user/views/UserTutorials.vue';
+import Login from '../modules/auth/views/Login.vue';
+import Register from '../modules/auth/views/Register.vue';
+import ResetPassword from '../modules/auth/views/ResetPassword.vue';
+import Payment from '../modules/pages/payment/views/Payment.vue';
+import Admin_Home from '../modules/admin/views/Dashboard.vue';
+import Admin_Users from '../modules/admin/views/UserManagement.vue';
+import Admin_Email from '../modules/admin/views/EmailManagement.vue';
+import Admin_Logs from '../modules/admin/views/LogManagement.vue';
+import Admin_LogStatistics from '../modules/admin/views/Statistics.vue';
+import Admin_Login from '../modules/auth/views/Admin_Login.vue';
+
+// 导入缺失的管理员组件（占位）
+import TunnelManagement from '../modules/admin/views/TunnelManagement.vue';
+import AuthManagement from '../modules/admin/views/AuthManagement.vue';
+import AnnouncementManagement from '../modules/admin/views/AnnouncementManagement.vue';
+import AnswerManagement from '../modules/admin/views/AnswerManagement.vue';
+import QuestionManagement from '../modules/admin/views/QuestionManagement.vue';
+import EmailCodeManagement from '../modules/admin/views/EmailCodeManagement.vue';
+import ServerManagement from '../modules/admin/views/ServerManagement.vue';
 
 const routes = [
   {
@@ -26,55 +35,55 @@ const routes = [
     component: LandingPage,
   },
   {
-    path: '/home',
-    name: 'Home',
+    path: '/user-dashboard',
+    name: 'UserDashboard',
     component: Home,
   },
   {
-    path: '/check_in',
-    name: 'check_in',
+    path: '/user-check-in',
+    name: 'UserCheckIn',
     component: check_in,
   },
   {
-    path: '/auth',
-    name: 'auth',
+    path: '/real-name-auth',
+    name: 'RealNameAuth',
     component: auth,
   },
   {
-    path: '/tunnels',
-    name: 'tunnels',
+    path: '/tunnel-list',
+    name: 'TunnelList',
     component: tunnels,
   },
   {
-    path: '/add_tunnels',
-    name: 'add_tunnels',
+    path: '/add-tunnel',
+    name: 'AddTunnel',
     component: add_tunnels,
   }, {
-    path: '/conf',
-    name: 'conf',
+    path: '/tunnel-config',
+    name: 'TunnelConfig',
     component: conf,
   },
   {
-    path: '/app',
-    name: 'app',
+    path: '/frp-downloads',
+    name: 'FRPDownloads',
     component: app,
   }, {
-    path: '/usingTutorials',
-    name: 'usingTutorials',
+    path: '/user-tutorials',
+    name: 'UserTutorials',
     component: usingTutorials,
   },
   {
-    path: '/Login',
+    path: '/login',
     name: 'Login',
     component: Login,
   },
   {
-    path: '/Register',
+    path: '/register',
     name: 'Register',
     component: Register,
   },
   {
-    path: '/ResetPassword',
+    path: '/reset-password',
     name: 'ResetPassword',
     component: ResetPassword,
   },
@@ -84,34 +93,69 @@ const routes = [
     component: Payment,
   },
   {
-    path: '/Admin_Home',
-    name: 'Admin_Home',
+    path: '/dashboard',
+    name: 'Dashboard',
     component: Admin_Home,
   },
   {
-    path: '/Admin_Users',
-    name: 'Admin_Users',
+    path: '/user-management',
+    name: 'UserManagement',
     component: Admin_Users,
   },
   {
-    path: '/Admin_Email',
-    name: 'Admin_Email',
+    path: '/email-management',
+    name: 'EmailManagement',
     component: Admin_Email,
   },
   {
-    path: '/Admin_Login',
+    path: '/admin-login',
     name: 'Admin_Login',
     component: Admin_Login,
   },
   {
-    path: '/Admin_Logs',
-    name: 'Admin_Logs',
+    path: '/log-management',
+    name: 'LogManagement',
     component: Admin_Logs,
   },
   {
-    path: '/Admin_LogStatistics',
-    name: 'Admin_LogStatistics',
+    path: '/statistics',
+    name: 'Statistics',
     component: Admin_LogStatistics,
+  },
+  {
+    path: '/tunnel-management',
+    name: 'TunnelManagement',
+    component: TunnelManagement,
+  },
+  {
+    path: '/auth-management',
+    name: 'AuthManagement',
+    component: AuthManagement,
+  },
+  {
+    path: '/announcement-management',
+    name: 'AnnouncementManagement',
+    component: AnnouncementManagement,
+  },
+  {
+    path: '/answer-management',
+    name: 'AnswerManagement',
+    component: AnswerManagement,
+  },
+  {
+    path: '/question-management',
+    name: 'QuestionManagement',
+    component: QuestionManagement,
+  },
+  {
+    path: '/email-code-management',
+    name: 'EmailCodeManagement',
+    component: EmailCodeManagement,
+  },
+  {
+    path: '/server-management',
+    name: 'ServerManagement',
+    component: ServerManagement,
   },
 ];
 

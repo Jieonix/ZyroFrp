@@ -27,13 +27,10 @@ installMessage(app)
 app.mount('#app')
 app.component('SvgIcon', SvgIcon)
 
-// 注册活跃时间跟踪指令
 app.directive('activity-track', vActivityTrack)
 
-// 启动活跃时间跟踪器
 router.afterEach((to, from) => {
-  // 检查是否已登录（支持普通用户和管理员token）
-  const token = localStorage.getItem('Token') || localStorage.getItem('AdminToken');
+    const token = localStorage.getItem('Token') || localStorage.getItem('AdminToken');
   if (token && to.name !== 'Login' && to.name !== 'Register' && to.name !== 'Admin_Login') {
     activityTracker.start();
   } else {
@@ -41,7 +38,6 @@ router.afterEach((to, from) => {
   }
 });
 
-// 初始化时检查登录状态
 const token = localStorage.getItem('Token') || localStorage.getItem('AdminToken');
 const currentRoute = router.currentRoute.value;
 if (token && currentRoute.name !== 'Login' && currentRoute.name !== 'Register' && currentRoute.name !== 'Admin_Login') {

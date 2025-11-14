@@ -155,11 +155,6 @@ const adminMenuItems = [
     route: 'QuestionManagement'
   },
   {
-    name: 'email-group',
-    type: 'group',
-    label: '邮件管理'
-  },
-  {
     name: 'email-management',
     type: 'item',
     label: '邮件群发',
@@ -170,11 +165,6 @@ const adminMenuItems = [
     type: 'item',
     label: '验证码管理',
     route: 'EmailCodeManagement'
-  },
-  {
-    name: 'server-group',
-    type: 'group',
-    label: '系统管理'
   },
   {
     name: 'server-management',
@@ -390,34 +380,6 @@ const sidebarClass = computed(() => {
   }
 }
 
-/* 动画效果 */
-.sidebar ul li a {
-  position: relative;
-  overflow: hidden;
-}
-
-.sidebar ul li a::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 3px;
-  background-color: currentColor;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-}
-
-.sidebar ul li a.active::before {
-  transform: translateX(0);
-  background-color: #00910c;
-}
-
-@media (prefers-color-scheme: dark) {
-  .sidebar ul li a.active::before {
-    background-color: #5ccea8;
-  }
-}
 
 /* 无障碍访问 */
 .sidebar ul li a:focus-visible {

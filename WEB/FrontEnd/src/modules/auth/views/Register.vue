@@ -20,7 +20,7 @@
 <script setup>
 import { ref, getCurrentInstance } from "vue"
 import Header from "@/modules/common/components/Header.vue"
-import { post } from '@/modules/common/utils/http.js'
+import axios from "axios"
 import { validateEmail, validatePassword, validateCode } from '@/modules/common/utils/validation.js'
 import router from "@/router/index.js"
 
@@ -53,12 +53,10 @@ const sendCode = async () => {
   isSending.value = true
 
   try {
-    const response = await post('/emails/send-verification', {
+
+    const response = await axios.post('/emails/send-verification', {
       toEmail: Email.value,
       type: "REGISTER"
-    }, {}, {
-      showMessage: (msg) => proxy.$message.error(msg),
-      defaultMessage: '验证码发送失败'
     })
 
     if (errorCodes.includes(response.data.code)) {
@@ -77,6 +75,10 @@ const sendCode = async () => {
         countdown.value = 60
       }
     }, 1000);
+
+  } catch (error) {
+
+    proxy.$message.error('验证码发送失败：' + error)
 
   } finally {
     isSending.value = false
@@ -99,13 +101,10 @@ const register = async () => {
 
   try {
 
-    const response = await post('/auth/register', {
+    const response = await axios.post('/auth/register', {
       email: Email.value,
       password: password.value,
       emailCode: code.value
-    }, {}, {
-      showMessage: (msg) => proxy.$message.error(msg),
-      defaultMessage: '注册失败'
     })
 
     if (errorCodes.includes(response.data.code)) {
@@ -118,6 +117,10 @@ const register = async () => {
     setTimeout(() => {
       router.push({ name: 'Login' })
     }, 100)
+
+  } catch (error) {
+
+    console.error("注册失败：", error)
 
   }
 }

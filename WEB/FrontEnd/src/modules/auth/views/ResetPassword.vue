@@ -18,15 +18,13 @@
 </template>
 
 <script setup>
-import { ref, getCurrentInstance } from "vue"
+import { ref } from "vue"
 import Header from "@/modules/common/components/Header.vue"
-import { post, put } from '@/modules/common/utils/http.js'
+import axios from "axios"
 import { validateEmail, validatePassword, validateCode } from '@/modules/common/utils/validation.js'
 import router from "@/router/index.js"
 
 
-
-const { proxy } = getCurrentInstance()
 
 const Email = ref('')
 const code = ref('')
@@ -44,6 +42,8 @@ const passwordResetErrorCodes = [
   "PASSWORD_RESET_4207",
   "EMAIL_SEND_4301"
 ];
+import { getCurrentInstance } from "vue"
+const { proxy } = getCurrentInstance()
 
 
 const sendCode = async () => {
@@ -57,12 +57,10 @@ const sendCode = async () => {
   isSending.value = true
 
   try {
-    const response = await post('/emails/send-verification', {
+
+    const response = await axios.post('/emails/send-verification', {
       toEmail: Email.value,
       type: "RESET_PASSWORD"
-    }, {}, {
-      showMessage: (msg) => proxy.$message.error(msg),
-      defaultMessage: '验证码发送失败'
     })
 
     if (passwordResetErrorCodes.includes(response.data.code)) {
@@ -81,6 +79,10 @@ const sendCode = async () => {
         countdown.value = 60
       }
     }, 1000);
+
+  } catch (error) {
+
+    console.error("验证码发送失败：", error)
 
   } finally {
     isSending.value = false
@@ -102,13 +104,11 @@ const register = async () => {
   }
 
   try {
-    const response = await put('/auth/password', {
+
+    const response = await axios.put('/auth/password', {
       email: Email.value,
       newPassword: password.value,
       emailCode: code.value
-    }, {}, {
-      showMessage: (msg) => proxy.$message.error(msg),
-      defaultMessage: '密码修改失败'
     })
 
     if (passwordResetErrorCodes.includes(response.data.code)) {
@@ -122,8 +122,11 @@ const register = async () => {
       router.push({ name: 'Login' })
     }, 100)
 
+
   } catch (error) {
+
     console.error("密码修改失败：", error)
+
   }
 }
 

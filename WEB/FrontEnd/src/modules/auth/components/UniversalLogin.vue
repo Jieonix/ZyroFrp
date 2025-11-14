@@ -40,8 +40,9 @@
 <script setup>
 import { ref, getCurrentInstance, computed, onUnmounted } from "vue"
 import Header from "@/modules/common/components/Header.vue"
-import { post } from '@/modules/common/utils/http.js'
+import axios from "axios"
 import { validateEmail } from '@/modules/common/utils/validation.js'
+import { handleError, createErrorHandler } from '@/modules/common/utils/errorHandler.js'
 import router from "@/router/index.js"
 import activityTracker from '@/modules/common/utils/activityTracker.js'
 
@@ -88,6 +89,18 @@ const config = computed(() => {
   }
 })
 
+// 创建带上下文的错误处理器
+const errorHandler = createErrorHandler(`${config.value.title}登录`, {
+  showMessage: (msg) => proxy.$message.error(msg),
+  onAuthError: () => {
+    // 认证失败时清除相关 token 并跳转到登录页
+    localStorage.removeItem(config.value.tokenKey)
+    // 如果已经在登录页，不需要跳转
+    if (router.currentRoute.value.name !== 'Login' && router.currentRoute.value.name !== 'Admin_Login') {
+      router.push({ name: props.type === 'admin' ? 'Admin_Login' : 'Login' })
+    }
+  }
+})
 
 // 登录处理函数
 const handleLogin = async () => {
@@ -104,17 +117,9 @@ const handleLogin = async () => {
   isLoading.value = true
 
   try {
-    const response = await post(config.value.apiEndpoint, {
+    const response = await axios.post(config.value.apiEndpoint, {
       email: Email.value,
       password: password.value
-    }, {}, {
-      showMessage: (msg) => proxy.$message.error(msg),
-      onAuthError: () => {
-        localStorage.removeItem(config.value.tokenKey)
-        if (router.currentRoute.value.name !== 'Login' && router.currentRoute.value.name !== 'Admin_Login') {
-          router.push({ name: props.type === 'admin' ? 'Admin_Login' : 'Login' })
-        }
-      }
     })
 
     // 检查业务错误码
@@ -138,6 +143,12 @@ const handleLogin = async () => {
       router.push({ name: config.value.successRoute })
     }, 100)
 
+  } catch (error) {
+    // 使用统一错误处理
+    errorHandler.handle(error, {
+      context: `${config.value.title}请求失败`,
+      defaultMessage: '登录失败，请检查网络连接或联系技术支持'
+    })
   } finally {
     isLoading.value = false
   }

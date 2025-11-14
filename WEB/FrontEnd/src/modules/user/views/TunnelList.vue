@@ -103,7 +103,7 @@ import Sidebar from '@/modules/user/components/Sidebar.vue';
 import Footer from '@/modules/common/components/Footer.vue';
 import { useRouter } from 'vue-router';
 import { validateToken } from '@/modules/auth/utils/token.js';
-import { get, put, del } from '@/modules/common/utils/http.js';
+import axios from 'axios';
 import { useLoadingStore } from '@/modules/common/stores/loading'
 import { commonMethods } from '@/modules/common/utils/common.js'
 import '@/modules/common/assets/styles/common.css'
@@ -138,18 +138,21 @@ export default {
     ...commonMethods,
     async getTunnels() {
       try {
+        const Token = localStorage.getItem('Token');
         const loadingStore = useLoadingStore();
         loadingStore.showLoading();
-        const response = await get('/frp-tunnels', {}, {}, {
-          showMessage: (msg) => this.$message.error(msg),
-          defaultMessage: '获取隧道列表失败'
+        const response = await axios.get('/frp-tunnels', {
+          headers: {
+            'Token': Token
+          }
         })
 
         loadingStore.hideLoading();
+
         this.tunnels = response.data.data
 
+
       } catch (error) {
-        loadingStore.hideLoading();
         console.error(error)
       }
     },
@@ -157,10 +160,7 @@ export default {
       this.isEditBoxVisible = true;
 
       try {
-        const response = await get('/servers', {}, {}, {
-          showMessage: (msg) => this.$message.error(msg),
-          defaultMessage: "获取服务器列表失败"
-        });
+        const response = await axios.get('/servers');
         this.servers = response.data.data;
       } catch (error) {
         console.error("获取服务器列表失败", error);
@@ -204,47 +204,43 @@ export default {
         tunnelData.remote_port = this.remote_port;
       }
 
-      try {
-        const response = await put(`/frp-tunnels/${id}`, {
-          token,
-          frpTunnel: tunnelData
-        }, {}, {
-          showMessage: (msg) => this.$message.error(msg),
-          defaultMessage: '更新隧道失败'
+      const response = axios.put(`/frp-tunnels/${id}`, {
+        token,
+        frpTunnel: tunnelData
+      })
+        .then(response => {
+          this.$message.success(response.data.message);
+
+          setTimeout(() => {
+            this.isEditBoxVisible = false;
+          }, 1000)
+
+          // 延迟 3 秒后重新获取隧道列表，确保消息有足够时间显示
+          setTimeout(() => {
+            this.getTunnels();
+          }, 3000);
         })
-
-        this.$message.success(response.data.message);
-
-        setTimeout(() => {
-          this.isEditBoxVisible = false;
-        }, 1000)
-
-        // 延迟 3 秒后重新获取隧道列表，确保消息有足够时间显示
-        setTimeout(() => {
-          this.getTunnels();
-        }, 3000);
-      } catch (error) {
-        console.error('更新隧道失败', error);
-      }
+        .catch(error => {
+          console.error('更新隧道失败', error);
+        });
     },
-    async deleteTunnel(tunnel) {
-      try {
-        const token = localStorage.getItem('Token');
+    deleteTunnel(tunnel) {
+      const token = localStorage.getItem('Token');
 
-        const response = await del(`/frp-tunnels/${tunnel.id}`, { token }, {}, {
-          showMessage: (msg) => this.$message.error(msg),
-          defaultMessage: '删除隧道失败'
+      axios.delete(`/frp-tunnels/${tunnel.id}`, {
+        data: { token }
+      })
+        .then(response => {
+          this.$message.success(response.data.message);
+
+          // 延迟 3 秒后重新获取隧道列表，确保消息有足够时间显示
+          setTimeout(() => {
+            this.getTunnels();
+          }, 3000);
         })
-
-        this.$message.success(response.data.message);
-
-        // 延迟 3 秒后重新获取隧道列表，确保消息有足够时间显示
-        setTimeout(() => {
-          this.getTunnels();
-        }, 3000);
-      } catch (error) {
-        console.error("删除失败:", error.response?.data || error.message);
-      }
+        .catch(error => {
+          console.error("删除失败:", error.response?.data || error.message);
+        });
     },
   },
   mounted() {

@@ -23,7 +23,7 @@
         {{ isLoading ? '登录中...' : config.loginButtonText }}
       </button>
 
-        <div class="dynamic-content">
+      <div class="dynamic-content">
         <template v-if="config.type === 'user'">
           <p><router-link :to="{ name: 'ResetPassword' }">忘记密码?</router-link></p>
           <p>还没有账号? <router-link :to="{ name: 'Register' }">注册</router-link></p>
@@ -62,6 +62,7 @@ const isLoading = ref(false)
 const config = computed(() => {
   if (props.type === 'admin') {
     return {
+      type: 'admin',
       title: '管理员登录',
       emailPlaceholder: '管理员邮箱',
       passwordPlaceholder: '管理员密码',
@@ -73,6 +74,7 @@ const config = computed(() => {
     }
   } else {
     return {
+      type: 'user',
       title: '用户登录',
       emailPlaceholder: '邮箱',
       passwordPlaceholder: '密码',

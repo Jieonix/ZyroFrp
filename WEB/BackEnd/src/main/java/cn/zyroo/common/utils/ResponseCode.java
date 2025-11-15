@@ -1,0 +1,92 @@
+package cn.zyroo.all.common.utils;
+
+public enum ResponseCode {
+
+  // 注册相关错误码
+  REGISTER_USER_EXISTS("REGISTER_4001", "用户已存在"),
+  REGISTER_INVALID_VERIFICATION_CODE("REGISTER_4002", "验证码无效"),
+  REGISTER_CODE_USED("REGISTER_4003", "验证码已使用"),
+  REGISTER_CODE_EXPIRED("REGISTER_4004", "验证码已过期"),
+  REGISTER_CODE_INVALID("REGISTER_4005", "验证码已失效"),
+  REGISTER_FAILED("REGISTER_4006", "注册失败"),
+
+  // 登录相关错误码
+  LOGIN_PASSWORD_ERROR("LOGIN_4101", "密码错误"),
+  LOGIN_USER_NOT_FOUND("LOGIN_4102", "用户不存在"),
+  LOGIN_FAILED("LOGIN_4103", "登录失败"),
+  LOGIN_INSUFFICIENT_PERMISSIONS("LOGIN_4104","用户权限不足"),
+
+  // 密码重置相关错误码
+  PASSWORD_RESET_FAILED("PASSWORD_RESET_4201", "密码重置失败"),
+  PASSWORD_SAME("PASSWORD_RESET_4202", "新密码与旧密码相同"),
+  PASSWORD_RESET_CODE_USED("PASSWORD_RESET_4203", "验证码已使用"),
+  PASSWORD_RESET_CODE_EXPIRED("PASSWORD_RESET_4204", "验证码已过期"),
+  PASSWORD_RESET_CODE_INVALID("PASSWORD_RESET_4205", "验证码已失效"),
+  PASSWORD_RESET_NOT_FOUND("PASSWORD_RESET_4206", "用户不存在"),
+  PASSWORD_RESET_INVALID_VERIFICATION_CODE("PASSWORD_RESET_4207", "验证码无效"),
+
+  // 邮件发送相关错误代码
+  EMAIL_SEND_FAILED("EMAIL_SEND_4301", "邮件发送失败"),
+
+  // 公告相关错误代码
+  ANNOUNCEMENT_FETCH_FAILED("ANNOUNCEMENT_4401", "获取公告失败"),
+  ANNOUNCEMENT_NOT_FOUND("ANNOUNCEMENT_4402", "公告不存在"),
+  ANNOUNCEMENT_CREATE_FAILED("ANNOUNCEMENT_4403", "公告创建失败"),
+  ANNOUNCEMENT_UPDATE_FAILED("ANNOUNCEMENT_4404", "公告更新失败"),
+  ANNOUNCEMENT_DELETE_FAILED("ANNOUNCEMENT_4405", "公告删除失败"),
+
+  // QUIZ相关错误代码
+  QUIZ_NOT_FOUND("QUIZ_4501", "题目不存在"),
+  QUIZ_CREATE_FAILED("QUIZ_4502", "题目创建失败"),
+  QUIZ_SUBMIT_FAILED("QUIZ_4503", "提交答案失败"),
+  QUIZ_ALREADY_ANSWERED("QUIZ_4504", "已经答过题了"),
+  QUIZ_STATUS_FAILED("QUIZ_4505", "答题状态查询错误"),
+
+  // 获取用户信息相关错误码
+  USERINFO_TOKEN_INVALID("USERINFO_4601", "Token无效或解析失败"),
+  USERINFO_USER_NOT_FOUND("USERINFO_4602", "用户信息不存在"),
+  USERINFO_UNAUTHORIZED("USERINFO_4603","未获得管理员授权"),
+
+  // Frp隧道相关错误吗
+  FRPTUNNEL_ADD_FAILED("FRPTUNNEL_4701", "添加隧道失败"),
+  FRPTUNNEL_SHOW_FAILED("FRPTUNNEL_4702", "隧道列表获取失败"),
+  FRPTUNNEL_SHOW_ISEMPTY("FRPTUNNEL_4703", "隧道列表为空"),
+  FRPTUNNEL_MISSING_CUSTOM_DOMAIN("FRPTUNNEL_4704", "缺少自定义域名"),
+  FRPTUNNEL_MISSING_SECRET_KEY("FRPTUNNEL_4705", "缺少密钥"),
+  FRPTUNNEL_NOT_FOUND("FRPTUNNEL_4706", "隧道不存在"),
+  FRPTUNNEL_UNAUTHORIZED("FRPTUNNEL_4707", "未授权"),
+  FRPTUNNEL_UPDATE_FAILED("FRPTUNNEL_4708", "更新隧道失败"),
+  FRPTUNNEL_DELETE_FAILED("FRPTUNNEL_4709", "删除隧道失败"),
+  FRPTUNNEL_INVALID_REQUEST("FRPTUNNEL_4710", "无效的请求"),
+  FRPTUNNEL_SERVER_NOT_FOUND("FRPTUNNEL_4711", "服务器不存在"),
+  FRPTUNNEL_SERVER_FULL("FRPTUNNEL_4712", "服务器已满"),
+
+  // 注销用户错误代码
+  UNAUTHORIZED_TO_DEACTIVATE_ACCOUNT("DEACTIVATION_4801", "无权注销该账号"),
+
+  // 权限相关错误代码
+  PERMISSION_DENIED("PERMISSION_4802", "权限不足"),
+
+  // 通用错误代码
+  FAILED("FAILED_4999", "操作失败"),
+
+  // 用户相关错误代码
+  USER_NOT_FOUND("USER_4901", "用户不存在");
+
+
+  private final String code;
+  private final String message;
+
+  ResponseCode(String code, String message) {
+    this.code = code;
+    this.message = message;
+  }
+
+  public String getCode() {
+    return code;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+}

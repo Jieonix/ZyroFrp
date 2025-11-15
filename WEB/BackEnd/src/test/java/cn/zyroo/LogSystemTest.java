@@ -1,17 +1,16 @@
 package cn.zyroo;
 
-import cn.zyroo.model.OperationLog;
-import cn.zyroo.service.LogService;
-import cn.zyroo.utils.IpUtils;
-import cn.zyroo.utils.LogUtils;
-import cn.zyroo.utils.SensitiveDataUtils;
+import cn.zyroo.all.log.model.OperationLog;
+import cn.zyroo.all.log.service.LogService;
+import cn.zyroo.all.log.utils.IpUtils;
+import cn.zyroo.all.log.utils.LogUtils;
+import cn.zyroo.all.log.utils.SensitiveDataUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -22,5 +22,17 @@ export default defineConfig({
   },
   define: {
     'process.env': {}
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vue-vendor': ['vue', 'vue-router', 'pinia'],
+          'ui-vendor': ['vant'],
+          'utils': ['axios', 'qs']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
   }
 })

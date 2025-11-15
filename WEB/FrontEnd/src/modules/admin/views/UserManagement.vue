@@ -300,7 +300,6 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
         </div>
       </section>
 
-      <!-- 自定义确认弹窗 -->
       <ConfirmDialog
         :visible="confirmDialog.show"
         :title="confirmDialog.title"
@@ -367,7 +366,6 @@ export default {
         "REGISTER_4006",
         "EMAIL_SEND_4301"
       ],
-      // 确认弹窗相关数据
       confirmDialog: {
         show: false,
         title: '',
@@ -382,7 +380,6 @@ export default {
     };
   },
   methods: {
-    // 显示确认弹窗
     showConfirm(options) {
       this.confirmDialog = {
         show: true,
@@ -397,14 +394,12 @@ export default {
       };
     },
 
-    // 处理确认按钮点击
     async handleConfirm() {
       if (this.confirmDialog.callback) {
         this.confirmDialog.loading = true;
         try {
           await this.confirmDialog.callback(...this.confirmDialog.callbackArgs);
         } catch (error) {
-          // 确认操作失败处理
         } finally {
           this.confirmDialog.loading = false;
           this.confirmDialog.show = false;
@@ -412,7 +407,6 @@ export default {
       }
     },
 
-    // 处理取消和关闭
     handleCancel() {
       this.confirmDialog.show = false;
       this.confirmDialog.loading = false;
@@ -424,7 +418,6 @@ export default {
       navigator.clipboard.writeText(text.toString()).then(() => {
         this.$message.success('已复制到剪贴板: ' + text);
       }).catch(err => {
-        // 复制失败，使用降级方案
         const textArea = document.createElement('textarea');
         textArea.value = text;
         document.body.appendChild(textArea);
@@ -495,7 +488,6 @@ export default {
         this.edit_style = true;
 
       } catch (err) {
-        // 静默处理错误，不输出调试信息
       }
     },
     search_style_function() {
@@ -509,25 +501,21 @@ export default {
       return `${year}-${month}-${day}`;
     },
     async confirmTheAddition() {
-      // 表单验证
       if (!emailRegex.test(this.email)) {
         this.$message.error("您的邮箱格式不符合条件，请更换后重试...");
         return;
       }
 
-      // 密码不能为空或太短
       if (!this.password || this.password.length < 6) {
         this.$message.error("密码不能为空，且长度不能少于6位！");
         return;
       }
 
-      // 弱密码判断
       if (weakPasswords.test(this.password)) {
         this.$message.warning("您的密码太弱了，请更换一个复杂点的密码...");
         return;
       }
 
-      // 显示确认弹窗
       this.showConfirm({
         title: '新增用户',
         message: `确定要新增用户 "${this.email}" 吗？\n\n请检查填写的信息是否正确。`,
@@ -569,7 +557,6 @@ export default {
         }, 1000)
 
       } catch (error) {
-        // 静默处理错误，不输出调试信息
         this.$message.error('新增用户失败');
         throw error;
       }
@@ -602,13 +589,11 @@ export default {
         }, 1000)
       }
       catch (error) {
-        // 静默处理错误，不输出调试信息
         this.$message.error('删除用户失败');
         throw error;
       }
     },
     async confirmTheEdit() {
-      // 显示确认弹窗
       this.showConfirm({
         title: '修改用户',
         message: `确定要修改用户 "${this.email}" 的信息吗？\n\n请检查填写的信息是否正确。`,
@@ -665,7 +650,6 @@ export default {
         }, 1000)
 
       } catch (error) {
-        // 静默处理错误，不输出调试信息
         this.$message.error('修改用户信息失败');
         throw error;
       }
@@ -681,14 +665,11 @@ export default {
           vipStatus: this.vip_status
         };
 
-        // 发起请求，传递查询参数
         const response = await axios.get('/users/search', {
-          params: params, // 这里将查询条件作为 params 传递
+          params: params,
         });
 
-        // 移除调试日志，处理查询结果
       } catch (error) {
-        // 静默处理错误，不输出调试信息
       }
     },
     autoCloseMessageBox() {
@@ -917,7 +898,6 @@ table td {
   padding-bottom: 10px;
 }
 
-/* 暗黑模式下的按钮容器背景 */
 @media (prefers-color-scheme: dark) {
 
   .edit>div:last-child,
@@ -998,7 +978,6 @@ table td {
   padding: 0 20px;
 }
 
-/* 响应式优化 */
 @media (max-width: 1200px) {
   td {
     max-width: 100px;
@@ -1065,7 +1044,6 @@ table td {
   }
 }
 
-/* 暗黑模式 */
 @media (prefers-color-scheme: dark) {
   h1 {
     color: #e9ecef;

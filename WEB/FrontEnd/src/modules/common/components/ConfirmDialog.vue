@@ -66,7 +66,6 @@ export default {
         this.handleCancel();
       }
     },
-    // 按键事件处理
     handleKeydown(e) {
       if (!this.visible) return;
 
@@ -78,11 +77,9 @@ export default {
     }
   },
   mounted() {
-    // 添加键盘事件监听
     document.addEventListener('keydown', this.handleKeydown);
   },
   beforeUnmount() {
-    // 移除键盘事件监听
     document.removeEventListener('keydown', this.handleKeydown);
   }
 }
@@ -196,7 +193,6 @@ export default {
   cursor: not-allowed;
 }
 
-/* 响应式设计 */
 @media (max-width: 768px) {
   .confirm-dialog {
     width: 95%;
@@ -220,7 +216,6 @@ export default {
   }
 }
 
-/* 暗黑模式 */
 @media (prefers-color-scheme: dark) {
   .confirm-dialog {
     background-color: #1e1e1e;

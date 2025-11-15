@@ -1,17 +1,15 @@
-// 活跃时间跟踪器
 import axios from 'axios';
 
 class ActivityTracker {
   constructor() {
-    this.updateInterval = 30000; // 30秒
+    this.updateInterval = 30000;
     this.timer = null;
     this.isTracking = false;
     this.lastUpdateTime = 0;
-    this.throttleDelay = 5000; // 5秒防抖
+    this.throttleDelay = 5000;
     this.pendingUpdate = false;
   }
 
-  // 开始跟踪
   start() {
     if (this.isTracking) return;
 
@@ -19,17 +17,14 @@ class ActivityTracker {
     this.setupPageVisibilityHandlers();
     this.setupBeforeUnloadHandler();
 
-    // 立即更新一次
     this.updateLastActive();
 
-    // 设置定时更新
     this.timer = setInterval(() => {
       this.updateLastActive();
     }, this.updateInterval);
 
   }
 
-  // 停止跟踪
   stop() {
     if (!this.isTracking) return;
 
@@ -44,11 +39,9 @@ class ActivityTracker {
 
   }
 
-  // 更新最后活跃时间（带防抖）
   updateLastActive() {
     const now = Date.now();
 
-    // 防抖处理
     if (now - this.lastUpdateTime < this.throttleDelay) {
       if (!this.pendingUpdate) {
         this.pendingUpdate = true;
@@ -63,10 +56,8 @@ class ActivityTracker {
     this.performUpdate();
   }
 
-  // 执行实际的更新请求
   async performUpdate() {
     try {
-      // 尝试获取普通用户token或管理员token
       const token = localStorage.getItem('Token') || localStorage.getItem('AdminToken');
       if (!token) {
         console.warn('未找到token，停止活跃时间更新');
@@ -85,7 +76,6 @@ class ActivityTracker {
     } catch (error) {
       console.error('活跃时间更新失败:', error.message);
 
-      // 如果是认证错误，停止跟踪
       if (error.response && (error.response.status === 401 || error.response.status === 403)) {
         console.warn('认证失败，停止活跃时间跟踪');
         this.stop();
@@ -93,18 +83,15 @@ class ActivityTracker {
     }
   }
 
-  // 用户操作时手动触发更新
   onUserAction() {
     if (this.isTracking) {
       this.updateLastActive();
     }
   }
 
-  // 设置页面可见性处理
   setupPageVisibilityHandlers() {
     this.visibilityHandler = () => {
       if (document.visibilityState === 'visible') {
-        // 页面重新可见时立即更新
         this.updateLastActive();
       }
     };
@@ -112,7 +99,6 @@ class ActivityTracker {
     document.addEventListener('visibilitychange', this.visibilityHandler);
   }
 
-  // 移除页面可见性处理
   removePageVisibilityHandlers() {
     if (this.visibilityHandler) {
       document.removeEventListener('visibilitychange', this.visibilityHandler);
@@ -120,10 +106,8 @@ class ActivityTracker {
     }
   }
 
-  // 设置页面卸载前的处理
   setupBeforeUnloadHandler() {
     this.beforeUnloadHandler = () => {
-      // 使用sendBeacon发送最后的更新请求
       const token = localStorage.getItem('Token') || localStorage.getItem('AdminToken');
       if (token) {
         const data = new Blob([JSON.stringify({})], { type: 'application/json' });
@@ -134,7 +118,6 @@ class ActivityTracker {
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
   }
 
-  // 移除页面卸载前的处理
   removeBeforeUnloadHandler() {
     if (this.beforeUnloadHandler) {
       window.removeEventListener('beforeunload', this.beforeUnloadHandler);
@@ -143,12 +126,10 @@ class ActivityTracker {
   }
 }
 
-// 创建单例实例
 const activityTracker = new ActivityTracker();
 
 export default activityTracker;
 
-// Vue指令，用于自动跟踪用户操作
 export const vActivityTrack = {
   mounted(el, binding) {
     const events = binding.value || ['click', 'touchstart', 'keydown'];

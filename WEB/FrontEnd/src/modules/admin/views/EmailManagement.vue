@@ -10,7 +10,6 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
     <Admin_Sidebar />
     <main class="main-content">
       <Loading />
-      <!-- 顶部按钮区域 -->
       <div class="tab-header">
         <button class="tab-button" :class="{ active: activeTab === 'send' }" @click="activeTab = 'send'">
           邮件发送
@@ -20,7 +19,6 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
         </button>
       </div>
 
-      <!-- 邮件发送区域 -->
       <div v-show="activeTab === 'send'" class="content-section">
         <div class="form-container">
           <div class="form-row">
@@ -36,7 +34,6 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
             </div>
           </div>
 
-          <!-- 收件人信息 -->
           <div class="info-section">
             <div class="info-row">
               <label>收件人数量</label>
@@ -48,7 +45,6 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
             </div>
           </div>
 
-          <!-- 操作按钮 -->
           <div class="form-buttons">
             <button class="send-btn" @click="sendBulkEmail" :disabled="sending">
               {{ sending ? '正在发送...' : '发送邮件' }}
@@ -99,7 +95,6 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
         </div>
       </div>
 
-      <!-- 用户列表弹窗 -->
       <div v-if="showUserList" class="overlay_1">
         <div class="popup">
           <h1>用户邮箱列表 ({{ users.length }})</h1>
@@ -117,7 +112,6 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
         </div>
       </div>
 
-      <!-- 邮件详情弹窗 -->
       <div v-if="showEmailDetailPopup" class="overlay_1">
         <div class="popup">
           <h1>邮件详情</h1>
@@ -155,7 +149,6 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
         </div>
       </div>
 
-      <!-- 自定义确认弹窗 -->
       <ConfirmDialog :visible="confirmDialog.show" :title="confirmDialog.title" :message="confirmDialog.message"
         :confirmText="confirmDialog.confirmText" :cancelText="confirmDialog.cancelText" :loading="confirmDialog.loading"
         :loadingText="confirmDialog.loadingText" @confirm="handleConfirm" @cancel="handleCancel"
@@ -197,7 +190,6 @@ export default {
       historyLoading: false,
       showEmailDetailPopup: false,
       selectedEmail: null,
-      // 确认弹窗相关数据
       confirmDialog: {
         show: false,
         title: '',
@@ -222,7 +214,6 @@ export default {
     }
   },
   methods: {
-    // 显示确认弹窗
     showConfirm(options) {
       this.confirmDialog = {
         show: true,
@@ -237,14 +228,12 @@ export default {
       };
     },
 
-    // 处理确认按钮点击
     async handleConfirm() {
       if (this.confirmDialog.callback) {
         this.confirmDialog.loading = true;
         try {
           await this.confirmDialog.callback(...this.confirmDialog.callbackArgs);
         } catch (error) {
-          // 静默处理错误，不输出调试信息
         } finally {
           this.confirmDialog.loading = false;
           this.confirmDialog.show = false;
@@ -252,7 +241,6 @@ export default {
       }
     },
 
-    // 处理取消和关闭
     handleCancel() {
       this.confirmDialog.show = false;
       this.confirmDialog.loading = false;
@@ -266,9 +254,7 @@ export default {
       }
     },
 
-    // 表单验证方法 - 按顺序逐个验证
     validateEmailForm() {
-      // 1. 首先检查收件人数量
       if (this.recipientCount === 0) {
         return {
           valid: false,
@@ -276,7 +262,6 @@ export default {
         };
       }
 
-      // 2. 检查邮件主题
       if (!this.emailForm.subject.trim()) {
         return {
           valid: false,
@@ -291,7 +276,6 @@ export default {
         };
       }
 
-      // 3. 检查邮件内容
       if (!this.emailForm.content.trim()) {
         return {
           valid: false,
@@ -306,14 +290,12 @@ export default {
         };
       }
 
-      // 所有验证通过
       return {
         valid: true,
         message: ''
       };
     },
 
-    // 加载邮件相关数据（用户列表和历史记录）
     async loadEmailData() {
       this.loading = true;
       try {
@@ -322,13 +304,11 @@ export default {
           this.loadEmailHistory()
         ]);
       } catch (error) {
-        // 静默处理错误，不输出调试信息
       } finally {
         this.loading = false;
       }
     },
 
-    // 加载收件人数量和用户列表
     async loadEmailCount() {
       try {
         const AdminToken = localStorage.getItem("AdminToken");
@@ -346,12 +326,10 @@ export default {
           this.$message.error(response.data.message || response.data.msg || '获取邮箱列表失败');
         }
       } catch (error) {
-        // 静默处理错误，不输出调试信息
         this.$message.error('获取邮箱列表失败，请检查网络连接');
       }
     },
 
-    // 加载历史邮件记录
     async loadEmailHistory() {
       this.historyLoading = true;
       try {
@@ -368,24 +346,20 @@ export default {
           this.$message.error(response.data.message || response.data.msg || '获取历史记录失败');
         }
       } catch (error) {
-        // 静默处理错误，不输出调试信息
         this.$message.error('获取历史记录失败，请检查网络连接');
       } finally {
         this.historyLoading = false;
       }
     },
 
-    // 发送群发邮件
     async sendBulkEmail() {
       const validation = this.validateEmailForm();
 
       if (!validation.valid) {
-        // 验证失败，直接显示错误提示
         this.$message.error(validation.message);
         return;
       }
 
-      // 验证通过，显示发送确认
       this.showConfirm({
         title: '发送邮件',
         message: `确定要发送邮件给 ${this.recipientCount} 位用户吗？\n\n主题：${this.emailForm.subject}\n\n此操作不可撤销！`,
@@ -409,37 +383,30 @@ export default {
         if (response.data.code === 200) {
           this.$message.success(`邮件发送成功！已发送给 ${response.data.data.recipientCount} 位用户`);
 
-          // 清空表单
           this.emailForm.subject = '';
           this.emailForm.content = '';
 
-          // 刷新历史记录
           await this.loadEmailHistory();
         } else {
           this.$message.error(response.data.msg || '邮件发送失败');
         }
       } catch (error) {
-        // 静默处理错误，不输出调试信息
         this.$message.error('邮件发送失败，请检查网络连接或邮件配置');
         throw error;
       } finally {
         this.sending = false;
       }
     },
-
-    // 显示邮件详情
     async showEmailDetail(email) {
       this.selectedEmail = email;
       this.showEmailDetailPopup = true;
     },
 
-    // 格式化邮件内容
     formatContent(content) {
       if (!content) return '';
       return content.length > 100 ? content.substring(0, 100) + '...' : content;
     },
 
-    // 格式化时间
     formatTime(time) {
       if (!time) return '';
       const date = new Date(time);
@@ -486,7 +453,6 @@ export default {
 </script>
 
 <style scoped>
-/* 主样式继承自 Admin_Users */
 h1 {
   font-weight: 600;
   text-align: center;
@@ -495,7 +461,6 @@ h1 {
   font-size: 2rem;
 }
 
-/* 顶部标签页样式 */
 .tab-header {
   display: flex;
   justify-content: center;
@@ -533,7 +498,6 @@ h1 {
   font-weight: 600;
 }
 
-/* 内容区域 */
 .content-section {
   background: #ffffff;
   border-radius: 12px;
@@ -547,7 +511,6 @@ h1 {
   max-width: none;
 }
 
-/* 表单样式 - 继承自 Admin_Users */
 .form-row {
   display: flex;
   gap: 20px;
@@ -597,7 +560,6 @@ h1 {
   outline: none;
 }
 
-/* 信息显示区域 */
 .info-section {
   background-color: #f8f9fa;
   border-radius: 8px;
@@ -636,7 +598,6 @@ h1 {
   font-weight: 500;
 }
 
-/* 按钮样式 */
 .form-buttons {
   display: flex;
   gap: 16px;
@@ -687,7 +648,6 @@ h1 {
   cursor: not-allowed;
 }
 
-/* 历史记录表格 */
 .history-table {
   overflow-x: auto;
 }
@@ -725,7 +685,6 @@ h1 {
   background-color: #dcedc8;
 }
 
-/* 状态标签 */
 .status-tag {
   padding: 4px 8px;
   border-radius: 4px;
@@ -754,7 +713,6 @@ h1 {
   color: white;
 }
 
-/* 详情按钮 */
 .detail-button {
   height: 36px;
   width: 60px;
@@ -772,7 +730,6 @@ h1 {
   background-color: #4caf50;
 }
 
-/* 弹窗样式 */
 .overlay_1 {
   position: fixed;
   top: 0;
@@ -808,7 +765,6 @@ h1 {
   font-size: 1.5rem;
 }
 
-/* 搜索区域 */
 .search-section {
   margin-bottom: 20px;
 }
@@ -827,7 +783,6 @@ h1 {
   outline: none;
 }
 
-/* 用户列表 */
 .user-list {
   max-height: 400px;
   overflow-y: auto;
@@ -851,7 +806,6 @@ h1 {
   background-color: #f1f3f4;
 }
 
-/* 邮件信息显示 */
 .email-info,
 .email-content {
   margin-bottom: 20px;
@@ -878,7 +832,6 @@ h1 {
   font-family: inherit;
 }
 
-/* 弹窗按钮 */
 .popup-buttons {
   display: flex;
   justify-content: center;
@@ -904,7 +857,6 @@ h1 {
   background-color: #757575;
 }
 
-/* 加载和空状态 */
 .loading-container,
 .empty-container {
   display: flex;
@@ -921,7 +873,6 @@ h1 {
   font-size: 16px;
 }
 
-/* 响应式设计 */
 @media (max-width: 768px) {
   .tab-header {
     padding: 0 10px;
@@ -964,7 +915,6 @@ h1 {
   }
 }
 
-/* 暗黑模式 */
 @media (prefers-color-scheme: dark) {
   h1 {
     color: #e9ecef;

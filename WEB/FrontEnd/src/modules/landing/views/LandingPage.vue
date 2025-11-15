@@ -1,14 +1,11 @@
 <template>
   <div class="landing-page">
-    <!-- 顶部导航栏 -->
     <nav class="navbar">
       <div class="nav-container">
-        <!-- Logo -->
         <div class="logo">
           <h1>ZyroFrp</h1>
         </div>
 
-        <!-- 导航菜单 -->
         <ul class="nav-menu">
           <li @click="scrollToTop" class="nav-item">首页</li>
           <li @click="goTo('#features')" class="nav-item">功能特色</li>
@@ -17,9 +14,7 @@
           <li @click="goTo('#about')" class="nav-item">关于我们</li>
         </ul>
 
-        <!-- 用户操作区域 -->
         <div class="user-actions">
-          <!-- GitHub 按钮 -->
           <button class="github-btn" @click="openGitHub">
             <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
               <path
@@ -28,7 +23,6 @@
             <span>GitHub</span>
           </button>
 
-          <!-- 用户状态按钮 -->
           <div v-if="isLoggedIn" class="user-logged-in">
             <button class="dashboard-btn" @click="goToDashboard">控制台</button>
             <button class="logout-btn" @click="logout">退出</button>
@@ -41,7 +35,6 @@
       </div>
     </nav>
 
-    <!-- 主横幅区域 -->
     <section class="hero">
       <div class="hero-background">
         <div class="gradient-orb orb-1"></div>
@@ -186,7 +179,6 @@
       </div>
     </section>
 
-    <!-- 功能特色区域 -->
     <section id="features" class="features-section">
       <div class="container">
         <div class="section-header">
@@ -281,9 +273,7 @@
       </div>
     </section>
 
-    <!-- 价格方案区域 -->
     <section id="pricing" class="pricing-section">
-      <!-- TODO: 临时添加的覆盖层，表示暂时无需付费，未来可删除此注释和覆盖层 -->
       <div class="pricing-overlay">
         <div class="pricing-overlay-x">×</div>
         <div class="pricing-overlay-text">现阶段完全免费<br>后期即使开放付费，也会永久提供免费高质量服务！</div>
@@ -363,7 +353,6 @@
       </div>
     </section>
 
-    <!-- 使用教程区域 -->
     <section id="tutorials" class="tutorials-section">
       <div class="container">
         <div class="section-header">
@@ -408,7 +397,6 @@
       </div>
     </section>
 
-    <!-- 关于我们区域 -->
     <section id="about" class="about-section">
       <div class="container">
         <div class="section-header">
@@ -477,7 +465,6 @@
       </div>
     </section>
 
-    <!-- 页脚 -->
     <footer_LP class="footer_LP">
       <div class="container">
         <div class="footer-content">
@@ -529,7 +516,6 @@ export default {
       billingPeriod: 'monthly',
       isDarkMode: false,
 
-      // 核心功能数据
       coreFeatures: [
         {
           title: '高速连接',
@@ -575,7 +561,6 @@ export default {
         }
       ],
 
-      // 教程步骤数据
       tutorialSteps: [
         {
           title: '注册账号',
@@ -691,7 +676,6 @@ export default {
       this.$router.push({ name: 'Register' })
     },
 
-    // 退出登录
     logout() {
       localStorage.removeItem('Token')
       this.isLoggedIn = false
@@ -699,34 +683,27 @@ export default {
     },
 
     goTo(target) {
-      // 原生滚动到锚点
       const el = document.querySelector(target)
       if (el) el.scrollIntoView({ behavior: 'smooth' })
     },
 
-    // 功能卡片悬停效果
     featureHover(index) {
       this.hoveredFeature = index
     },
 
-    // 处理功能卡片点击
     handleFeatureClick() {
-      // 所有功能卡片都跳转到使用教程区域
       this.goTo('#tutorials')
     },
 
-    // 价格卡片悬停效果
     pricingHover(index) {
       this.hoveredPricing = index
     },
 
-    // 设置计费周期
     setBillingPeriod(period) {
       this.billingPeriod = period
     },
 
 
-    // 滚动到顶部
     scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -734,31 +711,23 @@ export default {
       })
     },
 
-    // 处理免费试用
     handleFreeTrial() {
-      // 跳转到Home页面
       this.goToDashboard()
     },
 
-    // 处理价格方案选择
     handlePlanSelection(plan) {
       if (plan.name === '免费版') {
-        // 免费版跳转到Home页面
         this.goToDashboard()
       } else if (plan.name === '专业版') {
-        // 专业版跳转到支付页面
         if (this.isLoggedIn) {
           this.goToPayment()
         } else {
           this.goToLogin()
         }
       }
-      // 企业版不跳转
     },
 
-    // 跳转到支付页面
     goToPayment() {
-      // 构建支付页面URL，包含计费周期和价格信息
       const params = new URLSearchParams({
         billing: this.billingPeriod,
         monthly_price: '0',
@@ -767,30 +736,22 @@ export default {
       this.$router.push({ name: 'Payment', query: Object.fromEntries(params) })
     },
 
-    // 初始化 Dark 模式
     initDarkMode() {
-      // 检查本地存储的主题设置（优先级最高）
       const savedTheme = localStorage.getItem('theme')
       if (savedTheme) {
         this.isDarkMode = savedTheme === 'dark'
       } else {
-        // 没有保存的主题设置，检查系统主题偏好
         if (window.matchMedia) {
           this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
           this.isDarkMode = this.mediaQuery.matches
-
-          // 使用 addEventListener 而不是 addListener（更现代的 API）
           this.mediaQuery.addEventListener('change', this.handleMediaQueryChange)
         }
       }
 
-      // 应用主题
       this.applyTheme()
     },
 
-    // 处理系统主题变化
     handleMediaQueryChange(e) {
-      // 只有在没有用户手动设置主题时才跟随系统
       const savedTheme = localStorage.getItem('theme')
       if (!savedTheme) {
         this.isDarkMode = e.matches
@@ -798,7 +759,6 @@ export default {
       }
     },
 
-    // 应用主题到页面
     applyTheme() {
       const root = document.documentElement
       if (this.isDarkMode) {
@@ -809,13 +769,11 @@ export default {
       localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light')
     },
 
-    // 手动切换主题（可以被外部调用）
     toggleTheme() {
       this.isDarkMode = !this.isDarkMode
       this.applyTheme()
     },
 
-    // 监听 storage 事件（跨标签页同步）
     handleStorageChange(e) {
       if (e.key === 'theme') {
         this.isDarkMode = e.newValue === 'dark'
@@ -827,19 +785,15 @@ export default {
     this.checkLoginStatus()
     this.initDarkMode()
 
-    // 每5分钟检查一次token状态
     this.tokenCheckInterval = setInterval(() => {
       this.checkLoginStatus()
     }, 5 * 60 * 1000)
   },
   beforeDestroy() {
-    // 清理监听器
     if (this.mediaQuery) {
-      // 使用 removeEventListener 而不是 removeListener
       this.mediaQuery.removeEventListener('change', this.handleMediaQueryChange)
     }
 
-    // 清理定时器
     if (this.tokenCheckInterval) {
       clearInterval(this.tokenCheckInterval)
     }
@@ -857,7 +811,6 @@ export default {
   overflow-x: hidden;
 }
 
-/* 导航栏样式 */
 .navbar {
   position: fixed;
   top: 0;
@@ -970,7 +923,6 @@ export default {
   height: 100%;
 }
 
-/* 按钮样式 */
 .github-btn {
   display: flex;
   align-items: center;
@@ -1042,7 +994,6 @@ export default {
 }
 
 
-/* 主横幅区域 */
 .hero {
   padding: 120px 0 80px;
   background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
@@ -1209,7 +1160,6 @@ export default {
   flex-wrap: wrap;
 }
 
-/* CTA 按钮样式 */
 .cta-primary,
 .cta-secondary {
   display: inline-flex;
@@ -1305,7 +1255,6 @@ export default {
   font-weight: 500;
 }
 
-/* Hero 视觉元素 */
 .hero-visual {
   position: relative;
   display: flex;
@@ -1516,7 +1465,6 @@ export default {
   }
 }
 
-/* 浮动卡片悬停效果 */
 .float-card:hover .card-icon {
   transform: scale(1.05);
   color: #059669;
@@ -1549,7 +1497,6 @@ export default {
   color: #0a0a0a;
 }
 
-/* 区域标题样式 */
 .section-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -1585,7 +1532,6 @@ export default {
   line-height: 1.6;
 }
 
-/* 功能特色区域 */
 .features-section {
   padding: 120px 0;
   background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
@@ -1595,7 +1541,6 @@ export default {
   align-items: center;
 }
 
-/* 确保功能特色区域的内容垂直排列 */
 .features-section .container {
   display: flex;
   flex-direction: column;
@@ -1876,7 +1821,6 @@ export default {
   }
 }
 
-/* 价格方案区域 */
 .pricing-section {
   padding: 120px 0;
   background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
@@ -1887,7 +1831,6 @@ export default {
   align-items: center;
 }
 
-/* 价格方案区域容器样式 */
 .pricing-section .container {
   display: flex;
   flex-direction: column;
@@ -1895,7 +1838,6 @@ export default {
   flex: 1;
 }
 
-/* 价格内容区域垂直布局 */
 .pricing-section .pricing-content {
   display: flex !important;
   flex-direction: column !important;
@@ -1914,7 +1856,6 @@ export default {
   margin: 0 auto 0.2rem auto;
 }
 
-/* 强制价格网格布局 - 最高优先级 */
 .pricing-section .container .pricing-grid {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
@@ -2119,9 +2060,6 @@ export default {
   position: relative;
 }
 
-/* 移除单独的check-icon hover效果，只有pricing-card悬停时才变绿 */
-
-/* pricing-card悬停时check-icon变绿 */
 .pricing-card:hover .check-icon {
   background: #13e39e;
   color: #ffffff;
@@ -2129,7 +2067,6 @@ export default {
   box-shadow: 0 4px 16px rgba(55, 65, 81, 0.25);
 }
 
-/* pricing-card悬停时，再次悬停li元素有更强效果 */
 .pricing-card:hover .features-list li:hover .check-icon {
   background: #1f2937;
   color: #059669;
@@ -2137,7 +2074,6 @@ export default {
   box-shadow: 0 6px 20px rgba(31, 41, 55, 0.35);
 }
 
-/* 添加对勾绘制动画效果 */
 .pricing-card:hover .check-icon path {
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   stroke-dasharray: 20;
@@ -2164,9 +2100,6 @@ export default {
   }
 }
 
-/* 移除SVG路径的单独hover效果 */
-
-/* 添加更强的hover效果 */
 .check-icon.animated-hover {
   animation: pulse-icon 2s infinite;
 }
@@ -2296,7 +2229,6 @@ export default {
   margin: 0;
 }
 
-/* 使用教程区域 */
 .tutorials-section {
   padding: 120px 0;
   background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
@@ -2318,7 +2250,6 @@ export default {
   pointer-events: none;
 }
 
-/* 使用教程区域容器样式 */
 .tutorials-section .container {
   display: flex;
   flex-direction: column;
@@ -2432,7 +2363,6 @@ export default {
   transform: scale(1.05);
 }
 
-/* 关于我们区域 */
 .about-section {
   padding: 120px 0;
   background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
@@ -2453,7 +2383,6 @@ export default {
   pointer-events: none;
 }
 
-/* 关于我们区域容器样式 */
 .about-section .container {
   display: flex;
   flex-direction: column;
@@ -2545,7 +2474,6 @@ export default {
   line-height: 1.4;
 }
 
-/* 页脚 */
 .footer_LP {
   background: #f8fafc;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
@@ -2626,12 +2554,10 @@ export default {
   align-items: center;
 }
 
-/* 平滑滚动 */
 html {
   scroll-behavior: smooth;
 }
 
-/* 通用容器 */
 .container {
   max-width: 100rem;
   margin: 0 auto;
@@ -2640,7 +2566,6 @@ html {
   z-index: 2;
 }
 
-/* Dark 模式样式 */
 :root.dark-theme .landing-page {
   color: #f0f0f0;
   background: #0a0a0a;
@@ -3047,13 +2972,11 @@ html {
   color: #a0a0a0;
 }
 
-/* Dark 模式选择文本样式 */
 :root.dark-theme ::selection {
   background: rgba(52, 211, 153, 0.3);
   color: #f0f0f0;
 }
 
-/* Dark 模式焦点样式 */
 :root.dark-theme button:focus-visible,
 :root.dark-theme a:focus-visible {
   outline: 2px solid #34d399;
@@ -3061,7 +2984,6 @@ html {
   border-radius: 4px;
 }
 
-/* 价格方案覆盖层 - 临时添加，未来可删除以下样式 */
 .pricing-section {
   position: relative;
 }
@@ -3114,7 +3036,6 @@ html {
   }
 }
 
-/* Dark 模式下的覆盖层样式 */
 :root.dark-theme .pricing-overlay {
   background: rgba(0, 0, 0, 0.77);
 }

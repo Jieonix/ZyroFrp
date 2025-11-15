@@ -43,8 +43,6 @@
   outline: none !important;
 }
 
-/* 按钮样式已迁移至 buttons.css，使用 .btn.btn-primary.btn-full-width 类 */
-
 .login-container p,
 .register-container p {
   margin-top: 0.9375rem;
@@ -62,7 +60,6 @@
   text-decoration: underline;
 }
 
-/* Header 样式已在 Header.vue 中定义，此处不需要重复 */
 
 @media (prefers-color-scheme: dark) {
 
@@ -84,7 +81,6 @@
     border: none !important;
   }
 
-  /* 按钮深色主题样式已迁移至 buttons.css */
 
   .login-container p,
   .register-container p {

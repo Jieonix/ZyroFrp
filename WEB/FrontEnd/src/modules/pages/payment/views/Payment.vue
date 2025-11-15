@@ -76,7 +76,6 @@
               </button>
             </div>
 
-            <!-- 二维码显示区域 -->
             <div v-if="showQRCode" class="qr-code-section">
               <div class="qr-code-container">
                 <h3>请扫码支付</h3>
@@ -129,7 +128,7 @@ export default {
       qrCodeUrl: '',
       showQRCode: false,
       pollingController: null,
-      billingPeriod: 'monthly', // monthly 或 yearly
+      billingPeriod: 'monthly',
       planData: {
         monthlyPrice: 29,
         yearlyPrice: 23
@@ -145,11 +144,10 @@ export default {
     }
   },
   mounted() {
-    // 从URL参数获取计费周期
+ 
     const urlParams = new URLSearchParams(window.location.search)
     this.billingPeriod = urlParams.get('billing') || 'monthly'
 
-    // 从URL参数获取价格信息
     const monthlyPrice = urlParams.get('monthly_price')
     const yearlyPrice = urlParams.get('yearly_price')
 
@@ -170,13 +168,10 @@ export default {
       this.orderNo = paymentService.generateOrderNo()
 
       try {
-        // 模拟处理，不执行真实支付
         await new Promise(resolve => setTimeout(resolve, 2000))
 
-        // 显示处理完成信息
         console.log(`支付功能暂未开放，订单号：${this.orderNo}，价格：¥${this.currentPrice}/${this.billingText}`)
 
-        // 可以在这里添加提示信息
         this.$message && this.$message.info('支付功能暂未开放')
 
       } catch (error) {
@@ -191,7 +186,6 @@ export default {
         this.orderNo,
         this.selectedPayment,
         (paymentData) => {
-          // 支付成功
           this.stopPolling()
           this.$message.success('支付成功！')
           setTimeout(() => {
@@ -199,12 +193,10 @@ export default {
           }, 1500)
         },
         (error) => {
-          // 支付失败
           this.stopPolling()
           this.$message.error(`支付失败: ${error.message}`)
         },
         () => {
-          // 支付超时
           this.stopPolling()
           this.$message.warning('支付超时，请重新发起支付')
         }
@@ -218,13 +210,11 @@ export default {
       }
     },
 
-    // 重新支付
     retryPayment() {
       this.showQRCode = false
       this.processPayment()
     },
 
-    // 取消支付
     cancelPayment() {
       this.stopPolling()
       this.showQRCode = false
@@ -232,7 +222,6 @@ export default {
   },
 
   beforeUnmount() {
-    // 组件销毁时停止轮询
     this.stopPolling()
   }
 }
@@ -496,7 +485,6 @@ export default {
   color: #6b7280;
 }
 
-/* 二维码区域样式 */
 .qr-code-section {
   margin-top: 30px;
   text-align: center;

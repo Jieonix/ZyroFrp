@@ -84,7 +84,6 @@ export default {
           ...this.searchForm
         }
 
-        // 过滤空值
         Object.keys(params).forEach(key => {
           if (params[key] === '' || params[key] === null || params[key] === undefined) {
             delete params[key]
@@ -237,7 +236,6 @@ export default {
           ...this.searchForm
         }
 
-        // 过滤空值
         Object.keys(params).forEach(key => {
           if (params[key] === '' || params[key] === null || params[key] === undefined) {
             delete params[key]
@@ -253,7 +251,6 @@ export default {
           }
         })
 
-        // 创建下载链接
         const url = window.URL.createObjectURL(new Blob([response.data]))
         const link = document.createElement('a')
         link.href = url
@@ -293,7 +290,6 @@ export default {
           <button class="search_button" @click="showSearchPanel = true">查询</button>
         </div>
 
-        <!-- 搜索面板 -->
         <div v-if="showSearchPanel" class="search_panel">
           <h3>搜索条件</h3>
           <div class="form-row">
@@ -355,7 +351,6 @@ export default {
           </div>
         </div>
 
-        <!-- 日志表格 -->
         <table>
           <thead>
             <tr>
@@ -403,7 +398,6 @@ export default {
       </section>
     </main>
 
-    <!-- 日志详情弹窗 -->
     <div v-if="showLogDetail && selectedLog" class="overlay_1">
       <div class="detail_panel">
         <div class="detail_header">
@@ -479,25 +473,21 @@ export default {
             <span>{{ selectedLog.description || '-' }}</span>
           </div>
 
-          <!-- 错误信息 -->
           <div v-if="selectedLog.errorMessage" class="detail_section">
             <h4>错误信息</h4>
             <div class="error-message">{{ selectedLog.errorMessage }}</div>
           </div>
 
-          <!-- 请求参数 -->
           <div v-if="selectedLog.requestParams" class="detail_section">
             <h4>请求参数</h4>
             <pre class="params-content">{{ selectedLog.requestParams }}</pre>
           </div>
 
-          <!-- 响应数据 -->
           <div v-if="selectedLog.responseData" class="detail_section">
             <h4>响应数据</h4>
             <pre class="response-content">{{ selectedLog.responseData }}</pre>
           </div>
 
-          <!-- 堆栈信息 -->
           <div v-if="selectedLog.stackTrace" class="detail_section">
             <h4>异常堆栈</h4>
             <pre class="stack-content">{{ selectedLog.stackTrace }}</pre>
@@ -860,7 +850,6 @@ td.clickable:hover {
   }
 }
 
-/* 暗黑模式 */
 @media (prefers-color-scheme: dark) {
   .top {
     background: #1e1e1e;

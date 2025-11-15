@@ -5,14 +5,12 @@ import axios from 'axios'
 import Loading from '@/modules/common/components/Loading.vue'
 import Header from '@/modules/common/components/Header.vue'
 import Admin_Sidebar from '@/modules/admin/components/Admin_Sidebar.vue'
-import '@/modules/common/utils/api-config.js' // 导入api-config.js以设置baseURL
+import '@/modules/common/utils/api-config.js'
 
-// 响应式数据
 const statistics = ref({})
 const loading = ref(false)
-const timeRange = ref('7d') // 默认7天
+const timeRange = ref('7d')
 
-// 时间范围选项
 const timeRangeOptions = [
   { text: '最近24小时', value: '1d' },
   { text: '最近7天', value: '7d' },
@@ -20,12 +18,10 @@ const timeRangeOptions = [
   { text: '最近90天', value: '90d' }
 ]
 
-// 活跃用户数据
 const activeUsers = ref([])
 const frequentOperations = ref([])
 
 
-// 获取时间范围
 const getTimeRange = (range) => {
   const now = new Date()
   let startTime
@@ -53,7 +49,6 @@ const getTimeRange = (range) => {
   }
 }
 
-// 获取统计数据
 const fetchStatistics = async () => {
   try {
     loading.value = true
@@ -91,7 +86,6 @@ const fetchStatistics = async () => {
   }
 }
 
-// 获取最活跃用户
 const fetchActiveUsers = async () => {
   try {
     const { startTime, endTime } = getTimeRange(timeRange.value)
@@ -120,7 +114,6 @@ const fetchActiveUsers = async () => {
 
 
 
-// 获取最频繁操作
 const fetchFrequentOperations = async () => {
   try {
     const { startTime, endTime } = getTimeRange(timeRange.value)
@@ -161,12 +154,10 @@ const refreshData = async () => {
   }
 }
 
-// 时间范围变化处理
 const handleTimeRangeChange = () => {
   refreshData()
 }
 
-// 计算成功率
 const successRate = computed(() => {
   const total = statistics.value.totalCount || 0
   const successCount = statistics.value.successCount || 0
@@ -175,14 +166,12 @@ const successRate = computed(() => {
   return total > 0 ? ((successCount / total) * 100).toFixed(2) : 0
 })
 
-// 计算错误率
 const errorRate = computed(() => {
   const total = statistics.value.totalCount || 0
   const errorCount = statistics.value.errorCount || 0
   return total > 0 ? ((errorCount / total) * 100).toFixed(2) : 0
 })
 
-// 格式化数字
 const formatNumber = (num) => {
   if (num >= 1000000) {
     return (num / 1000000).toFixed(1) + 'M'
@@ -192,7 +181,6 @@ const formatNumber = (num) => {
   return num.toString()
 }
 
-// 获取日志类型颜色
 const getLogTypeColor = (type) => {
   const colors = {
     'LOGIN': '#1989fa',
@@ -203,7 +191,6 @@ const getLogTypeColor = (type) => {
   return colors[type] || '#969799'
 }
 
-// 获取日志类型名称
 const getLogTypeName = (type) => {
   const names = {
     'LOGIN': '登录日志',
@@ -214,7 +201,6 @@ const getLogTypeName = (type) => {
   return names[type] || type
 }
 
-// 获取饼图样式
 const getPieSliceStyle = (type, count) => {
   const total = Object.values(statistics.value.logTypeStats || {}).reduce((sum, val) => sum + val, 0)
   const percentage = total > 0 ? (count / total) * 100 : 0
@@ -224,7 +210,6 @@ const getPieSliceStyle = (type, count) => {
   }
 }
 
-// 获取饼图的背景渐变
 const getPieChartBackground = () => {
   if (!statistics.value.logTypeStats) return '#f5f5f5'
 
@@ -248,19 +233,16 @@ const getPieChartBackground = () => {
   return `conic-gradient(from 0deg, ${gradientStops.join(', ')})`
 }
 
-// 获取前N个操作类型
 const getTopOperations = (operations, limit) => {
   const sorted = Object.entries(operations).sort((a, b) => b[1] - a[1])
   return Object.fromEntries(sorted.slice(0, limit))
 }
 
-// 获取操作百分比
 const getOperationPercentage = (count) => {
   const total = Object.values(statistics.value.operationStats || {}).reduce((sum, val) => sum + val, 0)
   return total > 0 ? Math.min((count / total) * 100, 100) : 0
 }
 
-// 获取操作颜色
 const getOperationColor = (operation) => {
   const colors = {
     '用户登录': '#1989fa',
@@ -273,7 +255,6 @@ const getOperationColor = (operation) => {
   return colors[operation] || '#1989fa'
 }
 
-// 获取健康状态样式类
 const getHealthClass = (value) => {
   if (value >= 95) return 'excellent'
   if (value >= 85) return 'good'
@@ -281,7 +262,6 @@ const getHealthClass = (value) => {
   return 'danger'
 }
 
-// 页面加载时获取数据
 onMounted(() => {
   refreshData()
 })
@@ -297,7 +277,6 @@ onMounted(() => {
       <Loading />
 
       <section class="statistics-page">
-        <!-- 页面标题 -->
         <div class="page-header">
           <h1>日志统计</h1>
           <div class="header-actions">
@@ -313,7 +292,6 @@ onMounted(() => {
           </div>
         </div>
 
-        <!-- 统计卡片 -->
         <div class="stats-cards">
           <div class="stat-card">
             <div class="stat-icon total">
@@ -356,9 +334,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <!-- 图表区域 -->
         <div class="charts-container">
-          <!-- 日志类型分布 - 饼图样式 -->
           <div class="chart-card">
             <h3>日志类型分布</h3>
             <div class="chart-content">
@@ -382,7 +358,6 @@ onMounted(() => {
             </div>
           </div>
 
-          <!-- 操作类型分布 - 横向条形图 -->
           <div class="chart-card">
             <h3>操作类型分布</h3>
             <div class="chart-content">
@@ -406,11 +381,6 @@ onMounted(() => {
               <div v-else class="no-data">暂无数据</div>
             </div>
           </div>
-
-          <!-- 系统健康状态 -->
-
-
-          <!-- 用户活跃度 -->
           <div class="chart-card">
             <h3>用户活跃度</h3>
             <div class="chart-content">
@@ -458,10 +428,7 @@ onMounted(() => {
             </div>
           </div>
         </div>
-
-        <!-- 详细统计表格 -->
         <div class="detailed-stats">
-          <!-- 最活跃用户 -->
           <div class="stats-table">
             <h3>最活跃用户</h3>
             <div class="table-container">
@@ -485,7 +452,6 @@ onMounted(() => {
             </div>
           </div>
 
-          <!-- 最频繁操作 -->
           <div class="stats-table">
             <h3>最频繁操作</h3>
             <div class="table-container">
@@ -855,7 +821,6 @@ onMounted(() => {
   color: #323233;
 }
 
-/* 新增的图表样式 */
 .log-type-chart {
   display: flex;
   flex-direction: column;

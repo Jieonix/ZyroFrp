@@ -144,5 +144,4 @@ const register = async () => {
   width: 200px;
 }
 
-/* 使用统一的按钮样式库 */
 </style>

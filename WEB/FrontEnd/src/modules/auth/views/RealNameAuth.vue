@@ -37,7 +37,7 @@ import Loading from '@/modules/common/components/Loading.vue'
 
 <script>
 import Header from '@/modules/common/components/Header.vue';
-import Sidebar from '@/modules/user/components/Sidebar.vue';
+import Sidebar from '@/modules/common/components/Sidebar.vue';
 import Footer from '@/modules/common/components/Footer.vue';
 import { useRouter } from 'vue-router';
 import { validateToken } from '@/modules/auth/utils/token.js';

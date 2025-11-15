@@ -253,7 +253,6 @@ export default {
   font-weight: 400;
 }
 
-/* 特定于check_in页面的深色主题样式 */
 @media (prefers-color-scheme: dark) {
   .select-box {
     background-color: #505050;

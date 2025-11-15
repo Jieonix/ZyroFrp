@@ -1,21 +1,17 @@
 <template>
   <nav class="sidebar">
     <ul>
-      <!-- 菜单项渲染 -->
       <template v-for="item in menuItems" :key="item.name">
-        <!-- 菜单分组 -->
         <li v-if="item.type === 'group'" class="menu-group">
           {{ item.label }}
         </li>
 
-        <!-- 普通菜单项 -->
         <li v-else>
           <router-link
             :to="{ name: item.route }"
             active-class="active"
             :class="item.class"
           >
-            <!-- 图标支持 -->
             <SvgIcon
               v-if="item.icon"
               :name="item.icon"
@@ -33,7 +29,6 @@
 import { computed } from 'vue'
 import SvgIcon from '@/modules/common/components/SvgIcon.vue'
 
-// 定义 props
 const props = defineProps({
   type: {
     type: String,
@@ -42,7 +37,6 @@ const props = defineProps({
   }
 })
 
-// 用户侧边栏菜单配置
 const userMenuItems = [
   {
     name: 'dashboard',
@@ -110,7 +104,6 @@ const userMenuItems = [
   }
 ]
 
-// 管理员侧边栏菜单配置
 const adminMenuItems = [
   {
     name: 'site-info',
@@ -186,12 +179,10 @@ const adminMenuItems = [
   }
 ]
 
-// 根据类型选择菜单配置
 const menuItems = computed(() => {
   return props.type === 'admin' ? adminMenuItems : userMenuItems
 })
 
-// 计算侧边栏样式类
 const sidebarClass = computed(() => {
   return {
     'sidebar': true,
@@ -202,7 +193,6 @@ const sidebarClass = computed(() => {
 </script>
 
 <style scoped>
-/* 基础侧边栏样式 */
 .sidebar {
   width: 18rem;
   background-color: #ffffff;
@@ -231,7 +221,6 @@ const sidebarClass = computed(() => {
   font-size: 14px;
 }
 
-/* 菜单分组样式 */
 .sidebar ul li.menu-group {
   font-weight: bold;
   font-size: 16px;
@@ -250,7 +239,6 @@ const sidebarClass = computed(() => {
   color: #666;
 }
 
-/* 普通菜单项样式 */
 .sidebar ul li:hover {
   background-color: #f3f3f5;
 }
@@ -259,7 +247,6 @@ const sidebarClass = computed(() => {
   background-color: transparent;
 }
 
-/* 链接样式 */
 .sidebar ul li a {
   display: flex;
   align-items: center;
@@ -271,25 +258,21 @@ const sidebarClass = computed(() => {
   transition: all 0.2s ease;
 }
 
-/* 管理员侧边栏的链接布局 */
 .sidebar-admin .sidebar ul li a {
   display: block;
 }
 
-/* 图标样式 */
 .icon {
   margin-right: 0.7rem;
   flex-shrink: 0;
   font-size: 16px;
 }
 
-/* 激活状态样式 */
 .sidebar ul li a.active {
   color: #00910c;
   background-color: #e7f5ee;
 }
 
-/* 悬停状态 */
 .sidebar ul li a:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
@@ -298,7 +281,6 @@ const sidebarClass = computed(() => {
   background-color: #d4ede1;
 }
 
-/* 深色主题适配 */
 @media (prefers-color-scheme: dark) {
   .sidebar {
     background-color: var(--sidebar-bg-dark, #18181c);
@@ -336,7 +318,6 @@ const sidebarClass = computed(() => {
   }
 }
 
-/* 响应式设计 */
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;
@@ -381,7 +362,6 @@ const sidebarClass = computed(() => {
 }
 
 
-/* 无障碍访问 */
 .sidebar ul li a:focus-visible {
   outline: 2px solid #00910c;
   outline-offset: 2px;

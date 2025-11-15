@@ -460,7 +460,6 @@ export default {
   width: 1.1rem;
 }
 
-/* 特定于Home页面的深色主题样式 */
 @media (prefers-color-scheme: dark) {
   .line {
     background-color: #282828;

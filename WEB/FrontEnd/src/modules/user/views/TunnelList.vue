@@ -215,7 +215,6 @@ export default {
             this.isEditBoxVisible = false;
           }, 1000)
 
-          // 延迟 3 秒后重新获取隧道列表，确保消息有足够时间显示
           setTimeout(() => {
             this.getTunnels();
           }, 3000);
@@ -233,7 +232,6 @@ export default {
         .then(response => {
           this.$message.success(response.data.message);
 
-          // 延迟 3 秒后重新获取隧道列表，确保消息有足够时间显示
           setTimeout(() => {
             this.getTunnels();
           }, 3000);
@@ -491,7 +489,6 @@ export default {
   font-weight: 500;
 }
 
-/* 特定于tunnels页面的深色主题样式 */
 @media (prefers-color-scheme: dark) {
   .tag-green {
     background-color: #0a5831;

@@ -1,4 +1,3 @@
-// utils/token.js
 export function validateToken(router, token, isAdmin = false) {
   if (!token) {
     redirectToLogin(router, isAdmin);

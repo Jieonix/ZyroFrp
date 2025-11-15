@@ -1,5 +1,7 @@
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/common/dto/UserInfo.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/email/service/EmailService.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/user/service/UserInfoService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/user/service/UserContextProviderImpl.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/tunnels/controller/FrpTunnelController.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/common/service/SecurityService.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/servers/model/Servers.java
@@ -21,10 +23,12 @@
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/auth/dto/RegisterRequest.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/auth/service/AuthService.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/email/controller/EmailController.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/user/service/UserService.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/conf/WebConfig.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/question/model/Question.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/user/model/Users.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/log/service/LogService.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/common/service/EncryptionProvider.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/announcements/service/AnnouncementsService.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/user/controller/UserInfoController.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/tunnels/repository/FrpTunnelRepository.java
@@ -53,7 +57,9 @@
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/question/model/UserAnswers.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/question/dto/AnswerRequest.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/log/utils/SensitiveDataUtils.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/user/service/EncryptionProviderImpl.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/BackendApplication.java
+/Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/common/service/UserContextProvider.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/user/utils/EncryptionUtil.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/user/service/UsersService.java
 /Users/kelvin-serendipity/Documents/GitHub/ZyroFrp/WEB/BackEnd/src/main/java/cn/zyroo/common/dto/TokenRequest.java

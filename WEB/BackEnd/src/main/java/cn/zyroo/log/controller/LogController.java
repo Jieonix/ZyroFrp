@@ -6,6 +6,7 @@ import cn.zyroo.user.model.Users;
 import cn.zyroo.log.service.LogService;
 import cn.zyroo.common.utils.ApiResponse;
 import cn.zyroo.common.service.UserContextService;
+import cn.zyroo.common.dto.UserInfo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -530,8 +531,8 @@ public class LogController {
             }
 
             token = token.substring(7);
-            Users user = userContextService.getUserFromToken(token);
-            return user != null && user.getUser_id().equals(userId);
+            UserInfo userInfo = userContextService.getUserFromToken(token);
+            return userInfo != null && userInfo.getUserId().equals(userId);
         } catch (Exception e) {
             return false;
         }

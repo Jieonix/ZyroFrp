@@ -4,7 +4,6 @@ import cn.zyroo.email.model.Email;
 import cn.zyroo.email.repository.EmailRepository;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,14 +19,16 @@ import java.util.Random;
 @Service
 public class EmailService {
 
- @Autowired
- private JavaMailSender mailSender;
-
- @Autowired
- private EmailRepository emailRepository;
+ private final JavaMailSender mailSender;
+ private final EmailRepository emailRepository;
 
  @Value("${spring.mail.username}")
  private String fromEmail;
+
+ public EmailService(JavaMailSender mailSender, EmailRepository emailRepository) {
+  this.mailSender = mailSender;
+  this.emailRepository = emailRepository;
+ }
 
  private static final Map<String, String> emailTypeMap = new HashMap<>();
 

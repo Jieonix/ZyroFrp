@@ -1,13 +1,17 @@
 package cn.zyroo.common.service;
 
-import cn.zyroo.user.utils.EncryptionUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SecurityService {
 
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final EncryptionProvider encryptionProvider;
+
+    public SecurityService(EncryptionProvider encryptionProvider) {
+        this.encryptionProvider = encryptionProvider;
+    }
 
     public String encryptPassword(String password) {
         return passwordEncoder.encode(password);
@@ -18,11 +22,11 @@ public class SecurityService {
     }
 
     public String encryptData(String data) {
-        return EncryptionUtil.encrypt(data);
+        return encryptionProvider.encrypt(data);
     }
 
     public String decryptData(String encryptedData) {
-        return EncryptionUtil.decrypt(encryptedData);
+        return encryptionProvider.decrypt(encryptedData);
     }
 
     public boolean isAdminRole(String role) {

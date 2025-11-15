@@ -1,3 +1,5 @@
+import messageManager from './message.js'
+
 export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const weakPasswords = /^(1{6,}|2{6,}|3{6,}|4{6,}|a{6,}|b{6,}|c{6,}|d{6,}|!{6,}|@{6,}|#{6,}|\${6,})$/;
 export const codeRegex = /^\d{4}$/;
@@ -8,7 +10,7 @@ export function validateEmail(Email, showError = null) {
     if (showError) {
       showError(errorMsg);
     } else {
-      alert(errorMsg);
+      messageManager.warning(errorMsg);
     }
     return false;
   }
@@ -21,7 +23,7 @@ export function validatePassword(password, showError = null) {
     if (showError) {
       showError(errorMsg);
     } else {
-      alert(errorMsg);
+      messageManager.warning(errorMsg);
     }
     return false;
   }
@@ -34,7 +36,7 @@ export function validateCode(Code, showError = null) {
     if (showError) {
       showError(errorMsg);
     } else {
-      alert(errorMsg);
+      messageManager.warning(errorMsg);
     }
     return false;
   }
@@ -44,7 +46,7 @@ export function validateCode(Code, showError = null) {
     if (showError) {
       showError(errorMsg);
     } else {
-      alert(errorMsg);
+      messageManager.warning(errorMsg);
     }
     return false;
   }

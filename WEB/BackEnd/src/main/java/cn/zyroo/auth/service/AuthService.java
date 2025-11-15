@@ -3,12 +3,12 @@ package cn.zyroo.auth.service;
 import cn.zyroo.email.model.Email;
 import cn.zyroo.email.repository.EmailRepository;
 import cn.zyroo.user.model.Users;
+import cn.zyroo.common.dto.UserInfo;
 import cn.zyroo.common.service.TokenService;
 import cn.zyroo.common.service.UserContextService;
 import cn.zyroo.common.service.SecurityService;
 import cn.zyroo.common.utils.ApiResponse;
 import cn.zyroo.common.utils.ResponseCode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,17 +17,50 @@ import java.util.Optional;
 @Service
 public class AuthService {
 
-    @Autowired
-    private EmailRepository emailRepository;
+    private final EmailRepository emailRepository;
+    private final TokenService tokenService;
+    private final UserContextService userContextService;
+    private final SecurityService securityService;
 
-    @Autowired
-    private TokenService tokenService;
+    public AuthService(EmailRepository emailRepository, TokenService tokenService,
+                      UserContextService userContextService, SecurityService securityService) {
+        this.emailRepository = emailRepository;
+        this.tokenService = tokenService;
+        this.userContextService = userContextService;
+        this.securityService = securityService;
+    }
 
-    @Autowired
-    private UserContextService userContextService;
+    private UserInfo convertToUserInfo(Users user) {
+        if (user == null) {
+            return null;
+        }
 
-    @Autowired
-    private SecurityService securityService;
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(user.getUser_id());
+        userInfo.setEmail(user.getEmail());
+        userInfo.setRole(user.getRole());
+        userInfo.setUserKey(user.getUser_key());
+        userInfo.setPassword(user.getPassword());
+        userInfo.setCreatedAt(user.getCreated_at());
+        userInfo.setUpdatedAt(user.getUpdated_at());
+        return userInfo;
+    }
+
+    private Users convertToUsers(UserInfo userInfo) {
+        if (userInfo == null) {
+            return null;
+        }
+
+        Users user = new Users();
+        user.setUser_id(userInfo.getUserId());
+        user.setEmail(userInfo.getEmail());
+        user.setRole(userInfo.getRole());
+        user.setUser_key(userInfo.getUserKey());
+        user.setPassword(userInfo.getPassword());
+        user.setCreated_at(userInfo.getCreatedAt());
+        user.setUpdated_at(userInfo.getUpdatedAt());
+        return user;
+    }
 
     public ApiResponse<?> register(String email, String password, String emailcode) {
         if (userContextService.userExists(email)) {
@@ -64,7 +97,9 @@ public class AuthService {
             user.setUser_key(user.generateToken());
             user.setCreated_at(LocalDateTime.now());
             user.setUpdated_at(LocalDateTime.now());
-            userContextService.saveUser(user);
+
+            UserInfo userInfo = convertToUserInfo(user);
+            userContextService.saveUser(userInfo);
 
             return ApiResponse.success("注册成功！");
         }
@@ -73,21 +108,23 @@ public class AuthService {
     }
 
     public ApiResponse<?> login(String email, String password) {
-        Users user = userContextService.findUserByEmail(email);
+        UserInfo userInfo = userContextService.findUserByEmail(email);
 
-        if (user == null) {
+        if (userInfo == null) {
             return ApiResponse.error(ResponseCode.LOGIN_USER_NOT_FOUND);
         }
 
+        Users user = convertToUsers(userInfo);
         if (!securityService.matchesPassword(password, user.getPassword())) {
             return ApiResponse.error(ResponseCode.LOGIN_PASSWORD_ERROR);
         }
 
         user.setLast_active_time(LocalDateTime.now());
-        String token = tokenService.generateToken(user);
+        UserInfo updatedUserInfo = convertToUserInfo(user);
+        String token = tokenService.generateToken(updatedUserInfo);
 
         if (token != null) {
-            userContextService.saveUser(user);
+            userContextService.saveUser(updatedUserInfo);
             return ApiResponse.success(token);
         }
 
@@ -95,12 +132,13 @@ public class AuthService {
     }
 
     public ApiResponse<?> adminLogin(String email, String password) {
-        Users user = userContextService.findUserByEmail(email);
+        UserInfo userInfo = userContextService.findUserByEmail(email);
 
-        if (user == null) {
+        if (userInfo == null) {
             return ApiResponse.error(ResponseCode.LOGIN_USER_NOT_FOUND);
         }
 
+        Users user = convertToUsers(userInfo);
         if (!securityService.matchesPassword(password, user.getPassword())) {
             return ApiResponse.error(ResponseCode.LOGIN_PASSWORD_ERROR);
         }
@@ -110,10 +148,11 @@ public class AuthService {
         }
 
         user.setLast_active_time(LocalDateTime.now());
-        String token = tokenService.generateToken(user);
+        UserInfo updatedUserInfo = convertToUserInfo(user);
+        String token = tokenService.generateToken(updatedUserInfo);
 
         if (token != null) {
-            userContextService.saveUser(user);
+            userContextService.saveUser(updatedUserInfo);
             return ApiResponse.success(token);
         }
 
@@ -121,9 +160,9 @@ public class AuthService {
     }
 
     public ApiResponse<?> resetPassword(String email, String newpassword, String emailcode) {
-        Users user = userContextService.findUserByEmail(email);
+        UserInfo userInfo = userContextService.findUserByEmail(email);
 
-        if (user == null) {
+        if (userInfo == null) {
             return ApiResponse.error(ResponseCode.PASSWORD_RESET_NOT_FOUND);
         }
 
@@ -148,6 +187,7 @@ public class AuthService {
         }
 
         if ("0".equals(emailVerification.getStatus())) {
+            Users user = convertToUsers(userInfo);
             if (securityService.matchesPassword(newpassword, user.getPassword())) {
                 return ApiResponse.error(ResponseCode.PASSWORD_SAME);
             }
@@ -156,7 +196,8 @@ public class AuthService {
             emailRepository.save(emailVerification);
 
             user.setPassword(securityService.encryptPassword(newpassword));
-            userContextService.saveUser(user);
+            UserInfo updatedUserInfo = convertToUserInfo(user);
+            userContextService.saveUser(updatedUserInfo);
 
             return ApiResponse.success("密码修改成功！");
         }

@@ -1,7 +1,6 @@
 package cn.zyroo.common.service;
 
-import cn.zyroo.user.model.Users;
-import cn.zyroo.user.repository.UsersRepository;
+import cn.zyroo.common.dto.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,20 +10,20 @@ import java.util.List;
 public class UserContextService {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserContextProvider userContextProvider;
 
     @Autowired
     private TokenService tokenService;
 
-    public Users findUserByEmail(String email) {
-        return usersRepository.findByEmail(email);
+    public UserInfo findUserByEmail(String email) {
+        return userContextProvider.findUserByEmail(email);
     }
 
-    public Users findUserById(Long userId) {
-        return usersRepository.findById(userId).orElse(null);
+    public UserInfo findUserById(Long userId) {
+        return userContextProvider.findUserById(userId);
     }
 
-    public Users getUserFromToken(String token) {
+    public UserInfo getUserFromToken(String token) {
         if (token == null || !tokenService.isTokenValid(token)) {
             return null;
         }
@@ -50,15 +49,15 @@ public class UserContextService {
     }
 
     public boolean userExists(String email) {
-        return usersRepository.existsByEmail(email);
+        return userContextProvider.userExists(email);
     }
 
-    public Users saveUser(Users user) {
-        return usersRepository.save(user);
+    public UserInfo saveUser(UserInfo userInfo) {
+        return userContextProvider.saveUser(userInfo);
     }
 
     public void deleteUser(Long userId) {
-        usersRepository.deleteById(userId);
+        userContextProvider.deleteUser(userId);
     }
 
     public boolean isTokenValidWithUser(String token) {
@@ -71,6 +70,6 @@ public class UserContextService {
     }
 
     public List<String> findAllEmails() {
-        return usersRepository.findAllEmails();
+        return userContextProvider.findAllEmails();
     }
 }

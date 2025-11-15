@@ -1,6 +1,6 @@
 package cn.zyroo.common.service;
 
-import cn.zyroo.user.model.Users;
+import cn.zyroo.common.dto.UserInfo;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -23,13 +23,13 @@ public class TokenService {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
-    public String generateToken(Users user) {
+    public String generateToken(UserInfo userInfo) {
         String secretKey = generateSecretKey();
 
         return JWT.create()
-                .withSubject(user.getEmail())
-                .withClaim("role", user.getRole())
-                .withClaim("user_key", user.getUser_key())
+                .withSubject(userInfo.getEmail())
+                .withClaim("role", userInfo.getRole())
+                .withClaim("user_key", userInfo.getUserKey())
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME))
                 .sign(Algorithm.HMAC256(secretKey));

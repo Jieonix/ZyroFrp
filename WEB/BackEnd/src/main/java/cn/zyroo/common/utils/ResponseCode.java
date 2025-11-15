@@ -68,7 +68,22 @@ public enum ResponseCode {
   PERMISSION_DENIED("PERMISSION_4802", "权限不足"),
 
   // 通用错误代码
+  SUCCESS("SUCCESS_2000", "操作成功"),
   FAILED("FAILED_4999", "操作失败"),
+
+  // 系统错误代码
+  SYSTEM_ERROR("SYSTEM_5000", "系统内部错误"),
+  BUSINESS_ERROR("BUSINESS_4000", "业务异常"),
+
+  // 参数校验错误代码
+  PARAM_VALIDATION_ERROR("PARAM_4001", "参数校验失败"),
+  PARAM_MISSING("PARAM_4002", "参数缺失"),
+  PARAM_TYPE_ERROR("PARAM_4003", "参数类型错误"),
+  PARAM_INVALID("PARAM_4004", "参数无效"),
+
+  // HTTP错误代码
+  NOT_FOUND("HTTP_404", "接口不存在"),
+  METHOD_NOT_ALLOWED("HTTP_405", "请求方法不支持"),
 
   // 用户相关错误代码
   USER_NOT_FOUND("USER_4901", "用户不存在");

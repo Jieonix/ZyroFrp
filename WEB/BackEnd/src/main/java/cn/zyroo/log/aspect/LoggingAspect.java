@@ -4,6 +4,7 @@ import cn.zyroo.log.model.OperationLog;
 import cn.zyroo.user.model.Users;
 import cn.zyroo.log.service.LogService;
 import cn.zyroo.common.service.UserContextService;
+import cn.zyroo.common.dto.UserInfo;
 import cn.zyroo.log.utils.IpUtils;
 import cn.zyroo.log.utils.LogUtils;
 import cn.zyroo.log.utils.SensitiveDataUtils;
@@ -13,7 +14,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -33,22 +33,21 @@ public class LoggingAspect {
 
     private static final Logger log = LoggerFactory.getLogger(LoggingAspect.class);
 
-    @Autowired
-    private LogService logService;
-
-    @Autowired
-    private LogUtils logUtils;
-
-    @Autowired
-    private IpUtils ipUtils;
-
-    @Autowired
-    private SensitiveDataUtils sensitiveDataUtils;
-
-    @Autowired
-    private UserContextService userContextService;
-
+    private final LogService logService;
+    private final LogUtils logUtils;
+    private final IpUtils ipUtils;
+    private final SensitiveDataUtils sensitiveDataUtils;
+    private final UserContextService userContextService;
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    public LoggingAspect(LogService logService, LogUtils logUtils, IpUtils ipUtils,
+                        SensitiveDataUtils sensitiveDataUtils, UserContextService userContextService) {
+        this.logService = logService;
+        this.logUtils = logUtils;
+        this.ipUtils = ipUtils;
+        this.sensitiveDataUtils = sensitiveDataUtils;
+        this.userContextService = userContextService;
+    }
 
     /**
      * 定义切点：Controller层所有方法
@@ -270,10 +269,10 @@ public class LoggingAspect {
                 if (email != null) {
                     operationLog.setUserEmail(email);
                     // 通过用户服务获取用户ID等信息
-                    Users user = userContextService.findUserByEmail(email);
-                    if (user != null) {
-                        operationLog.setUserId(user.getUser_id());
-                        operationLog.setUsername(user.getEmail());
+                    UserInfo userInfo = userContextService.findUserByEmail(email);
+                    if (userInfo != null) {
+                        operationLog.setUserId(userInfo.getUserId());
+                        operationLog.setUsername(userInfo.getEmail());
                     }
                 }
             }

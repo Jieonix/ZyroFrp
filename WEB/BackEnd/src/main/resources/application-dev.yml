@@ -12,10 +12,10 @@ spring:
 
   mail:
     default-encoding: UTF-8
-    host: smtp.163.com
-    username: jsk476@163.com
-    password: RGbiENkGuAA57Vm3
-    port: 465
+    host: ${MAIL_HOST:smtp.163.com}
+    username: ${MAIL_USERNAME:jsk476@163.com}
+    password: ${MAIL_PASSWORD:}
+    port: ${MAIL_PORT:465}
     properties:
       mail:
         smtp:
@@ -27,9 +27,9 @@ spring:
             required: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/ZyroFrp
-    username: root
-    password: Shajie@123
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/ZyroFrp}
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

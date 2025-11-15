@@ -7,26 +7,26 @@ import cn.zyroo.common.service.UserContextService;
 import cn.zyroo.common.service.SecurityService;
 import cn.zyroo.common.utils.ApiResponse;
 import cn.zyroo.common.utils.ResponseCode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
-
 import java.time.LocalDateTime;
 
 @Service
-public class UsersService {
+public class UsersService implements UserService {
 
-  @Autowired
-  private UsersRepository usersRepository;
+  private final UsersRepository usersRepository;
+  private final UserContextService userContextService;
+  private final SecurityService securityService;
 
-  @Autowired
-  private UserContextService userContextService;
-
-  @Autowired
-  private SecurityService securityService;
+  public UsersService(UsersRepository usersRepository, UserContextService userContextService,
+                     SecurityService securityService) {
+    this.usersRepository = usersRepository;
+    this.userContextService = userContextService;
+    this.securityService = securityService;
+  }
 
   public ApiResponse<?> register_backstage(Users users) {
     if (usersRepository.existsByEmail(users.getEmail())) {
@@ -128,5 +128,30 @@ public class UsersService {
 
   public Users findByEmail(String email) {
     return usersRepository.findByEmail(email);
+  }
+
+  @Override
+  public List<String> findAllEmails() {
+    return usersRepository.findAllEmails();
+  }
+
+  @Override
+  public void deleteUser(Long userId) {
+    usersRepository.deleteById(userId);
+  }
+
+  @Override
+  public Users findById(Long userId) {
+    return usersRepository.findByUserId(userId);
+  }
+
+  @Override
+  public Users saveUser(Users user) {
+    return usersRepository.save(user);
+  }
+
+  @Override
+  public boolean existsByEmail(String email) {
+    return usersRepository.existsByEmail(email);
   }
 }

@@ -1,7 +1,3 @@
-<script setup>
-import Loading from '@/modules/common/components/Loading.vue'
-import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
-</script>
 
 <template>
   <div class="Admin_Users">
@@ -300,19 +296,6 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
         </div>
       </section>
 
-      <ConfirmDialog
-        :visible="confirmDialog.show"
-        :title="confirmDialog.title"
-        :message="confirmDialog.message"
-        :confirmText="confirmDialog.confirmText"
-        :cancelText="confirmDialog.cancelText"
-        :loading="confirmDialog.loading"
-        :loadingText="confirmDialog.loadingText"
-        @confirm="handleConfirm"
-        @cancel="handleCancel"
-        @close="handleCancel"
-      />
-
       <Footer />
     </main>
   </div>
@@ -325,7 +308,6 @@ import { validateToken } from '@/modules/auth/utils/token.js';
 import axios, { Axios } from 'axios';
 import Admin_Sidebar from '@/modules/admin/components/Admin_Sidebar.vue';
 import Footer from '@/modules/common/components/Footer.vue';
-import { useLoadingStore } from '@/modules/common/stores/loading';
 import { emailRegex, weakPasswords } from '@/modules/common/utils/validation.js'
 
 
@@ -366,52 +348,10 @@ export default {
         "REGISTER_4006",
         "EMAIL_SEND_4301"
       ],
-      confirmDialog: {
-        show: false,
-        title: '',
-        message: '',
-        confirmText: '确认',
-        cancelText: '取消',
-        loading: false,
-        loadingText: '处理中...',
-        callback: null,
-        callbackArgs: []
-      },
     };
   },
   methods: {
-    showConfirm(options) {
-      this.confirmDialog = {
-        show: true,
-        title: options.title || '确认操作',
-        message: options.message || '确定要执行此操作吗？',
-        confirmText: options.confirmText || '确认',
-        cancelText: options.cancelText || '取消',
-        loading: false,
-        loadingText: options.loadingText || '处理中...',
-        callback: options.callback || null,
-        callbackArgs: options.callbackArgs || []
-      };
-    },
-
-    async handleConfirm() {
-      if (this.confirmDialog.callback) {
-        this.confirmDialog.loading = true;
-        try {
-          await this.confirmDialog.callback(...this.confirmDialog.callbackArgs);
-        } catch (error) {
-        } finally {
-          this.confirmDialog.loading = false;
-          this.confirmDialog.show = false;
-        }
-      }
-    },
-
-    handleCancel() {
-      this.confirmDialog.show = false;
-      this.confirmDialog.loading = false;
-    },
-
+  
     copyToClipboard(text) {
       if (!text) return;
 
@@ -437,14 +377,11 @@ export default {
     async getAllUsers() {
       try {
         const AdminToken = localStorage.getItem("AdminToken")
-        const loadingStore = useLoadingStore();
-        loadingStore.showLoading();
         const response = await axios.get('/users', {
           headers: {
             Authorization: `Bearer ${AdminToken}`
           }
         });
-        loadingStore.hideLoading();
         this.users = response.data.data;
       } catch (error) {
 
@@ -516,142 +453,111 @@ export default {
         return;
       }
 
-      this.showConfirm({
-        title: '新增用户',
-        message: `确定要新增用户 "${this.email}" 吗？\n\n请检查填写的信息是否正确。`,
-        confirmText: '确认新增',
-        loadingText: '正在新增...',
-        callback: this.doAddUser
-      });
-    },
+      if (confirm(`确定要新增用户 "${this.email}" 吗？\n\n请检查填写的信息是否正确。`)) {
+        const userData = {
+          email: this.email,
+          password: this.password,
+          role: this.role,
+          remaining_traffic: this.remaining_traffic,
+          upload_limit: this.upload_limit,
+          download_limit: this.download_limit,
+          is_trial_user: this.is_trial_user,
+          real_name: this.real_name,
+          id_card: this.id_card,
+          real_name_status: this.real_name_status,
+          vip_start_time: this.vip_start_time,
+          vip_end_time: this.vip_end_time,
+          vip_status: this.vip_status,
+        };
 
-    async doAddUser() {
-      const userData = {
-        email: this.email,
-        password: this.password,
-        role: this.role,
-        remaining_traffic: this.remaining_traffic,
-        upload_limit: this.upload_limit,
-        download_limit: this.download_limit,
-        is_trial_user: this.is_trial_user,
-        real_name: this.real_name,
-        id_card: this.id_card,
-        real_name_status: this.real_name_status,
-        vip_start_time: this.vip_start_time,
-        vip_end_time: this.vip_end_time,
-        vip_status: this.vip_status,
-      };
+        try {
+          const response = await axios.post('/auth/register_backstage', userData)
+          if (this.errorCodes.includes(response.data.code)) {
+            this.$message.error(response.data.message)
+            return
+          }
+          this.$message.success(response.data.message);
 
-      try {
-        const response = await axios.post('/auth/register_backstage', userData)
-        if (this.errorCodes.includes(response.data.code)) {
-          this.$message.error(response.data.message)
-          return
+          this.add_style = false;
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000)
+
+        } catch (error) {
+          this.$message.error('新增用户失败');
         }
-        this.$message.success(response.data.message);
-
-        this.add_style = false;
-
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000)
-
-      } catch (error) {
-        this.$message.error('新增用户失败');
-        throw error;
       }
     },
     async deleteUser(id) {
       const user = this.users.find(u => u.user_id === id);
 
-      this.showConfirm({
-        title: '删除用户',
-        message: `确定要删除用户 "${user.email}" 吗？\n\n此操作不可撤销！`,
-        confirmText: '确认删除',
-        loadingText: '正在删除...',
-        callback: this.doDeleteUser,
-        callbackArgs: [id]
-      });
-    },
-
-    async doDeleteUser(id) {
-      try {
-        const AdminToken = localStorage.getItem("AdminToken")
-        const response = await axios.delete(`/auth/delete/${id}`, {
-          headers: {
-            'Authorization': AdminToken
-          }
-        })
-        this.$message.success(response.data.message)
-
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000)
-      }
-      catch (error) {
-        this.$message.error('删除用户失败');
-        throw error;
-      }
-    },
-    async confirmTheEdit() {
-      this.showConfirm({
-        title: '修改用户',
-        message: `确定要修改用户 "${this.email}" 的信息吗？\n\n请检查填写的信息是否正确。`,
-        confirmText: '确认修改',
-        loadingText: '正在修改...',
-        callback: this.doEditUser
-      });
-    },
-
-    async doEditUser() {
-      try {
-        const AdminToken = localStorage.getItem("AdminToken");
-
-        const payload = {
-          userId: this.user_id,
-          email: this.email,
-          role: this.role,
-          remainingTraffic: this.remaining_traffic,
-          uploadLimit: this.upload_limit,
-          downloadLimit: this.download_limit,
-          isTrialUser: this.is_trial_user,
-          realName: this.real_name,
-          realNameStatus: this.real_name_status,
-          vipStartTime: this.vip_start_time,
-          vipEndTime: this.vip_end_time,
-          vipStatus: this.vip_status
-        };
-
-        if (this.password && this.password.trim() !== "") {
-          payload.password = this.password;
-        }
-
-        if (this.id_card && this.id_card.trim() !== "") {
-          payload.idCard = this.id_card;
-        }
-
-        const response = await axios.post(
-          `/auth/editUser`,
-          payload,
-          {
+      if (confirm(`确定要删除用户 "${user.email}" 吗？\n\n此操作不可撤销！`)) {
+        try {
+          const AdminToken = localStorage.getItem("AdminToken")
+          const response = await axios.delete(`/auth/delete/${id}`, {
             headers: {
               'Authorization': AdminToken
             }
+          })
+          this.$message.success(response.data.message)
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000)
+        }
+        catch (error) {
+          this.$message.error('删除用户失败');
+        }
+      }
+    },
+    async confirmTheEdit() {
+      if (confirm(`确定要修改用户 "${this.email}" 的信息吗？\n\n请检查填写的信息是否正确。`)) {
+        try {
+          const AdminToken = localStorage.getItem("AdminToken");
+
+          const payload = {
+            userId: this.user_id,
+            email: this.email,
+            role: this.role,
+            remainingTraffic: this.remaining_traffic,
+            uploadLimit: this.upload_limit,
+            downloadLimit: this.download_limit,
+            isTrialUser: this.is_trial_user,
+            realName: this.real_name,
+            realNameStatus: this.real_name_status,
+            vipStartTime: this.vip_start_time,
+            vipEndTime: this.vip_end_time,
+            vipStatus: this.vip_status
+          };
+
+          if (this.password && this.password.trim() !== "") {
+            payload.password = this.password;
           }
-        );
 
-        this.showMessageBox = true;
-        this.messageBoxContent = response.data.message;
-        this.messageBoxType = "success";
-        this.autoCloseMessageBox();
+          if (this.id_card && this.id_card.trim() !== "") {
+            payload.idCard = this.id_card;
+          }
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000)
+          const response = await axios.post(
+            `/auth/editUser`,
+            payload,
+            {
+              headers: {
+                'Authorization': AdminToken
+              }
+            }
+          );
 
-      } catch (error) {
-        this.$message.error('修改用户信息失败');
-        throw error;
+          this.$message.success(response.data.message);
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000)
+
+        } catch (error) {
+          this.$message.error('修改用户信息失败');
+        }
       }
     },
     async confirmTheSearch() {
@@ -671,14 +577,6 @@ export default {
 
       } catch (error) {
       }
-    },
-    autoCloseMessageBox() {
-      setTimeout(() => {
-        this.showMessageBox = false;
-      }, 3000);
-    },
-    handleCloseMessageBox() {
-      this.showMessageBox = false;
     },
   },
   mounted() {

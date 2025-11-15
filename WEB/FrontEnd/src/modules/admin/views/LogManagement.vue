@@ -1,6 +1,5 @@
 <script>
 import Loading from '@/modules/common/components/Loading.vue'
-import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
 import Header from '@/modules/common/components/Header.vue'
 import Admin_Sidebar from '@/modules/admin/components/Admin_Sidebar.vue'
 import { useRouter } from 'vue-router'
@@ -13,7 +12,6 @@ export default {
   name: 'Admin_Logs',
   components: {
     Loading,
-    ConfirmDialog,
     Header,
     Admin_Sidebar,
   },
@@ -222,57 +220,11 @@ export default {
         showToast('复制失败')
       }
     },
-
-    async exportLogs(format = 'json') {
-      try {
-        showLoadingToast({
-          message: '导出中...',
-          forbidClick: true,
-          duration: 0
-        })
-
-        const params = {
-          format,
-          ...this.searchForm
-        }
-
-        Object.keys(params).forEach(key => {
-          if (params[key] === '' || params[key] === null || params[key] === undefined) {
-            delete params[key]
-          }
-        })
-
-        const token = localStorage.getItem('AdminToken') || localStorage.getItem('Token')
-        const response = await axios.get('/api/logs/export', {
-          params,
-          responseType: 'blob',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement('a')
-        link.href = url
-        link.setAttribute('download', `logs.${format}`)
-        document.body.appendChild(link)
-        link.click()
-        link.remove()
-        window.URL.revokeObjectURL(url)
-
-        showToast('导出成功')
-      } catch (error) {
-        console.error('导出失败:', error)
-        showToast('导出失败，请检查权限')
-      } finally {
-        closeToast()
-      }
-    }
   },
   mounted() {
     this.checkTokenValidity();
     this.fetchLogs();
-  }
+  },
 }
 </script>
 

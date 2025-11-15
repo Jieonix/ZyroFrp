@@ -514,7 +514,6 @@ export default {
       hoveredPricing: null,
       activeStep: null,
       billingPeriod: 'monthly',
-      isDarkMode: false,
 
       coreFeatures: [
         {
@@ -736,71 +735,24 @@ export default {
       this.$router.push({ name: 'Payment', query: Object.fromEntries(params) })
     },
 
-    initDarkMode() {
-      const savedTheme = localStorage.getItem('theme')
-      if (savedTheme) {
-        this.isDarkMode = savedTheme === 'dark'
-      } else {
-        if (window.matchMedia) {
-          this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-          this.isDarkMode = this.mediaQuery.matches
-          this.mediaQuery.addEventListener('change', this.handleMediaQueryChange)
-        }
-      }
-
-      this.applyTheme()
+    scrollToFeatures() {
+      this.goTo('#features')
     },
-
-    handleMediaQueryChange(e) {
-      const savedTheme = localStorage.getItem('theme')
-      if (!savedTheme) {
-        this.isDarkMode = e.matches
-        this.applyTheme()
-      }
-    },
-
-    applyTheme() {
-      const root = document.documentElement
-      if (this.isDarkMode) {
-        root.classList.add('dark-theme')
-      } else {
-        root.classList.remove('dark-theme')
-      }
-      localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light')
-    },
-
-    toggleTheme() {
-      this.isDarkMode = !this.isDarkMode
-      this.applyTheme()
-    },
-
-    handleStorageChange(e) {
-      if (e.key === 'theme') {
-        this.isDarkMode = e.newValue === 'dark'
-        this.applyTheme()
-      }
-    }
   },
   mounted() {
     this.checkLoginStatus()
-    this.initDarkMode()
 
     this.tokenCheckInterval = setInterval(() => {
       this.checkLoginStatus()
     }, 5 * 60 * 1000)
   },
   beforeDestroy() {
-    if (this.mediaQuery) {
-      this.mediaQuery.removeEventListener('change', this.handleMediaQueryChange)
-    }
-
     if (this.tokenCheckInterval) {
       clearInterval(this.tokenCheckInterval)
     }
   }
 }
 </script>
-
 
 <style>
 .landing-page {
@@ -842,21 +794,6 @@ export default {
   cursor: pointer;
 }
 
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-  transition: all 0.3s ease;
-}
-
-.logo:hover .logo-icon {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 122, 255, 0.15);
-}
 
 .logo h1 {
   font-size: 1.5rem;
@@ -960,16 +897,6 @@ export default {
   height: 100%;
 }
 
-.login-btn {
-  background: transparent;
-  color: #6b7280;
-  border: 1px solid #fcfcfc;
-}
-
-.login-btn:hover {
-  background: #f3f4f6;
-  color: #424242;
-}
 
 .register-btn,
 .dashboard-btn {
@@ -992,7 +919,6 @@ export default {
   background: #f3f4f6;
   color: #dc2626;
 }
-
 
 .hero {
   padding: 120px 0 80px;
@@ -1465,16 +1391,6 @@ export default {
   }
 }
 
-.float-card:hover .card-icon {
-  transform: scale(1.05);
-  color: #059669;
-}
-
-.float-card:hover .card-icon svg {
-  transform: scale(1.05);
-  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.3));
-}
-
 .card-icon {
   display: flex;
   align-items: center;
@@ -1482,14 +1398,8 @@ export default {
   width: 20px;
   height: 20px;
   color: #10b981;
-  transition: all 0.3s ease;
 }
 
-.card-icon svg {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.3s ease;
-}
 
 .card-label {
   font-size: 12px;
@@ -2041,9 +1951,6 @@ export default {
   color: #10b981;
 }
 
-.features-list li {
-  transition: all 0.3s ease;
-}
 
 .check-icon {
   width: 20px;
@@ -2074,52 +1981,7 @@ export default {
   box-shadow: 0 6px 20px rgba(31, 41, 55, 0.35);
 }
 
-.pricing-card:hover .check-icon path {
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  stroke-dasharray: 20;
-  stroke-dashoffset: 0;
-  animation: drawCheckmark 0.4s ease-in-out;
-}
 
-@keyframes drawCheckmark {
-  0% {
-    stroke-dasharray: 0 20;
-    opacity: 0.3;
-    transform: scale(0.7) rotate(-10deg);
-  }
-
-  50% {
-    opacity: 0.7;
-    transform: scale(1.1) rotate(5deg);
-  }
-
-  100% {
-    stroke-dasharray: 20 20;
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-}
-
-.check-icon.animated-hover {
-  animation: pulse-icon 2s infinite;
-}
-
-@keyframes pulse-icon {
-  0% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 0 rgba(16, 185, 129, 0));
-  }
-
-  50% {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4));
-  }
-
-  100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 0 rgba(16, 185, 129, 0));
-  }
-}
 
 .feature-description {
   display: block;
@@ -2566,423 +2428,6 @@ html {
   z-index: 2;
 }
 
-:root.dark-theme .landing-page {
-  color: #f0f0f0;
-  background: #0a0a0a;
-}
-
-:root.dark-theme .navbar {
-  background: rgba(10, 10, 10, 0.85);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-:root.dark-theme .logo h1 {
-  color: #10b981;
-}
-
-:root.dark-theme .nav-item {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .nav-item:hover {
-  color: #f0f0f0;
-  background: #1a1a1a;
-}
-
-:root.dark-theme .github-btn,
-:root.dark-theme .login-btn,
-:root.dark-theme .register-btn,
-:root.dark-theme .dashboard-btn,
-:root.dark-theme .logout-btn {
-  color: #a0a0a0;
-  border: 1px solid #0c0c0c;
-}
-
-:root.dark-theme .github-btn:hover,
-:root.dark-theme .login-btn:hover,
-:root.dark-theme .register-btn:hover,
-:root.dark-theme .dashboard-btn:hover,
-:root.dark-theme .logout-btn:hover {
-  background: #1a1a1a;
-  color: #f0f0f0;
-}
-
-:root.dark-theme .hero {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-}
-
-:root.dark-theme .hero-badge {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-}
-
-:root.dark-theme .title-gradient {
-  background: linear-gradient(135deg, #f0f0f0 0%, #a0a0a0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-:root.dark-theme .title-highlight {
-  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-:root.dark-theme .hero-subtitle {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .cta-secondary {
-  background: #1a1a1a;
-  color: #f0f0f0;
-  border: 2px solid #333333;
-}
-
-:root.dark-theme .cta-secondary:hover {
-  background: #2a2a2a;
-  border-color: #404040;
-}
-
-:root.dark-theme .trust-icon {
-  background: #1a1a1a;
-  color: #34d399;
-}
-
-:root.dark-theme .trust-number {
-  color: #f0f0f0;
-}
-
-:root.dark-theme .trust-label {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .terminal-window {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-}
-
-:root.dark-theme .terminal-header {
-  background: #f8f9fa;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-:root.dark-theme .terminal-title {
-  color: #666666;
-}
-
-:root.dark-theme .terminal-body {
-  background: #ffffff;
-}
-
-:root.dark-theme .prompt {
-  color: #10b981;
-}
-
-:root.dark-theme .command {
-  color: #1a1a1a;
-}
-
-:root.dark-theme .output {
-  color: #666666;
-}
-
-:root.dark-theme .success {
-  color: #059669;
-}
-
-:root.dark-theme .info {
-  color: #0ea5e9;
-}
-
-:root.dark-theme .terminal-cursor {
-  background: #1a1a1a;
-}
-
-:root.dark-theme .float-card {
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-:root.dark-theme .card-icon {
-  color: #34d399;
-}
-
-:root.dark-theme .float-card:hover .card-icon {
-  color: #10b981;
-}
-
-:root.dark-theme .float-card:hover .card-icon svg {
-  filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.4));
-}
-
-:root.dark-theme .card-label {
-  color: #f0f0f0;
-}
-
-:root.dark-theme .section-badge {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  color: #a0a0a0;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-:root.dark-theme .section-title {
-  color: #f0f0f0;
-}
-
-:root.dark-theme .section-subtitle {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .features-section {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-}
-
-:root.dark-theme .feature-card {
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-:root.dark-theme .feature-card:hover {
-  background: #2a2a2a;
-  border-color: rgba(16, 185, 129, 0.3);
-}
-
-:root.dark-theme .feature-icon {
-  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
-  color: #34d399;
-}
-
-:root.dark-theme .feature-card:hover .feature-icon {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-}
-
-:root.dark-theme .feature-text h3 {
-  color: #f0f0f0;
-}
-
-:root.dark-theme .feature-text p {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .showcase-content h3 {
-  color: #f0f0f0;
-}
-
-:root.dark-theme .showcase-content p {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .showcase-features li {
-  color: #f0f0f0;
-}
-
-:root.dark-theme .node {
-  background: #1a1a1a;
-  border: 2px solid #333333;
-  color: #a0a0a0;
-}
-
-:root.dark-theme .pricing-section {
-  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-}
-
-:root.dark-theme .pricing-toggle {
-  background: #2a2a2a;
-}
-
-:root.dark-theme .toggle-btn {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .toggle-btn.active {
-  background: #1a1a1a;
-  color: #34d399;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-:root.dark-theme .pricing-card {
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-:root.dark-theme .pricing-card:hover {
-  background: #2a2a2a;
-  border-color: rgba(16, 185, 129, 0.3);
-}
-
-:root.dark-theme .plan-info h3 {
-  color: #f0f0f0;
-}
-
-:root.dark-theme .plan-description {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .amount {
-  color: #f0f0f0;
-}
-
-:root.dark-theme .currency,
-:root.dark-theme .period {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .features-list li {
-  color: #f0f0f0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-:root.dark-theme .features-list li.highlight {
-  color: #34d399;
-}
-
-:root.dark-theme .check-icon {
-  background: #333333;
-  color: #a0a0a0;
-}
-
-:root.dark-theme .pricing-card:hover .check-icon {
-  background: #34d399;
-  color: #ffffff;
-}
-
-:root.dark-theme .pricing-btn.secondary {
-  background: #2a2a2a;
-  color: #f0f0f0;
-  border: 2px solid #333333;
-}
-
-:root.dark-theme .pricing-btn.secondary:hover {
-  background: #3a3a3a;
-  border-color: #404040;
-}
-
-:root.dark-theme .pricing-btn.enterprise {
-  background: #2a2a2a;
-  color: #f0f0f0;
-}
-
-:root.dark-theme .pricing-btn.enterprise:hover {
-  background: #3a3a3a;
-}
-
-:root.dark-theme .pricing-note {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .tutorials-section {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-}
-
-:root.dark-theme .tutorial-card {
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-:root.dark-theme .tutorial-card:hover {
-  background: #2a2a2a;
-  border-color: rgba(16, 185, 129, 0.3);
-}
-
-:root.dark-theme .tutorial-number {
-  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
-  color: #34d399;
-}
-
-:root.dark-theme .tutorial-card:hover .tutorial-number {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-}
-
-:root.dark-theme .tutorial-content h3 {
-  color: #f0f0f0;
-}
-
-:root.dark-theme .tutorial-content p {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .tutorial-icon {
-  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
-  color: #34d399;
-}
-
-:root.dark-theme .tutorial-card:hover .tutorial-icon {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-}
-
-:root.dark-theme .about-section {
-  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-}
-
-:root.dark-theme .about-text p {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .stat-card {
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-:root.dark-theme .stat-card:hover {
-  background: #2a2a2a;
-  border-color: rgba(16, 185, 129, 0.3);
-}
-
-:root.dark-theme .stat-number {
-  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-:root.dark-theme .stat-label {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .footer_LP {
-  background: #0a0a0a;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-:root.dark-theme .footer-section h3,
-:root.dark-theme .footer-section h4 {
-  color: #f0f0f0;
-}
-
-:root.dark-theme .footer-section p {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .footer-section a {
-  color: #a0a0a0;
-}
-
-:root.dark-theme .footer-section a:hover {
-  color: #34d399;
-}
-
-:root.dark-theme .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  color: #a0a0a0;
-}
-
-:root.dark-theme ::selection {
-  background: rgba(52, 211, 153, 0.3);
-  color: #f0f0f0;
-}
-
-:root.dark-theme button:focus-visible,
-:root.dark-theme a:focus-visible {
-  outline: 2px solid #34d399;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
 
 .pricing-section {
   position: relative;
@@ -3036,17 +2481,4 @@ html {
   }
 }
 
-:root.dark-theme .pricing-overlay {
-  background: rgba(0, 0, 0, 0.77);
-}
-
-:root.dark-theme .pricing-overlay-x {
-  color: rgba(113, 248, 129);
-  text-shadow: 0 0 30px rgba(113, 248, 129, 0.3);
-}
-
-:root.dark-theme .pricing-overlay-text {
-  color: rgba(113, 248, 133, 0.8);
-  background-color: transparent;
-}
 </style>

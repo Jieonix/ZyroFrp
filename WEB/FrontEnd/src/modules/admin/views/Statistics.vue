@@ -102,13 +102,9 @@ const fetchActiveUsers = async () => {
 
     if (response.data.code == 200) {
       activeUsers.value = response.data.data || []
-      console.log('活跃用户数据:', activeUsers.value)
-      console.log('活跃用户数组长度:', activeUsers.value.length)
     } else {
-      console.error('活跃用户API错误:', response.data.message)
     }
   } catch (error) {
-    console.error('获取活跃用户失败:', error)
   }
 }
 
@@ -130,27 +126,19 @@ const fetchFrequentOperations = async () => {
 
     if (response.data.code == 200) {
       frequentOperations.value = response.data.data || []
-      console.log('频繁操作数据:', frequentOperations.value)
-      console.log('频繁操作数组长度:', frequentOperations.value.length)
-    } else {
-      console.error('频繁操作API错误:', response.data.message)
     }
   } catch (error) {
-    console.error('获取频繁操作失败:', error)
   }
 }
 
 const refreshData = async () => {
-
   try {
     await Promise.all([
       fetchStatistics(),
       fetchActiveUsers(),
       fetchFrequentOperations()
     ])
-    console.log('数据刷新完成')
   } catch (error) {
-    console.error('数据刷新失败:', error)
   }
 }
 
@@ -161,8 +149,6 @@ const handleTimeRangeChange = () => {
 const successRate = computed(() => {
   const total = statistics.value.totalCount || 0
   const successCount = statistics.value.successCount || 0
-  console.log(statistics.value);
-
   return total > 0 ? ((successCount / total) * 100).toFixed(2) : 0
 })
 
@@ -255,12 +241,6 @@ const getOperationColor = (operation) => {
   return colors[operation] || '#1989fa'
 }
 
-const getHealthClass = (value) => {
-  if (value >= 95) return 'excellent'
-  if (value >= 85) return 'good'
-  if (value >= 70) return 'warning'
-  return 'danger'
-}
 
 onMounted(() => {
   refreshData()
@@ -381,52 +361,6 @@ onMounted(() => {
               <div v-else class="no-data">暂无数据</div>
             </div>
           </div>
-          <div class="chart-card">
-            <h3>用户活跃度</h3>
-            <div class="chart-content">
-              <div class="user-activity">
-                <div class="activity-item">
-                  <div class="activity-icon users">
-                    <van-icon name="friends-o" />
-                  </div>
-                  <div class="activity-content">
-                    <div class="activity-value">{{ formatNumber(statistics.uniqueUsers || 0) }}</div>
-                    <div class="activity-label">活跃用户</div>
-                  </div>
-                  <div class="activity-trend">
-                    <van-icon name="arrow-up" color="#07c160" />
-                    <span class="trend-value">+12%</span>
-                  </div>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-icon ips">
-                    <van-icon name="location-o" />
-                  </div>
-                  <div class="activity-content">
-                    <div class="activity-value">{{ formatNumber(statistics.uniqueIps || 0) }}</div>
-                    <div class="activity-label">独立IP</div>
-                  </div>
-                  <div class="activity-trend">
-                    <van-icon name="arrow-up" color="#07c160" />
-                    <span class="trend-value">+8%</span>
-                  </div>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-icon requests">
-                    <van-icon name="description" />
-                  </div>
-                  <div class="activity-content">
-                    <div class="activity-value">{{ formatNumber(statistics.totalCount || 0) }}</div>
-                    <div class="activity-label">总请求数</div>
-                  </div>
-                  <div class="activity-trend">
-                    <van-icon name="arrow-up" color="#07c160" />
-                    <span class="trend-value">+25%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="detailed-stats">
           <div class="stats-table">
@@ -539,41 +473,6 @@ onMounted(() => {
   background-color: #1a7fe8;
 }
 
-.debug-button {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  background-color: #ff976a;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.debug-button:hover {
-  background-color: #ff8445;
-}
-
-.test-button {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  background-color: #ee0a24;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.test-button:hover {
-  background-color: #d6081a;
-}
 
 .time-range-select {
   padding: 8px 16px;
@@ -945,70 +844,6 @@ onMounted(() => {
   border-radius: 4px;
 }
 
-.health-metrics {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 20px 0;
-}
-
-.metric-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.metric-circle {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 4px solid #f0f0f0;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.metric-circle.excellent {
-  border-color: #07c160;
-  background: linear-gradient(135deg, rgba(7, 193, 96, 0.1) 0%, rgba(7, 193, 96, 0.05) 100%);
-}
-
-.metric-circle.good {
-  border-color: #1989fa;
-  background: linear-gradient(135deg, rgba(25, 137, 250, 0.1) 0%, rgba(25, 137, 250, 0.05) 100%);
-}
-
-.metric-circle.warning {
-  border-color: #ff976a;
-  background: linear-gradient(135deg, rgba(255, 151, 106, 0.1) 0%, rgba(255, 151, 106, 0.05) 100%);
-}
-
-.metric-circle.danger {
-  border-color: #ee0a24;
-  background: linear-gradient(135deg, rgba(238, 10, 36, 0.1) 0%, rgba(238, 10, 36, 0.05) 100%);
-}
-
-.metric-circle.performance {
-  border-color: #7232dd;
-  background: linear-gradient(135deg, rgba(114, 50, 221, 0.1) 0%, rgba(114, 50, 221, 0.05) 100%);
-}
-
-.metric-value {
-  font-size: 20px;
-  font-weight: bold;
-  color: #323233;
-  line-height: 1;
-}
-
-.metric-label {
-  font-size: 12px;
-  color: #969799;
-  margin-top: 4px;
-}
 
 .user-activity {
   display: flex;
@@ -1016,73 +851,7 @@ onMounted(() => {
   gap: 16px;
 }
 
-.activity-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  background-color: #fafafa;
-  border-radius: 8px;
-  border-left: 4px solid transparent;
-  transition: all 0.3s ease;
-}
 
-.activity-item:hover {
-  background-color: #f0f2f5;
-  transform: translateX(2px);
-}
-
-.activity-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  color: white;
-}
-
-.activity-icon.users {
-  background: linear-gradient(135deg, #1989fa 0%, #1a7fe8 100%);
-}
-
-.activity-icon.ips {
-  background: linear-gradient(135deg, #ff976a 0%, #ff8445 100%);
-}
-
-.activity-icon.requests {
-  background: linear-gradient(135deg, #07c160 0%, #06ad56 100%);
-}
-
-.activity-content {
-  flex: 1;
-}
-
-.activity-value {
-  font-size: 18px;
-  font-weight: bold;
-  color: #323233;
-  line-height: 1;
-}
-
-.activity-label {
-  font-size: 13px;
-  color: #969799;
-  margin-top: 2px;
-}
-
-.activity-trend {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.trend-value {
-  font-size: 13px;
-  font-weight: 600;
-  color: #07c160;
-}
 
 @media (max-width: 768px) {
   .main-content {
@@ -1124,30 +893,7 @@ onMounted(() => {
     grid-template-columns: 1fr;
   }
 
-  .health-metrics {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .metric-circle {
-    width: 80px;
-    height: 80px;
-  }
-
-  .metric-value {
-    font-size: 16px;
-  }
-
-  .activity-item {
-    padding: 12px;
-  }
-
-  .activity-icon {
-    width: 35px;
-    height: 35px;
-    font-size: 16px;
-  }
-
+  
   .detailed-stats {
     grid-template-columns: 1fr;
   }

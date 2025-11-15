@@ -1,15 +1,9 @@
-<script setup>
-import Loading from '@/modules/common/components/Loading.vue'
-import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
-</script>
 
 <template>
   <div class="Admin_Email">
-    <Loading />
     <Header />
     <Admin_Sidebar />
     <main class="main-content">
-      <Loading />
       <div class="tab-header">
         <button class="tab-button" :class="{ active: activeTab === 'send' }" @click="activeTab = 'send'">
           邮件发送
@@ -149,11 +143,7 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
         </div>
       </div>
 
-      <ConfirmDialog :visible="confirmDialog.show" :title="confirmDialog.title" :message="confirmDialog.message"
-        :confirmText="confirmDialog.confirmText" :cancelText="confirmDialog.cancelText" :loading="confirmDialog.loading"
-        :loadingText="confirmDialog.loadingText" @confirm="handleConfirm" @cancel="handleCancel"
-        @close="handleCancel" />
-    </main>
+      </main>
   </div>
 </template>
 
@@ -161,11 +151,8 @@ import ConfirmDialog from '@/modules/common/components/ConfirmDialog.vue'
 import Header from '@/modules/common/components/Header.vue';
 import { useRouter } from 'vue-router';
 import { validateToken } from '@/modules/auth/utils/token.js';
-import { ref } from 'vue';
 import axios from 'axios';
 import Admin_Sidebar from '@/modules/admin/components/Admin_Sidebar.vue';
-import Footer from '@/modules/common/components/Footer.vue';
-import { useLoadingStore } from '@/modules/common/stores/loading'
 
 export default {
   name: 'Admin_Email',
@@ -190,18 +177,7 @@ export default {
       historyLoading: false,
       showEmailDetailPopup: false,
       selectedEmail: null,
-      confirmDialog: {
-        show: false,
-        title: '',
-        message: '',
-        confirmText: '确认',
-        cancelText: '取消',
-        loading: false,
-        loadingText: '处理中...',
-        callback: null,
-        callbackArgs: []
-      },
-    };
+      };
   },
   computed: {
     filteredUsers() {
@@ -214,38 +190,7 @@ export default {
     }
   },
   methods: {
-    showConfirm(options) {
-      this.confirmDialog = {
-        show: true,
-        title: options.title || '确认操作',
-        message: options.message || '确定要执行此操作吗？',
-        confirmText: options.confirmText || '确认',
-        cancelText: options.cancelText || '取消',
-        loading: false,
-        loadingText: options.loadingText || '处理中...',
-        callback: options.callback || null,
-        callbackArgs: options.callbackArgs || []
-      };
-    },
-
-    async handleConfirm() {
-      if (this.confirmDialog.callback) {
-        this.confirmDialog.loading = true;
-        try {
-          await this.confirmDialog.callback(...this.confirmDialog.callbackArgs);
-        } catch (error) {
-        } finally {
-          this.confirmDialog.loading = false;
-          this.confirmDialog.show = false;
-        }
-      }
-    },
-
-    handleCancel() {
-      this.confirmDialog.show = false;
-      this.confirmDialog.loading = false;
-    },
-
+  
     checkTokenValidity() {
       const router = useRouter();
       const AdminToken = localStorage.getItem("AdminToken");
@@ -360,41 +305,32 @@ export default {
         return;
       }
 
-      this.showConfirm({
-        title: '发送邮件',
-        message: `确定要发送邮件给 ${this.recipientCount} 位用户吗？\n\n主题：${this.emailForm.subject}\n\n此操作不可撤销！`,
-        confirmText: '确认发送',
-        loadingText: '正在发送...',
-        callback: this.doSendBulkEmail
-      });
-    },
+      if (confirm(`确定要发送邮件给 ${this.recipientCount} 位用户吗？\n\n主题：${this.emailForm.subject}\n\n此操作不可撤销！`)) {
+        this.sending = true;
+        try {
+          const AdminToken = localStorage.getItem("AdminToken");
+          const response = await axios.post('/emails/send-bulk', this.emailForm, {
+            headers: {
+              'Authorization': `Bearer ${AdminToken}`,
+              'Content-Type': 'application/json'
+            }
+          });
 
-    async doSendBulkEmail() {
-      this.sending = true;
-      try {
-        const AdminToken = localStorage.getItem("AdminToken");
-        const response = await axios.post('/emails/send-bulk', this.emailForm, {
-          headers: {
-            'Authorization': `Bearer ${AdminToken}`,
-            'Content-Type': 'application/json'
+          if (response.data.code === 200) {
+            this.$message.success(`邮件发送成功！已发送给 ${response.data.data.recipientCount} 位用户`);
+
+            this.emailForm.subject = '';
+            this.emailForm.content = '';
+
+            await this.loadEmailHistory();
+          } else {
+            this.$message.error(response.data.msg || '邮件发送失败');
           }
-        });
-
-        if (response.data.code === 200) {
-          this.$message.success(`邮件发送成功！已发送给 ${response.data.data.recipientCount} 位用户`);
-
-          this.emailForm.subject = '';
-          this.emailForm.content = '';
-
-          await this.loadEmailHistory();
-        } else {
-          this.$message.error(response.data.msg || '邮件发送失败');
+        } catch (error) {
+          this.$message.error('邮件发送失败，请检查网络连接或邮件配置');
+        } finally {
+          this.sending = false;
         }
-      } catch (error) {
-        this.$message.error('邮件发送失败，请检查网络连接或邮件配置');
-        throw error;
-      } finally {
-        this.sending = false;
       }
     },
     async showEmailDetail(email) {
@@ -419,19 +355,7 @@ export default {
       });
     },
 
-    getStatusType(status) {
-      switch (status) {
-        case 'SUCCESS':
-          return 'primary';
-        case 'FAILED':
-          return 'danger';
-        case 'PARTIAL':
-          return 'warning';
-        default:
-          return 'default';
-      }
-    },
-
+  
     getStatusClass(status) {
       switch (status) {
         case 'SUCCESS':

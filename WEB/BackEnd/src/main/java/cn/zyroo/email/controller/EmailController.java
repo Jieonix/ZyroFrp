@@ -2,10 +2,9 @@ package cn.zyroo.email.controller;
 
 import cn.zyroo.email.model.BulkEmail;
 import cn.zyroo.email.repository.BulkEmailRepository;
-import cn.zyroo.user.repository.UsersRepository;
 import cn.zyroo.email.service.EmailService;
 import cn.zyroo.common.utils.ApiResponse;
-import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.service.UserContextService;
 import cn.zyroo.common.utils.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +24,10 @@ public class EmailController {
   private EmailService emailService;
 
   @Autowired
-  private UsersRepository usersRepository;
+  private UserContextService userContextService;
 
   @Autowired
   private BulkEmailRepository bulkEmailRepository;
-
-  @Autowired
-  private JwtUtil jwtUtil;
 
   @Value("${spring.mail.username}")
   private String fromEmail;
@@ -58,7 +54,7 @@ public class EmailController {
       log.info("收到的token: {}", actualToken.substring(0, Math.min(10, actualToken.length())) + "...");
 
       try {
-        String userRole = jwtUtil.getClaimFromToken(actualToken, "role");
+        String userRole = userContextService.getRoleFromToken(actualToken);
         log.info("用户角色: {}", userRole);
         if (!"Admin".equals(userRole)) {
           return ApiResponse.error(ResponseCode.PERMISSION_DENIED);
@@ -68,7 +64,7 @@ public class EmailController {
         return ApiResponse.error("Token解析失败: " + tokenEx.getMessage());
       }
 
-      List<String> emails = usersRepository.findAllEmails();
+      List<String> emails = userContextService.findAllEmails();
       log.info("获取到邮箱数量: {}", emails.size());
       for (String email : emails) {
         log.debug("邮箱: {}", email);
@@ -87,7 +83,7 @@ public class EmailController {
     try {
       // 验证管理员权限 - 移除Bearer前缀
       String actualToken = token.startsWith("Bearer ") ? token.substring(7) : token;
-      String userRole = jwtUtil.getClaimFromToken(actualToken, "role");
+      String userRole = userContextService.getRoleFromToken(actualToken);
       if (!"Admin".equals(userRole)) {
         return ApiResponse.error(ResponseCode.PERMISSION_DENIED);
       }
@@ -103,7 +99,7 @@ public class EmailController {
       }
 
       // 获取所有用户邮箱
-      List<String> emailList = usersRepository.findAllEmails();
+      List<String> emailList = userContextService.findAllEmails();
 
       if (emailList.isEmpty()) {
         return ApiResponse.error("没有找到有效的邮箱地址");
@@ -139,7 +135,7 @@ public class EmailController {
     try {
       // 验证管理员权限 - 移除Bearer前缀
       String actualToken = token.startsWith("Bearer ") ? token.substring(7) : token;
-      String userRole = jwtUtil.getClaimFromToken(actualToken, "role");
+      String userRole = userContextService.getRoleFromToken(actualToken);
       if (!"Admin".equals(userRole)) {
         return ApiResponse.error(ResponseCode.PERMISSION_DENIED);
       }
@@ -161,7 +157,7 @@ public class EmailController {
     try {
       // 验证管理员权限 - 移除Bearer前缀
       String actualToken = token.startsWith("Bearer ") ? token.substring(7) : token;
-      String userRole = jwtUtil.getClaimFromToken(actualToken, "role");
+      String userRole = userContextService.getRoleFromToken(actualToken);
       if (!"Admin".equals(userRole)) {
         return ApiResponse.error(ResponseCode.PERMISSION_DENIED);
       }

@@ -6,7 +6,7 @@ import cn.zyroo.user.repository.UsersRepository;
 import cn.zyroo.user.service.UserInfoService;
 import cn.zyroo.user.service.UsersService;
 import cn.zyroo.common.utils.ApiResponse;
-import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.service.UserContextService;
 import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +18,9 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserInfoController {
 
+  
   @Autowired
-  private JwtUtil jwtUtil;
-
+  private UserContextService userContextService;
   @Autowired
   private UserInfoService userInfoService;
   @Autowired
@@ -32,7 +32,7 @@ public class UserInfoController {
   public ApiResponse<Users> getUserInfo(@RequestBody TokenRequest request) {
     String email;
     try {
-      email = jwtUtil.getEmailFromToken(request.getToken());
+      email = userContextService.getEmailFromToken(request.getToken());
     } catch (Exception e) {
       return ApiResponse.error(ResponseCode.USERINFO_TOKEN_INVALID);
     }
@@ -48,7 +48,7 @@ public class UserInfoController {
   @GetMapping
   public ApiResponse<List<Users>> getAllUsers(@RequestHeader("Authorization") String authHeader) {
     String token = authHeader.replace("Bearer ", "");
-    String role = jwtUtil.getRoleFromToken(token);
+    String role = userContextService.getRoleFromToken(token);
 
     if (!role.equals("Admin") && !role.equals("SuperAdmin")) {
       return ApiResponse.error(ResponseCode.USERINFO_UNAUTHORIZED);
@@ -68,7 +68,7 @@ public class UserInfoController {
   public ApiResponse<Users> getUserInfoById(@PathVariable Long userId,
                                             @RequestHeader("Authorization") String authHeader) {
     String token = authHeader.replace("Bearer ", "");
-    String role = jwtUtil.getRoleFromToken(token);
+    String role = userContextService.getRoleFromToken(token);
 
     if (!role.equals("Admin") && !role.equals("SuperAdmin")) {
       return ApiResponse.error(ResponseCode.USERINFO_UNAUTHORIZED);
@@ -88,7 +88,7 @@ public class UserInfoController {
   public ApiResponse<String> updateLastActiveTime(@RequestHeader("Authorization") String authHeader) {
     try {
       String token = authHeader.replace("Bearer ", "");
-      String email = jwtUtil.getEmailFromToken(token);
+      String email = userContextService.getEmailFromToken(token);
 
       Users user = usersRepository.findByEmail(email);
       if (user == null) {

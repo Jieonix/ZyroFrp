@@ -5,7 +5,7 @@ import cn.zyroo.servers.model.Servers;
 import cn.zyroo.tunnels.repository.FrpTunnelRepository;
 import cn.zyroo.servers.service.ServersRepository;
 import cn.zyroo.common.utils.ApiResponse;
-import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.service.UserContextService;
 import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.Optional;
 public class FrpTunnelService {
 
   @Autowired
-  private JwtUtil jwtUtil;
+  private UserContextService userContextService;
 
   @Autowired
   private FrpTunnelRepository frpTunnelRepository;
@@ -28,10 +28,10 @@ public class FrpTunnelService {
 
   // 添加隧道逻辑
   public ApiResponse<String> addFrpTunnel(FrpTunnel frpTunnel, String token) {
-    String email = jwtUtil.getEmailFromToken(token);
+    String email = userContextService.getEmailFromToken(token);
     frpTunnel.setUser_email(email);
 
-    String userKey = jwtUtil.getUserKeyFromToken(token);
+    String userKey = userContextService.getUserKeyFromToken(token);
     frpTunnel.setUser_key(userKey);
 
     if (frpTunnel.getTunnel_type().equals("http") || frpTunnel.getTunnel_type().equals("https")) {
@@ -105,7 +105,7 @@ public class FrpTunnelService {
 
   // 删除隧道
   public void deleteFrpTunnel(Long id, String token) {
-    String email = jwtUtil.getEmailFromToken(token);
+    String email = userContextService.getEmailFromToken(token);
     FrpTunnel tunnel = frpTunnelRepository.findById(id).orElse(null);
 
     if (tunnel == null) {

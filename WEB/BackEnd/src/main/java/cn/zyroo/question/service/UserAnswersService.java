@@ -2,8 +2,8 @@ package cn.zyroo.question.service;
 
 import cn.zyroo.question.model.UserAnswers;
 import cn.zyroo.question.repository.UserAnswersRepository;
-import cn.zyroo.user.repository.UsersRepository;
 import cn.zyroo.user.model.Users;
+import cn.zyroo.common.service.UserContextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class UserAnswersService {
   private UserAnswersRepository userAnswersRepository;
 
   @Autowired
-  private UsersRepository usersRepository;
+  private UserContextService userContextService;
 
   // 检查用户是否在当天已经提交过答案
   public boolean hasAnsweredToday(String email) {
@@ -39,11 +39,11 @@ public class UserAnswersService {
   // 答题后流量奖励逻辑
   public void trafficReward(String email, long trafficAmount) {
 
-    Users user = usersRepository.findByEmail(email);
+    Users user = userContextService.findUserByEmail(email);
 
     if (user != null) {
       user.setRemaining_traffic(user.getRemaining_traffic() + trafficAmount);
-      usersRepository.save(user);
+      userContextService.saveUser(user);
     } else {
       throw new RuntimeException("用户不存在");
     }

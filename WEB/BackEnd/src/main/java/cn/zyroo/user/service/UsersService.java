@@ -1,22 +1,16 @@
 package cn.zyroo.user.service;
 
 import cn.zyroo.user.dto.EditUserRequest;
-import cn.zyroo.email.model.Email;
 import cn.zyroo.user.model.Users;
 import cn.zyroo.user.repository.UsersRepository;
-import cn.zyroo.email.repository.EmailRepository;
+import cn.zyroo.common.service.UserContextService;
+import cn.zyroo.common.service.SecurityService;
 import cn.zyroo.common.utils.ApiResponse;
-import cn.zyroo.user.utils.EncryptionUtil;
-import cn.zyroo.user.utils.JwtUtil;
 import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 
-import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -29,59 +23,11 @@ public class UsersService {
   private UsersRepository usersRepository;
 
   @Autowired
-  private EmailRepository emailRepository;
+  private UserContextService userContextService;
 
-  private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
   @Autowired
-  private JwtUtil jwtUtil;
+  private SecurityService securityService;
 
-  // 注册功能
-  public ApiResponse<?> register(String email, String password, String emailcode) {
-
-    if (usersRepository.existsByEmail(email)) {
-      return ApiResponse.error(ResponseCode.REGISTER_USER_EXISTS);
-    }
-
-    Optional<Email> emailRecord = emailRepository.findByEmailAndCodeAndType(email, emailcode, "REGISTER");
-
-    if (emailRecord.isEmpty()) {
-      return ApiResponse.error(ResponseCode.REGISTER_INVALID_VERIFICATION_CODE);
-    }
-
-    Email emailVerification = emailRecord.get();
-
-    if ("1".equals(emailVerification.getStatus())) {
-      return ApiResponse.error(ResponseCode.REGISTER_CODE_USED);
-    }
-
-    if ("-1".equals(emailVerification.getStatus())) {
-      return ApiResponse.error(ResponseCode.REGISTER_CODE_EXPIRED);
-    }
-
-    if ("-2".equals(emailVerification.getStatus())) {
-      return ApiResponse.error(ResponseCode.REGISTER_CODE_INVALID);
-    }
-
-    if ("0".equals(emailVerification.getStatus())) {
-      emailVerification.setStatus("1");
-      emailRepository.save(emailVerification);
-
-
-      Users user = new Users();
-      user.setEmail(email);
-      user.setPassword(passwordEncoder.encode(password));
-      user.setUser_key(user.generateToken());
-      user.setCreated_at(LocalDateTime.now());
-      user.setUpdated_at(LocalDateTime.now());
-      usersRepository.save(user);
-
-      return ApiResponse.success("注册成功！");
-    }
-
-    return ApiResponse.error(ResponseCode.REGISTER_FAILED);
-  }
-
-  // 后台用户新增
   public ApiResponse<?> register_backstage(Users users) {
     if (usersRepository.existsByEmail(users.getEmail())) {
       return ApiResponse.error(ResponseCode.REGISTER_USER_EXISTS);
@@ -89,7 +35,7 @@ public class UsersService {
 
     Users user = new Users();
     user.setEmail(users.getEmail());
-    user.setPassword(passwordEncoder.encode(users.getPassword()));
+    user.setPassword(securityService.encryptPassword(users.getPassword()));
     user.setUser_key(user.generateToken());
     user.setRole(users.getRole());
     user.setRemaining_traffic(users.getRemaining_traffic());
@@ -109,151 +55,9 @@ public class UsersService {
     return ApiResponse.success("新增用户成功！");
   }
 
-
-
-
-
-
-  // 普通用户登录功能
-  public ApiResponse<?> login(String email, String password) {
-    Users user = usersRepository.findByEmail(email);
-
-    if (user == null) {
-      return ApiResponse.error(ResponseCode.LOGIN_USER_NOT_FOUND);
-    }
-
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-    if (!encoder.matches(password, user.getPassword())) {
-      return ApiResponse.error(ResponseCode.LOGIN_PASSWORD_ERROR);
-    }
-
-    // 更新最后活跃时间
-    user.setLast_active_time(LocalDateTime.now());
-
-    String token = generateToken(user);
-
-    if (token != null) {
-      // 保存用户信息（包含更新后的活跃时间）
-      usersRepository.save(user);
-      return ApiResponse.success(token);
-    }
-
-    return ApiResponse.error(ResponseCode.LOGIN_FAILED);
-  }
-
-  // 生成一个随机密钥
-  private String generateSecretKey() {
-    SecureRandom random = new SecureRandom();
-    byte[] bytes = new byte[32];
-    random.nextBytes(bytes);
-    return Base64.getEncoder().encodeToString(bytes);
-  }
-
-  // 生成 token
-  public String generateToken(Users user) {
-    long expirationTime = 1000 * 60 * 60 * 24;
-
-    String secretKey = generateSecretKey();
-
-    return JWT.create()
-        .withSubject(user.getEmail())
-        .withClaim("role", user.getRole())
-        .withIssuedAt(new Date())
-        .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime))
-        .sign(Algorithm.HMAC256(secretKey));
-  }
-
-  // 管理员登录功能
-  public ApiResponse<?> admin_login(String email, String password) {
-
-    Users user = usersRepository.findByEmail(email);
-
-    if (user == null) {
-      return ApiResponse.error(ResponseCode.LOGIN_USER_NOT_FOUND);
-    }
-
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-    if (!encoder.matches(password, user.getPassword())) {
-      return ApiResponse.error(ResponseCode.LOGIN_PASSWORD_ERROR);
-    }
-
-    if (!user.getRole().equals("Admin") && !user.getRole().equals("SuperAdmin")) {
-      return ApiResponse.error(ResponseCode.LOGIN_INSUFFICIENT_PERMISSIONS);
-    }
-
-    // 更新最后活跃时间
-    user.setLast_active_time(LocalDateTime.now());
-
-    String token = generateToken(user);
-
-    if (token != null) {
-      // 保存用户信息（包含更新后的活跃时间）
-      usersRepository.save(user);
-      return ApiResponse.success(token);
-    }
-
-    return ApiResponse.error(ResponseCode.LOGIN_FAILED);
-
-  }
-
-
-
-
-  // 找回密码功能
-  public ApiResponse<?> resetPassword(String email, String newpassword, String emailcode) {
-
-    Users user = usersRepository.findByEmail(email);
-
-    if (user == null) {
-      return ApiResponse.error(ResponseCode.PASSWORD_RESET_NOT_FOUND);
-    }
-
-    Optional<Email> emailRecord = emailRepository.findByEmailAndCodeAndType(email, emailcode, "RESET_PASSWORD");
-
-    if (emailRecord.isEmpty()) {
-      return ApiResponse.error(ResponseCode.PASSWORD_RESET_INVALID_VERIFICATION_CODE);
-    }
-
-    Email emailVerification = emailRecord.get();
-
-    if ("1".equals(emailVerification.getStatus())) {
-      return ApiResponse.error(ResponseCode.PASSWORD_RESET_CODE_USED);
-    }
-
-    if ("-1".equals(emailVerification.getStatus())) {
-      return ApiResponse.error(ResponseCode.PASSWORD_RESET_CODE_EXPIRED);
-    }
-
-    if ("-2".equals(emailVerification.getStatus())) {
-      return ApiResponse.error(ResponseCode.PASSWORD_RESET_CODE_INVALID);
-    }
-
-    if ("0".equals(emailVerification.getStatus())) {
-
-      if (passwordEncoder.matches(newpassword, user.getPassword())) {
-        return ApiResponse.error(ResponseCode.PASSWORD_SAME);
-      }
-
-      emailVerification.setStatus("1");
-      emailRepository.save(emailVerification);
-
-      user.setPassword(passwordEncoder.encode(newpassword));
-      usersRepository.save(user);
-
-      return ApiResponse.success("密码修改成功！");
-    }
-
-    return ApiResponse.error(ResponseCode.PASSWORD_RESET_FAILED);
-  }
-
-
-
-
   public ApiResponse<?> delete_user(Long user_id, String token) {
-    String role = jwtUtil.getRoleFromToken(token);
-    String email = jwtUtil.getEmailFromToken(token);
+    String role = userContextService.getRoleFromToken(token);
+    String email = userContextService.getEmailFromToken(token);
 
     Users user = usersRepository.findByUserId(user_id);
 
@@ -261,7 +65,7 @@ public class UsersService {
       return ApiResponse.error(ResponseCode.USER_NOT_FOUND);
     }
 
-    if (!("Admin".equals(role) || "SuperAdmin".equals(role)) && !email.equals(user.getEmail())) {
+    if (!(securityService.isAdminRole(role)) && !email.equals(user.getEmail())) {
       return ApiResponse.error(ResponseCode.UNAUTHORIZED_TO_DEACTIVATE_ACCOUNT);
     }
 
@@ -269,12 +73,8 @@ public class UsersService {
     return ApiResponse.success("用户删除成功");
   }
 
-
-
-
-
   public ApiResponse<?> editUser(EditUserRequest req, String token) {
-    String role = jwtUtil.getRoleFromToken(token);
+    String role = userContextService.getRoleFromToken(token);
 
     Users user = usersRepository.findByUserId(req.getUserId());
 
@@ -282,12 +82,12 @@ public class UsersService {
       return ApiResponse.error(ResponseCode.USER_NOT_FOUND);
     }
 
-    if (!("Admin".equals(role) || "SuperAdmin".equals(role))) {
+    if (!securityService.isAdminRole(role)) {
       return ApiResponse.error(ResponseCode.UNAUTHORIZED_TO_DEACTIVATE_ACCOUNT);
     }
 
     if (req.getEmail() != null) user.setEmail(req.getEmail());
-    if (req.getPassword() != null) user.setPassword(passwordEncoder.encode(req.getPassword()));
+    if (req.getPassword() != null) user.setPassword(securityService.encryptPassword(req.getPassword()));
     if (req.getRole() != null) user.setRole(req.getRole());
     if (req.getRemainingTraffic() != null) user.setRemaining_traffic(req.getRemainingTraffic().longValue());
     if (req.getUploadLimit() != null) user.setUpload_limit(req.getUploadLimit());
@@ -296,7 +96,7 @@ public class UsersService {
     if (req.getRealName() != null) user.setReal_name(req.getRealName());
 
     if (req.getIdCard() != null) {
-      String encryptedIdCard = EncryptionUtil.encrypt(req.getIdCard());
+      String encryptedIdCard = securityService.encryptData(req.getIdCard());
       user.setId_card(encryptedIdCard);
     }
 
@@ -309,12 +109,6 @@ public class UsersService {
     return ApiResponse.success("用户信息修改成功");
   }
 
-
-
-
-
-
-  // 检查并更新vip状态
   @Scheduled(cron = "0 * * * * ?")
   public void checkAndUpdateVipStatus() {
     LocalDate currentTime = LocalDate.now();
@@ -332,13 +126,7 @@ public class UsersService {
     }
   }
 
-  /**
-   * 根据邮箱查找用户
-   * @param email 用户邮箱
-   * @return 用户对象，如果不存在则返回null
-   */
   public Users findByEmail(String email) {
     return usersRepository.findByEmail(email);
   }
-
 }

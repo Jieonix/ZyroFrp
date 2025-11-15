@@ -3,11 +3,10 @@ package cn.zyroo.log.aspect;
 import cn.zyroo.log.model.OperationLog;
 import cn.zyroo.user.model.Users;
 import cn.zyroo.log.service.LogService;
-import cn.zyroo.user.service.UsersService;
+import cn.zyroo.common.service.UserContextService;
 import cn.zyroo.log.utils.IpUtils;
 import cn.zyroo.log.utils.LogUtils;
 import cn.zyroo.log.utils.SensitiveDataUtils;
-import cn.zyroo.user.utils.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -47,10 +46,7 @@ public class LoggingAspect {
     private SensitiveDataUtils sensitiveDataUtils;
 
     @Autowired
-    private JwtUtil jwtUtil;
-
-    @Autowired
-    private UsersService usersService;
+    private UserContextService userContextService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -270,11 +266,11 @@ public class LoggingAspect {
                 token = token.substring(7);
 
                 // 从JWT Token中获取用户信息
-                String email = jwtUtil.getEmailFromToken(token);
+                String email = userContextService.getEmailFromToken(token);
                 if (email != null) {
                     operationLog.setUserEmail(email);
                     // 通过用户服务获取用户ID等信息
-                    Users user = usersService.findByEmail(email);
+                    Users user = userContextService.findUserByEmail(email);
                     if (user != null) {
                         operationLog.setUserId(user.getUser_id());
                         operationLog.setUsername(user.getEmail());

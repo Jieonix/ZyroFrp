@@ -4,7 +4,7 @@ import cn.zyroo.tunnels.dto.UpdateFrpTunnelRequest;
 import cn.zyroo.tunnels.model.FrpTunnel;
 import cn.zyroo.tunnels.service.FrpTunnelService;
 import cn.zyroo.common.utils.ApiResponse;
-import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.service.UserContextService;
 import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class FrpTunnelController {
   private FrpTunnelService frpTunnelService;
 
   @Autowired
-  private JwtUtil jwtUtils;
+  private UserContextService userContextService;
 
   @PostMapping
   public ApiResponse<String> addFrpTunnel(@RequestBody FrpTunnel frpTunnel, @RequestHeader("Token") String token) {
@@ -35,7 +35,7 @@ public class FrpTunnelController {
   @GetMapping
   public ApiResponse<List<FrpTunnel>> getFrpTunnelByEmail(@RequestHeader("Token") String token) {
     try {
-      String email = jwtUtils.getEmailFromToken(token);
+      String email = userContextService.getEmailFromToken(token);
 
       List<FrpTunnel> tunnels = frpTunnelService.findFrpTunnelsByEmail(email);
 
@@ -54,7 +54,7 @@ public class FrpTunnelController {
       @RequestHeader("Token") String token,
       @RequestParam("server_name") String serverName) {
     try {
-      String email = jwtUtils.getEmailFromToken(token);
+      String email = userContextService.getEmailFromToken(token);
 
       List<FrpTunnel> tunnels = frpTunnelService.findFrpTunnelsByEmailAndServer(email, serverName);
 
@@ -76,7 +76,7 @@ public class FrpTunnelController {
       String token = updateRequest.getToken();
       FrpTunnel updatedTunnel = updateRequest.getFrpTunnel();
 
-      String email = jwtUtils.getEmailFromToken(token);
+      String email = userContextService.getEmailFromToken(token);
 
       FrpTunnel existingTunnel = frpTunnelService.findById(id);
       if (existingTunnel == null) {

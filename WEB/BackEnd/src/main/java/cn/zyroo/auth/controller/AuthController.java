@@ -5,6 +5,7 @@ import cn.zyroo.auth.dto.LoginRequest;
 import cn.zyroo.auth.dto.RegisterRequest;
 import cn.zyroo.auth.dto.ResetPasswordRequest;
 import cn.zyroo.user.model.Users;
+import cn.zyroo.auth.service.AuthService;
 import cn.zyroo.user.service.UsersService;
 import cn.zyroo.common.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,14 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
   @Autowired
+  private AuthService authService;
+
+  @Autowired
   private UsersService usersService;
 
   @PostMapping("/register")
   public ApiResponse<?> register(@RequestBody RegisterRequest request) {
-    return usersService.register(request.getEmail(), request.getPassword(), request.getEmailCode());
+    return authService.register(request.getEmail(), request.getPassword(), request.getEmailCode());
   }
 
   @PostMapping("/register_backstage")
@@ -27,20 +31,19 @@ public class AuthController {
     return usersService.register_backstage(users);
   }
 
-
   @PostMapping("/login")
   public ApiResponse<?> login(@RequestBody LoginRequest request) {
-    return usersService.login(request.getEmail(), request.getPassword());
+    return authService.login(request.getEmail(), request.getPassword());
   }
 
   @PostMapping("/admin_login")
   public ApiResponse<?> admin_login(@RequestBody LoginRequest request) {
-    return usersService.admin_login(request.getEmail(), request.getPassword());
+    return authService.adminLogin(request.getEmail(), request.getPassword());
   }
 
   @PutMapping("/password")
   public ApiResponse<?> resetPassword(@RequestBody ResetPasswordRequest request) {
-    return usersService.resetPassword(request.getEmail(), request.getNewPassword(), request.getEmailCode());
+    return authService.resetPassword(request.getEmail(), request.getNewPassword(), request.getEmailCode());
   }
 
   @DeleteMapping("/delete/{user_id}")

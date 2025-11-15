@@ -2,9 +2,11 @@ package cn.zyroo.log.controller;
 
 import cn.zyroo.log.model.OperationLog;
 import cn.zyroo.log.model.SensitiveDataBackup;
+import cn.zyroo.user.model.Users;
 import cn.zyroo.log.service.LogService;
 import cn.zyroo.common.utils.ApiResponse;
-import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.service.UserContextService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +45,9 @@ public class LogController {
     private LogService logService;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private UserContextService userContextService;
 
+    
     /**
      * 获取所有日志（不分页）
      */
@@ -493,7 +496,7 @@ public class LogController {
             }
 
             token = token.substring(7);
-            String role = jwtUtil.getRoleFromToken(token);
+            String role = userContextService.getRoleFromToken(token);
             return "Admin".equals(role) || "SuperAdmin".equals(role);
         } catch (Exception e) {
             return false;
@@ -510,7 +513,7 @@ public class LogController {
             }
 
             token = token.substring(7);
-            String role = jwtUtil.getRoleFromToken(token);
+            String role = userContextService.getRoleFromToken(token);
             return "SuperAdmin".equals(role);
         } catch (Exception e) {
             return false;
@@ -527,11 +530,8 @@ public class LogController {
             }
 
             token = token.substring(7);
-            String email = jwtUtil.getEmailFromToken(token);
-            // 这里需要根据邮箱获取用户ID进行比较
-            // Users user = usersService.findByEmail(email);
-            // return user != null && user.getUser_id().equals(userId);
-            return false; // 暂时返回false，需要实现用户服务
+            Users user = userContextService.getUserFromToken(token);
+            return user != null && user.getUser_id().equals(userId);
         } catch (Exception e) {
             return false;
         }

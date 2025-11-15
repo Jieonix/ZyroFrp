@@ -2,6 +2,7 @@ package cn.zyroo.log.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -116,7 +117,7 @@ public class LogStatistics {
             if (this.totalCount > 0) {
                 BigDecimal newTotal = this.avgExecutionTime.multiply(new BigDecimal(this.totalCount - 1))
                     .add(new BigDecimal(executionTime));
-                this.avgExecutionTime = newTotal.divide(new BigDecimal(this.totalCount), 2, BigDecimal.ROUND_HALF_UP);
+                this.avgExecutionTime = newTotal.divide(new BigDecimal(this.totalCount), 2, RoundingMode.HALF_UP);
             } else {
                 this.avgExecutionTime = new BigDecimal(executionTime);
             }

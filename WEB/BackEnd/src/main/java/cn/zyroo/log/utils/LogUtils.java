@@ -188,7 +188,7 @@ public class LogUtils {
      * 生成会话ID
      */
     public String generateSessionId() {
-        return "session_" + System.currentTimeMillis() + "_" + Thread.currentThread().getId();
+        return "session_" + System.currentTimeMillis() + "_" + Thread.currentThread().threadId();
     }
 
     /**

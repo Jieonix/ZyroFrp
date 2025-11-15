@@ -5,7 +5,7 @@ import cn.zyroo.question.model.Question;
 import cn.zyroo.question.service.QuestionService;
 import cn.zyroo.question.service.UserAnswersService;
 import cn.zyroo.common.utils.ApiResponse;
-import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.service.UserContextService;
 import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +18,10 @@ import java.util.Random;
 public class QuizController {
 
   @Autowired
-  private QuestionService questionService;
+  private UserContextService userContextService;
 
   @Autowired
-  private JwtUtil jwtUtil;
+  private QuestionService questionService;
 
   @Autowired
   private UserAnswersService userAnswersService;
@@ -58,7 +58,7 @@ public class QuizController {
   public ApiResponse<String> submitAnswer(@RequestBody AnswerRequest answerRequest) {
     String email;
     try {
-      email = jwtUtil.getEmailFromToken(answerRequest.getToken());
+      email = userContextService.getEmailFromToken(answerRequest.getToken());
     } catch (Exception e) {
       return ApiResponse.error(ResponseCode.QUIZ_SUBMIT_FAILED);
     }
@@ -101,7 +101,7 @@ public class QuizController {
   @GetMapping("/todayStatus")
   public ApiResponse<Boolean> getTodayQuizStatus(@RequestHeader("Token") String token) {
     try {
-      String email = jwtUtil.getEmailFromToken(token);
+      String email = userContextService.getEmailFromToken(token);
 
       Boolean isQuiz = userAnswersService.hasAnsweredToday(email);
 

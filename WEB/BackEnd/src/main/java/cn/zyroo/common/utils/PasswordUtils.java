@@ -1,4 +1,4 @@
-package cn.zyroo.service;
+package cn.zyroo.common.utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

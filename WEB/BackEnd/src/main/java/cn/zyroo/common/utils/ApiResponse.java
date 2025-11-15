@@ -1,4 +1,4 @@
-package cn.zyroo.all.common.utils;
+package cn.zyroo.common.utils;
 
 public class ApiResponse<T> {
   private String code;   // 状态码改为 String，兼容 ResponseCode

@@ -1,8 +1,8 @@
-package cn.zyroo.all.user.utils;
+package cn.zyroo.user.utils;
 
-import cn.zyroo.exception.BizException;
-import cn.zyroo.all.user.model.Users;
-import cn.zyroo.all.user.repository.UsersRepository;
+import cn.zyroo.common.exception.BizException;
+import cn.zyroo.user.model.Users;
+import cn.zyroo.user.repository.UsersRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;

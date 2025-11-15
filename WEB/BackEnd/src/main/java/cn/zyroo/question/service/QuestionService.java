@@ -1,7 +1,7 @@
-package cn.zyroo.all.question.service;
+package cn.zyroo.question.service;
 
-import cn.zyroo.all.question.model.Question;
-import cn.zyroo.all.question.repository.QuestionRepository;
+import cn.zyroo.question.model.Question;
+import cn.zyroo.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

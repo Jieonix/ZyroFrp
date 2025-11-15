@@ -1,13 +1,13 @@
-package cn.zyroo.all.user.controller;
+package cn.zyroo.user.controller;
 
-import cn.zyroo.all.common.dto.TokenRequest;
-import cn.zyroo.all.user.model.Users;
-import cn.zyroo.all.user.repository.UsersRepository;
-import cn.zyroo.all.user.service.UserInfoService;
-import cn.zyroo.all.user.service.UsersService;
-import cn.zyroo.all.common.utils.ApiResponse;
-import cn.zyroo.all.user.utils.JwtUtil;
-import cn.zyroo.all.common.utils.ResponseCode;
+import cn.zyroo.common.dto.TokenRequest;
+import cn.zyroo.user.model.Users;
+import cn.zyroo.user.repository.UsersRepository;
+import cn.zyroo.user.service.UserInfoService;
+import cn.zyroo.user.service.UsersService;
+import cn.zyroo.common.utils.ApiResponse;
+import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

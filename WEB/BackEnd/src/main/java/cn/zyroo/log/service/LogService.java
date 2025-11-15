@@ -1,15 +1,15 @@
-package cn.zyroo.all.log.service;
+package cn.zyroo.log.service;
 
-import cn.zyroo.all.log.model.OperationLog;
-import cn.zyroo.all.log.model.SensitiveDataBackup;
-import cn.zyroo.all.log.model.LogStatistics;
-import cn.zyroo.all.log.model.LogCleanupConfig;
-import cn.zyroo.all.log.repository.OperationLogRepository;
-import cn.zyroo.all.log.repository.SensitiveDataBackupRepository;
-import cn.zyroo.all.log.repository.LogStatisticsRepository;
-import cn.zyroo.all.log.repository.LogCleanupConfigRepository;
-import cn.zyroo.all.log.utils.IpUtils;
-import cn.zyroo.all.log.utils.SensitiveDataUtils;
+import cn.zyroo.log.model.OperationLog;
+import cn.zyroo.log.model.SensitiveDataBackup;
+import cn.zyroo.log.model.LogStatistics;
+import cn.zyroo.log.model.LogCleanupConfig;
+import cn.zyroo.log.repository.OperationLogRepository;
+import cn.zyroo.log.repository.SensitiveDataBackupRepository;
+import cn.zyroo.log.repository.LogStatisticsRepository;
+import cn.zyroo.log.repository.LogCleanupConfigRepository;
+import cn.zyroo.log.utils.IpUtils;
+import cn.zyroo.log.utils.SensitiveDataUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

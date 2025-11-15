@@ -1,9 +1,9 @@
-package cn.zyroo.all.announcements.service;
+package cn.zyroo.announcements.service;
 
-import cn.zyroo.all.announcements.model.Announcements;
-import cn.zyroo.all.announcements.repository.AnnouncementsRepository;
-import cn.zyroo.all.common.utils.ApiResponse;
-import cn.zyroo.all.common.utils.ResponseCode;
+import cn.zyroo.announcements.model.Announcements;
+import cn.zyroo.announcements.repository.AnnouncementsRepository;
+import cn.zyroo.common.utils.ApiResponse;
+import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

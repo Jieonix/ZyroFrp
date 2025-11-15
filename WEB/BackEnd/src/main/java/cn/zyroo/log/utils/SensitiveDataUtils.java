@@ -1,4 +1,4 @@
-package cn.zyroo.all.log.utils;
+package cn.zyroo.log.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

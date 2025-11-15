@@ -1,4 +1,4 @@
-package cn.zyroo.all.log.annotation;
+package cn.zyroo.log.annotation;
 
 import java.lang.annotation.*;
 

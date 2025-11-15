@@ -1,12 +1,12 @@
-package cn.zyroo.all.tunnels.service;
+package cn.zyroo.tunnels.service;
 
-import cn.zyroo.all.tunnels.model.FrpTunnel;
-import cn.zyroo.all.servers.model.Servers;
-import cn.zyroo.all.tunnels.repository.FrpTunnelRepository;
-import cn.zyroo.all.servers.service.ServersRepository;
-import cn.zyroo.all.common.utils.ApiResponse;
-import cn.zyroo.all.user.utils.JwtUtil;
-import cn.zyroo.all.common.utils.ResponseCode;
+import cn.zyroo.tunnels.model.FrpTunnel;
+import cn.zyroo.servers.model.Servers;
+import cn.zyroo.tunnels.repository.FrpTunnelRepository;
+import cn.zyroo.servers.service.ServersRepository;
+import cn.zyroo.common.utils.ApiResponse;
+import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

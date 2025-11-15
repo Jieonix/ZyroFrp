@@ -1,4 +1,4 @@
-package cn.zyroo.all.servers.model;
+package cn.zyroo.servers.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

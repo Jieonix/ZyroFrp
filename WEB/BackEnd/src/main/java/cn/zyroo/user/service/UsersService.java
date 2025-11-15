@@ -1,14 +1,14 @@
-package cn.zyroo.all.user.service;
+package cn.zyroo.user.service;
 
-import cn.zyroo.all.user.dto.EditUserRequest;
-import cn.zyroo.all.email.model.Email;
-import cn.zyroo.all.user.model.Users;
-import cn.zyroo.all.user.repository.UsersRepository;
-import cn.zyroo.all.email.repository.EmailRepository;
-import cn.zyroo.all.common.utils.ApiResponse;
-import cn.zyroo.all.user.utils.EncryptionUtil;
-import cn.zyroo.all.user.utils.JwtUtil;
-import cn.zyroo.all.common.utils.ResponseCode;
+import cn.zyroo.user.dto.EditUserRequest;
+import cn.zyroo.email.model.Email;
+import cn.zyroo.user.model.Users;
+import cn.zyroo.user.repository.UsersRepository;
+import cn.zyroo.email.repository.EmailRepository;
+import cn.zyroo.common.utils.ApiResponse;
+import cn.zyroo.user.utils.EncryptionUtil;
+import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

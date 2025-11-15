@@ -1,4 +1,4 @@
-package cn.zyroo.all.announcements.model;
+package cn.zyroo.announcements.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

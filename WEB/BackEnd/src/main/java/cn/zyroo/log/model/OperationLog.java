@@ -1,4 +1,4 @@
-package cn.zyroo.all.log.model;
+package cn.zyroo.log.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

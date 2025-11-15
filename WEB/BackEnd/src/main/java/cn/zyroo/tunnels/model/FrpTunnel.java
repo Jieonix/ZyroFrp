@@ -1,4 +1,4 @@
-package cn.zyroo.all.tunnels.model;
+package cn.zyroo.tunnels.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

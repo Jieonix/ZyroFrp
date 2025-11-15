@@ -1,6 +1,6 @@
-package cn.zyroo.all.question.repository;
+package cn.zyroo.question.repository;
 
-import cn.zyroo.all.question.model.Question;
+import cn.zyroo.question.model.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

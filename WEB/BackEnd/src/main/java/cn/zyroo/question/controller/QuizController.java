@@ -1,12 +1,12 @@
-package cn.zyroo.all.question.controller;
+package cn.zyroo.question.controller;
 
-import cn.zyroo.all.question.dto.AnswerRequest;
-import cn.zyroo.all.question.model.Question;
-import cn.zyroo.all.question.service.QuestionService;
-import cn.zyroo.all.question.service.UserAnswersService;
-import cn.zyroo.all.common.utils.ApiResponse;
-import cn.zyroo.all.user.utils.JwtUtil;
-import cn.zyroo.all.common.utils.ResponseCode;
+import cn.zyroo.question.dto.AnswerRequest;
+import cn.zyroo.question.model.Question;
+import cn.zyroo.question.service.QuestionService;
+import cn.zyroo.question.service.UserAnswersService;
+import cn.zyroo.common.utils.ApiResponse;
+import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

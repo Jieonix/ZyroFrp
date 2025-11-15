@@ -1,11 +1,11 @@
-package cn.zyroo.all.tunnels.controller;
+package cn.zyroo.tunnels.controller;
 
-import cn.zyroo.all.tunnels.dto.UpdateFrpTunnelRequest;
-import cn.zyroo.all.tunnels.model.FrpTunnel;
-import cn.zyroo.all.tunnels.service.FrpTunnelService;
-import cn.zyroo.all.common.utils.ApiResponse;
-import cn.zyroo.all.user.utils.JwtUtil;
-import cn.zyroo.all.common.utils.ResponseCode;
+import cn.zyroo.tunnels.dto.UpdateFrpTunnelRequest;
+import cn.zyroo.tunnels.model.FrpTunnel;
+import cn.zyroo.tunnels.service.FrpTunnelService;
+import cn.zyroo.common.utils.ApiResponse;
+import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.utils.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

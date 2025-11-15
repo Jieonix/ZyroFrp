@@ -1,6 +1,6 @@
-package cn.zyroo.all.email.repository;
+package cn.zyroo.email.repository;
 
-import cn.zyroo.all.email.model.BulkEmail;
+import cn.zyroo.email.model.BulkEmail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

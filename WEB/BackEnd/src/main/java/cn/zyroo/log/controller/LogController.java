@@ -1,10 +1,10 @@
-package cn.zyroo.all.log.controller;
+package cn.zyroo.log.controller;
 
-import cn.zyroo.all.log.model.OperationLog;
-import cn.zyroo.all.log.model.SensitiveDataBackup;
-import cn.zyroo.all.log.service.LogService;
-import cn.zyroo.all.common.utils.ApiResponse;
-import cn.zyroo.all.user.utils.JwtUtil;
+import cn.zyroo.log.model.OperationLog;
+import cn.zyroo.log.model.SensitiveDataBackup;
+import cn.zyroo.log.service.LogService;
+import cn.zyroo.common.utils.ApiResponse;
+import cn.zyroo.user.utils.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

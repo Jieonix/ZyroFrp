@@ -1,6 +1,5 @@
-package cn.zyroo.advice;
+package cn.zyroo.common.exception;
 
-import cn.zyroo.exception.BizException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

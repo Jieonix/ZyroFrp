@@ -1,4 +1,4 @@
-package cn.zyroo.all.email.model;
+package cn.zyroo.email.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

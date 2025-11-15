@@ -1,7 +1,7 @@
-package cn.zyroo.all.log.config;
+package cn.zyroo.log.config;
 
-import cn.zyroo.all.log.model.LogCleanupConfig;
-import cn.zyroo.all.log.repository.LogCleanupConfigRepository;
+import cn.zyroo.log.model.LogCleanupConfig;
+import cn.zyroo.log.repository.LogCleanupConfigRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

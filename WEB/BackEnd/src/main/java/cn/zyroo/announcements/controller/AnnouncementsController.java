@@ -1,8 +1,8 @@
-package cn.zyroo.all.announcements.controller;
+package cn.zyroo.announcements.controller;
 
-import cn.zyroo.all.announcements.model.Announcements;
-import cn.zyroo.all.announcements.service.AnnouncementsService;
-import cn.zyroo.all.common.utils.ApiResponse;
+import cn.zyroo.announcements.model.Announcements;
+import cn.zyroo.announcements.service.AnnouncementsService;
+import cn.zyroo.common.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

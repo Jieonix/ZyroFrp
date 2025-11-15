@@ -1,12 +1,12 @@
-package cn.zyroo.all.auth.controller;
+package cn.zyroo.auth.controller;
 
-import cn.zyroo.all.user.dto.EditUserRequest;
-import cn.zyroo.all.auth.dto.LoginRequest;
-import cn.zyroo.all.auth.dto.RegisterRequest;
-import cn.zyroo.all.auth.dto.ResetPasswordRequest;
-import cn.zyroo.all.user.model.Users;
-import cn.zyroo.all.user.service.UsersService;
-import cn.zyroo.all.common.utils.ApiResponse;
+import cn.zyroo.user.dto.EditUserRequest;
+import cn.zyroo.auth.dto.LoginRequest;
+import cn.zyroo.auth.dto.RegisterRequest;
+import cn.zyroo.auth.dto.ResetPasswordRequest;
+import cn.zyroo.user.model.Users;
+import cn.zyroo.user.service.UsersService;
+import cn.zyroo.common.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

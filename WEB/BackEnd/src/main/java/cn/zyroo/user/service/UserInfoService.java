@@ -1,7 +1,7 @@
-package cn.zyroo.all.user.service;
+package cn.zyroo.user.service;
 
-import cn.zyroo.all.user.model.Users;
-import cn.zyroo.all.user.repository.UserInfoRepository;
+import cn.zyroo.user.model.Users;
+import cn.zyroo.user.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

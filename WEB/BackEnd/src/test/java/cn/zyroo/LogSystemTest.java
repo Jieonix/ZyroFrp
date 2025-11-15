@@ -1,10 +1,10 @@
 package cn.zyroo;
 
-import cn.zyroo.all.log.model.OperationLog;
-import cn.zyroo.all.log.service.LogService;
-import cn.zyroo.all.log.utils.IpUtils;
-import cn.zyroo.all.log.utils.LogUtils;
-import cn.zyroo.all.log.utils.SensitiveDataUtils;
+import cn.zyroo.log.model.OperationLog;
+import cn.zyroo.log.service.LogService;
+import cn.zyroo.log.utils.IpUtils;
+import cn.zyroo.log.utils.LogUtils;
+import cn.zyroo.log.utils.SensitiveDataUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

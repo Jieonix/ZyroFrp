@@ -1,4 +1,4 @@
-package cn.zyroo.all.user.model;
+package cn.zyroo.user.model;
 
 import java.security.SecureRandom;
 import java.math.BigInteger;

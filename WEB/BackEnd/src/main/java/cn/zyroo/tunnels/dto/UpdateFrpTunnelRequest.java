@@ -1,6 +1,6 @@
-package cn.zyroo.all.tunnels.dto;
+package cn.zyroo.tunnels.dto;
 
-import cn.zyroo.all.tunnels.model.FrpTunnel;
+import cn.zyroo.tunnels.model.FrpTunnel;
 import lombok.Data;
 
 @Data

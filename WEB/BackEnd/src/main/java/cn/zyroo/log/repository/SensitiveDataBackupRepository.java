@@ -1,6 +1,6 @@
-package cn.zyroo.all.log.repository;
+package cn.zyroo.log.repository;
 
-import cn.zyroo.all.log.model.SensitiveDataBackup;
+import cn.zyroo.log.model.SensitiveDataBackup;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

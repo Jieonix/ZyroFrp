@@ -1,6 +1,6 @@
-package cn.zyroo.all.user.repository;
+package cn.zyroo.user.repository;
 
-import cn.zyroo.all.user.model.Users;
+import cn.zyroo.user.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

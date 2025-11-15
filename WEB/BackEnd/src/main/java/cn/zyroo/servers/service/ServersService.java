@@ -1,8 +1,8 @@
-package cn.zyroo.all.servers.service;
+package cn.zyroo.servers.service;
 
-import cn.zyroo.all.servers.model.Servers;
-import cn.zyroo.all.servers.model.Servers.ServerStatus;
-import cn.zyroo.all.tunnels.repository.FrpTunnelRepository;
+import cn.zyroo.servers.model.Servers;
+import cn.zyroo.servers.model.Servers.ServerStatus;
+import cn.zyroo.tunnels.repository.FrpTunnelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

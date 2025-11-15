@@ -1,4 +1,4 @@
-package cn.zyroo.all.question.model;
+package cn.zyroo.question.model;
 
 import jakarta.persistence.*;
 

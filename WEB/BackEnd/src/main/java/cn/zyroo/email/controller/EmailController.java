@@ -1,12 +1,12 @@
-package cn.zyroo.all.email.controller;
+package cn.zyroo.email.controller;
 
-import cn.zyroo.all.email.model.BulkEmail;
-import cn.zyroo.all.email.repository.BulkEmailRepository;
-import cn.zyroo.all.user.repository.UsersRepository;
-import cn.zyroo.all.email.service.EmailService;
-import cn.zyroo.all.common.utils.ApiResponse;
-import cn.zyroo.all.user.utils.JwtUtil;
-import cn.zyroo.all.common.utils.ResponseCode;
+import cn.zyroo.email.model.BulkEmail;
+import cn.zyroo.email.repository.BulkEmailRepository;
+import cn.zyroo.user.repository.UsersRepository;
+import cn.zyroo.email.service.EmailService;
+import cn.zyroo.common.utils.ApiResponse;
+import cn.zyroo.user.utils.JwtUtil;
+import cn.zyroo.common.utils.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

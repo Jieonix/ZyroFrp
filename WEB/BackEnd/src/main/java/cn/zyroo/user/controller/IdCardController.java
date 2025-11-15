@@ -1,8 +1,8 @@
-package cn.zyroo.all.user.controller;
+package cn.zyroo.user.controller;
 
-import cn.zyroo.all.user.dto.IdCardRequest;
-import cn.zyroo.all.user.service.IdCardService;
-import cn.zyroo.all.common.utils.ApiResponse;
+import cn.zyroo.user.dto.IdCardRequest;
+import cn.zyroo.user.service.IdCardService;
+import cn.zyroo.common.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

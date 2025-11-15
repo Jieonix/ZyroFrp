@@ -1,8 +1,8 @@
-package cn.zyroo.all.servers.controller;
+package cn.zyroo.servers.controller;
 
-import cn.zyroo.all.servers.model.Servers;
-import cn.zyroo.all.servers.service.ServersRepository;
-import cn.zyroo.all.common.utils.ApiResponse;
+import cn.zyroo.servers.model.Servers;
+import cn.zyroo.servers.service.ServersRepository;
+import cn.zyroo.common.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

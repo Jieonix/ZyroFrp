@@ -1,4 +1,4 @@
-package cn.zyroo.all.user.dto;
+package cn.zyroo.user.dto;
 
 import lombok.Data;
 

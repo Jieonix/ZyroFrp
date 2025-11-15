@@ -1,6 +1,6 @@
-package cn.zyroo.all.log.repository;
+package cn.zyroo.log.repository;
 
-import cn.zyroo.all.log.model.OperationLog;
+import cn.zyroo.log.model.OperationLog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

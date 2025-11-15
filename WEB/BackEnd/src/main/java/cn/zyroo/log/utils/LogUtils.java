@@ -1,7 +1,7 @@
-package cn.zyroo.all.log.utils;
+package cn.zyroo.log.utils;
 
-import cn.zyroo.all.log.model.OperationLog;
-import cn.zyroo.all.common.utils.ApiResponse;
+import cn.zyroo.log.model.OperationLog;
+import cn.zyroo.common.utils.ApiResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

@@ -1,6 +1,6 @@
-package cn.zyroo.all.tunnels.repository;
+package cn.zyroo.tunnels.repository;
 
-import cn.zyroo.all.tunnels.model.FrpTunnel;
+import cn.zyroo.tunnels.model.FrpTunnel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

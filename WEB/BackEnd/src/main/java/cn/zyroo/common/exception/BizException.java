@@ -1,4 +1,4 @@
-package cn.zyroo.exception;
+package cn.zyroo.common.exception;
 
 public class BizException extends RuntimeException {
   public BizException(String message) {

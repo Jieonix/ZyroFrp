@@ -1,6 +1,6 @@
-package cn.zyroo.all.log.repository;
+package cn.zyroo.log.repository;
 
-import cn.zyroo.all.log.model.LogCleanupConfig;
+import cn.zyroo.log.model.LogCleanupConfig;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

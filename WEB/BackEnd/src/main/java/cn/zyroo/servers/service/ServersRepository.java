@@ -1,6 +1,6 @@
-package cn.zyroo.all.servers.service;
+package cn.zyroo.servers.service;
 
-import cn.zyroo.all.servers.model.Servers;
+import cn.zyroo.servers.model.Servers;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

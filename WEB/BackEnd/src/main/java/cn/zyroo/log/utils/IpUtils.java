@@ -1,4 +1,4 @@
-package cn.zyroo.all.log.utils;
+package cn.zyroo.log.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;

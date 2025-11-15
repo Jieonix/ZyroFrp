@@ -1,6 +1,6 @@
-package cn.zyroo.all.log.repository;
+package cn.zyroo.log.repository;
 
-import cn.zyroo.all.log.model.LogStatistics;
+import cn.zyroo.log.model.LogStatistics;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

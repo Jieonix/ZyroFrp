@@ -1,4 +1,4 @@
-package cn.zyroo.all.question.dto;
+package cn.zyroo.question.dto;
 
 public class AnswerRequest {
   private String token;           // 用于获取用户的email

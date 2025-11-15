@@ -1,7 +1,7 @@
-package cn.zyroo.all.email.service;
+package cn.zyroo.email.service;
 
-import cn.zyroo.all.email.model.Email;
-import cn.zyroo.all.email.repository.EmailRepository;
+import cn.zyroo.email.model.Email;
+import cn.zyroo.email.repository.EmailRepository;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;

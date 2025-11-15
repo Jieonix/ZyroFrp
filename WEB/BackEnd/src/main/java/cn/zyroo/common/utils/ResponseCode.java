@@ -1,4 +1,4 @@
-package cn.zyroo.all.common.utils;
+package cn.zyroo.common.utils;
 
 public enum ResponseCode {
 

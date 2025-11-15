@@ -1,4 +1,4 @@
-package cn.zyroo.all.auth.dto;
+package cn.zyroo.auth.dto;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
-package cn.zyroo.all.question.repository;
+package cn.zyroo.question.repository;
 
-import cn.zyroo.all.question.model.UserAnswers;
+import cn.zyroo.question.model.UserAnswers;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

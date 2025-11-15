@@ -1,13 +1,13 @@
-package cn.zyroo.all.log.aspect;
+package cn.zyroo.log.aspect;
 
-import cn.zyroo.all.log.model.OperationLog;
-import cn.zyroo.all.user.model.Users;
-import cn.zyroo.all.log.service.LogService;
-import cn.zyroo.all.user.service.UsersService;
-import cn.zyroo.all.log.utils.IpUtils;
-import cn.zyroo.all.log.utils.LogUtils;
-import cn.zyroo.all.log.utils.SensitiveDataUtils;
-import cn.zyroo.all.user.utils.JwtUtil;
+import cn.zyroo.log.model.OperationLog;
+import cn.zyroo.user.model.Users;
+import cn.zyroo.log.service.LogService;
+import cn.zyroo.user.service.UsersService;
+import cn.zyroo.log.utils.IpUtils;
+import cn.zyroo.log.utils.LogUtils;
+import cn.zyroo.log.utils.SensitiveDataUtils;
+import cn.zyroo.user.utils.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -69,7 +69,7 @@ public class LoggingAspect {
     /**
      * 定义切点：带有操作日志注解的方法
      */
-    @Pointcut("@annotation(cn.zyroo.all.log.annotation.OperationLog)")
+    @Pointcut("@annotation(cn.zyroo.log.annotation.OperationLog)")
     public void operationLogPointcut() {}
 
     /**

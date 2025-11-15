@@ -1,4 +1,4 @@
-package cn.zyroo.all.user.utils;
+package cn.zyroo.user.utils;
 
 import org.springframework.stereotype.Service;
 

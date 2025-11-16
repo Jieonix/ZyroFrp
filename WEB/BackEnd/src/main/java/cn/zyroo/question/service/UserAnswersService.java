@@ -66,6 +66,17 @@ public class UserAnswersService {
     userInfo.setPassword(user.getPassword());
     userInfo.setCreatedAt(user.getCreated_at());
     userInfo.setUpdatedAt(user.getUpdated_at());
+    userInfo.setVipStatus(user.getVip_status());
+    userInfo.setIsTrialUser(user.getIs_trial_user());
+    userInfo.setRemainingTraffic(user.getRemaining_traffic());
+    userInfo.setUploadLimit(user.getUpload_limit());
+    userInfo.setDownloadLimit(user.getDownload_limit());
+    userInfo.setRealNameStatus(user.getReal_name_status());
+    userInfo.setRealName(user.getReal_name());
+    userInfo.setIdCard(user.getId_card());
+    userInfo.setVipStartTime(user.getVip_start_time());
+    userInfo.setVipEndTime(user.getVip_end_time());
+    userInfo.setLastActiveTime(user.getLast_active_time());
     return userInfo;
   }
 
@@ -82,6 +93,17 @@ public class UserAnswersService {
     user.setPassword(userInfo.getPassword());
     user.setCreated_at(userInfo.getCreatedAt());
     user.setUpdated_at(userInfo.getUpdatedAt());
+    user.setVip_status(userInfo.getVipStatus());
+    user.setIs_trial_user(userInfo.getIsTrialUser());
+    user.setRemaining_traffic(userInfo.getRemainingTraffic());
+    user.setUpload_limit(userInfo.getUploadLimit());
+    user.setDownload_limit(userInfo.getDownloadLimit());
+    user.setReal_name_status(userInfo.getRealNameStatus());
+    user.setReal_name(userInfo.getRealName());
+    user.setId_card(userInfo.getIdCard());
+    user.setVip_start_time(userInfo.getVipStartTime());
+    user.setVip_end_time(userInfo.getVipEndTime());
+    user.setLast_active_time(userInfo.getLastActiveTime());
     return user;
   }
 

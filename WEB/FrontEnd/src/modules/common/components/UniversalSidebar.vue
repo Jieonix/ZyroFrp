@@ -7,16 +7,8 @@
         </li>
 
         <li v-else>
-          <router-link
-            :to="{ name: item.route }"
-            active-class="active"
-            :class="item.class"
-          >
-            <SvgIcon
-              v-if="item.icon"
-              :name="item.icon"
-              :class="['icon', item.iconClass]"
-            ></SvgIcon>
+          <router-link :to="{ name: item.route }" active-class="active" :class="item.class">
+            <SvgIcon v-if="item.icon" :name="item.icon" :class="['icon', item.iconClass]"></SvgIcon>
             {{ item.label }}
           </router-link>
         </li>
@@ -316,55 +308,6 @@ const sidebarClass = computed(() => {
   .sidebar ul li a.active:hover {
     background-color: rgba(92, 206, 168, 0.15);
   }
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    padding-top: 20px;
-  }
-
-  .sidebar ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .sidebar ul li {
-    flex: 1 1 calc(50% - 10px);
-    margin-bottom: 10px;
-    min-width: 150px;
-  }
-
-  .sidebar ul li.menu-group {
-    flex: 1 1 100%;
-  }
-
-  .sidebar ul li a {
-    justify-content: center;
-    text-align: center;
-    padding: 12px 10px;
-    font-size: 13px;
-  }
-
-  .icon {
-    margin-right: 0.5rem;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .sidebar ul li {
-    flex: 1 1 100%;
-  }
-}
-
-
-.sidebar ul li a:focus-visible {
-  outline: 2px solid #00910c;
-  outline-offset: 2px;
 }
 
 @media (prefers-color-scheme: dark) {

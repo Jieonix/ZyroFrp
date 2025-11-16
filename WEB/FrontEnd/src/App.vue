@@ -1,11 +1,13 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import AnnouncementModal from './modules/common/components/AnnouncementModal.vue'
+import EnvironmentIndicator from './modules/common/components/EnvironmentIndicator.vue'
 </script>
 
 <template>
   <div id="app" v-activity-track="['click', 'touchstart', 'keydown', 'scroll']">
     <AnnouncementModal />
+    <EnvironmentIndicator />
     <RouterView />
   </div>
 </template>

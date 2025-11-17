@@ -159,8 +159,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  base: 'http://localhost:8085/',
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 

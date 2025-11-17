@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { getApiBaseUrl } from '@/modules/common/utils/api-config.js'
 
 const config = {
-  baseURL: 'https://zyroo.cn/backend/',
+  baseURL: getApiBaseUrl(),
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json'

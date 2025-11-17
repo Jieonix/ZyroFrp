@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
+    active: ${ZYRO_ENV:?请设置 ZYRO_ENV=dev 或 prod}
 
   config:
     import:

@@ -45,7 +45,7 @@ spring:
 
 server:
   address: 0.0.0.0
-  port: 8085
+  port: ${ZYRO_BACKEND_PORT:?请设置 ZYRO_BACKEND_PORT}
 
 logging:
   level:
@@ -61,3 +61,8 @@ logging:
     name: logs/ZyroFrp-dev.log
     max-size: 100MB
     max-history: 30
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:change-me}
+    expiration-hours: ${JWT_EXPIRATION_HOURS:24}

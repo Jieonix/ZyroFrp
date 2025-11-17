@@ -1,4 +1,8 @@
 import axios from 'axios';
+import { resolveApiUrl } from '@/modules/common/utils/api-config.js';
+
+const UPDATE_ENDPOINT = '/users/update-last-active';
+const UPDATE_URL = resolveApiUrl(UPDATE_ENDPOINT);
 
 class ActivityTracker {
   constructor() {
@@ -65,7 +69,7 @@ class ActivityTracker {
         return;
       }
 
-      await axios.post('/users/update-last-active', {}, {
+      await axios.post(UPDATE_URL, {}, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -111,7 +115,7 @@ class ActivityTracker {
       const token = localStorage.getItem('Token') || localStorage.getItem('AdminToken');
       if (token) {
         const data = new Blob([JSON.stringify({})], { type: 'application/json' });
-        navigator.sendBeacon('/users/update-last-active', data);
+        navigator.sendBeacon(UPDATE_URL, data);
       }
     };
 

@@ -7,6 +7,7 @@ import path from 'path'
 
 
 export default defineConfig({
+  envPrefix: ['VITE_', 'ZYRO_'],
   server: {
     host: true,
     port: 5173

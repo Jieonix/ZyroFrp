@@ -36,8 +36,13 @@ spring:
       ddl-auto: update
 
 server:
-  port: 8085
+  port: ${ZYRO_BACKEND_PORT:?请设置 ZYRO_BACKEND_PORT}
 
 logging:
   level:
     root: WARN
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:change-me}
+    expiration-hours: ${JWT_EXPIRATION_HOURS:24}

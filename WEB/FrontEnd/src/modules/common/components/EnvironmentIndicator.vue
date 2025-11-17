@@ -7,29 +7,11 @@
 
 <script setup>
 import { computed } from 'vue'
+import { getRuntimeEnv, getApiBaseUrl } from '@/modules/common/utils/api-config.js'
 
 // 获取当前环境
 const getEnvironment = () => {
-  // 根据当前域名动态判断环境（优先级最高）
-  const hostname = window.location.hostname
-
-  // 生产域名判断
-  if (hostname === 'zyroo.cn' || hostname.includes('zyroo.cn')) {
-    return 'prod'
-  }
-
-  // 开发环境判断
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return 'dev'
-  }
-
-  // 最后使用构建时注入的环境变量
-  if (import.meta.env.VITE_APP_ENV) {
-    return import.meta.env.VITE_APP_ENV
-  }
-
-  // 默认为开发环境
-  return 'dev'
+  return getRuntimeEnv()
 }
 
 const environment = computed(() => getEnvironment())
@@ -50,7 +32,7 @@ const environmentClass = computed(() => {
 // 环境提示文本
 const environmentTooltip = computed(() => {
   const envText = environment.value === 'prod' ? '生产环境' : '开发环境'
-  const apiUrl = import.meta.env.VITE_API_BASE_URL || '自动检测'
+  const apiUrl = getApiBaseUrl()
   return `${envText} - API: ${apiUrl}`
 })
 </script>

@@ -1,7 +1,11 @@
+import { getApiBaseUrl } from '@/modules/common/utils/api-config.js'
+
+const API_BASE = getApiBaseUrl().replace(/\/$/, '')
+
 class PaymentService {
   constructor() {
     this.config = {
-      baseURL: process.env.VUE_APP_API_BASE_URL || 'http://localhost:8085/api',
+      baseURL: `${API_BASE}/api`,
       pollInterval: 3000,
       timeout: 300000
     }

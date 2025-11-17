@@ -75,6 +75,7 @@ import { useRouter } from 'vue-router';
 import { validateToken } from '@/modules/auth/utils/token.js';
 import { useLoadingStore } from '@/modules/common/stores/loading'
 import { commonMethods } from '@/modules/common/utils/common.js'
+import { getStaticBaseUrl } from '@/modules/common/utils/api-config.js'
 import '@/modules/common/assets/styles/common.css'
 
 
@@ -87,7 +88,7 @@ export default {
   },
   data() {
     return {
-      BASE_URL: 'https://zyroo.cn/backend/static/'
+      BASE_URL: getStaticBaseUrl()
     }
   },
   methods: {

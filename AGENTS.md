@@ -1,32 +1,56 @@
-首要规定：所有回答以及输出必须全部使用中文
+规定1：所有回答以及输出必须全部使用中文
 
-# Repository Guidelines
+规定2：输出时要有条理，一条说完换行继续下一条，让人一眼看懂
 
-## Project Structure & Module Organization
+规定3：所有文档编写均使用中文
 
-The core tunneling engine lives in `FRP/SourceCode/ZyroFrp`, where `cmd/`, `client/`, `server/`, and `pkg/` host the Go binaries, runtime logic, and shared libraries, while `conf/` contains TOML/INI examples and `dockerfiles/` plus `hack/` scripts support packaging and automation. `WEB/BackEnd` provides the Spring Boot gateway that talks to MySQL schemas stored under `WEB/Mysql`, and `WEB/FrontEnd` is a Vite-powered Vue 3 SPA split into `src/modules/<feature>` folders with assets under `public/` and production bundles in `dist/`. iOS artifacts sit inside `IOS/ZyroFrp`, using the `ZyroFrp-iOS.xcodeproj` with paired `ZyroFrp-iOSTests` and `ZyroFrp-iOSUITests`.
+规定4：我不喜欢过多注释，更不喜欢注释有一股ai味
 
-## Build, Test, and Development Commands
+# 仓库协作指引
 
-- `cd FRP/SourceCode/ZyroFrp && make build` builds static `bin/frps` and `bin/frpc`; `make fmt`, `make fmt-more`, and `make gci` align formatting and imports before committing.
-- `make gotest` runs the Go unit suites with coverage across `assets`, `cmd`, `client`, `server`, and `pkg`; `make e2e` executes `hack/run-e2e.sh` end-to-end tunnels (set `FRPC_PATH`/`FRPS_PATH` to test compat builds).
-- `cd WEB/BackEnd && ./mvnw spring-boot:run -Dspring.profiles.active=dev` hot-reloads the API; `./mvnw package` produces a runnable JAR in `target/`.
-- `cd WEB/FrontEnd && npm install && npm run dev` serves the SPA with Vite; use `npm run build` to regenerate `dist/` assets consumed by the Go embed step.
-- `npm run test:unit` covers Vue components under `tests/` with Vitest and jsdom, while `npm run test:auth(:headed|:debug)` drives the login smoke script.
-- `xcodebuild -project IOS/ZyroFrp/ZyroFrp-iOS.xcodeproj -scheme ZyroFrp-iOS build` produces the app bundle; pair it with `-destination "platform=iOS Simulator,name=iPhone 15"` for simulator runs.
+## 项目结构与模块划分
 
-## Coding Style & Naming Conventions
+- 核心隧道代码位于 `FRP/SourceCode/ZyroFrp`，`cmd/`、`client/`、`server/`、`pkg/` 分别承担可执行文件、运行时逻辑和共享库。  
+- `conf/` 提供 TOML/INI 示例，`dockerfiles/` 与 `hack/` 负责打包与自动化脚本。  
+- `WEB/BackEnd` 为 Spring Boot 网关，直接与 `WEB/Mysql` 的表结构交互。  
+- `WEB/FrontEnd` 是 Vite + Vue 3 SPA，模块存放在 `src/modules/<feature>`，静态资源位于 `public/`，产物输出 `dist/`。  
+- `IOS/ZyroFrp` 使用 `ZyroFrp-iOS.xcodeproj`，并包含 `ZyroFrp-iOSTests`、`ZyroFrp-iOSUITests`。  
 
-Go code follows `gofmt` defaults with `gofumpt` tightening spacing and `gci` grouping imports (`standard`, `default`, then `github.com/fatedier/frp/...`); use PascalCase for exported types and keep package names lowercase (for example, `pkg/featuregate`). Vue files stick to two-space indentation, single quotes, and Composition API modules under `src/modules/<domain>` (e.g., `modules/pages/payment`). Java backend classes follow Spring conventions—4-space indentation, package names like `cn.zyroo.<component>`, Lombok annotations for DTOs, and `@Service`/`@Repository` roles separated per file. Swift or Objective-C controllers in `IOS/ZyroFrp` should retain PascalCase type names matching storyboard identifiers.
+## 构建、测试与开发命令
 
-## Testing Guidelines
+- `cd FRP/SourceCode/ZyroFrp && make build` 生成 `bin/frps`、`bin/frpc`；`make fmt`、`make fmt-more`、`make gci` 对齐格式与导入。  
+- `make gotest` 运行 Go 单测；`make e2e` 通过 `hack/run-e2e.sh` 做端到端测试，可用 `FRPC_PATH`/`FRPS_PATH` 校验兼容版本。  
+- `cd WEB/BackEnd && ./mvnw spring-boot:run -Dspring.profiles.active=dev` 热启动 API；`./mvnw package` 生成 `target/` JAR。  
+- `cd WEB/FrontEnd && npm install && npm run dev` 启动 Vite 服务；`npm run build` 重新构建 `dist/`。  
+- `npm run test:unit` 覆盖 Vue 组件，`npm run test:auth(:headed|:debug)` 执行登录冒烟脚本。  
+- `xcodebuild -project IOS/ZyroFrp/ZyroFrp-iOS.xcodeproj -scheme ZyroFrp-iOS build` 构建 iOS 包，模拟器使用 `-destination "platform=iOS Simulator,name=iPhone 15"`。  
 
-Target the coverage levels produced by `make gotest` and keep new Go packages from dropping the reported percentage; place tests next to sources as `*_test.go`. Vue unit tests belong in `tests/` or alongside components as `.test.js` files using Vitest snapshots when UI changes. Backend integration tests run through `./mvnw test` and rely on Testcontainers/H2; name suites `*Tests.java`. iOS tests live in the `ZyroFrp-iOSTests` and `ZyroFrp-iOSUITests` bundles and should be runnable through `xcodebuild test`. For behavioral changes, add at least one end-to-end run via `make e2e` plus an authentication script (`npm run test:auth`) so regressions are caught before shipping.
+## 编码风格与命名规范
 
-## Commit & Pull Request Guidelines
+- Go 代码遵守 `gofmt` + `gofumpt`，导入由 `gci` 分组为 `standard`、`default`、`github.com/fatedier/frp/...`。  
+- 导出类型使用 PascalCase，包名保持小写，示例 `pkg/featuregate`。  
+- Vue 采用两个空格缩进、单引号，Composition API 模块置于 `src/modules/<domain>`。  
+- Java 后端使用四空格缩进、包名 `cn.zyroo.<component>`，DTO 使用 Lombok，`@Service` 与 `@Repository` 独立文件。  
+- `IOS/ZyroFrp` 中 Swift/Objective-C 控制器名称需与 storyboard 标识一致并保持 PascalCase。  
 
-Existing history favors compact, descriptive summaries (often Chinese) such as `更新开发状态显示；修复bug；修改自动化部署逻辑`; continue using one-line, present-tense statements that mention the touched area, then expand in the body if needed. Every pull request should include: a short problem statement, a checklist of touched modules (`FRP`, `WEB/BackEnd`, etc.), test evidence (paste key command output), and screenshots or simulator recordings for UI or mobile updates. Link related issues and call out config or migration impacts; PRs that touch both Go and web layers should describe how assets were rebuilt (`make file`, `npm run build`) to help reviewers reproduce.
+## 测试准则
 
-## Security & Configuration Tips
+- `make gotest` 覆盖率需保持，新增 Go 包旁边补充 `*_test.go`。  
+- Vue 单测放在 `tests/` 或组件同目录 `.test.js`，UI 变更可用 Vitest 快照。  
+- 后端集成测试执行 `./mvnw test`，依赖 Testcontainers/H2，测试类命名 `*Tests.java`。  
+- iOS 测试分别在 `ZyroFrp-iOSTests`、`ZyroFrp-iOSUITests`，通过 `xcodebuild test` 运行。  
+- 行为变更时至少补跑 `make e2e` 与 `npm run test:auth`，避免回归。  
 
-Never commit secrets; keep tokens and SMTP creds in local `.env` or profile-specific YAML files (`WEB/BackEnd/src/main/resources/application-*.yml`) and document any required keys inside pull requests. Use the sanitized examples in `FRP/SourceCode/ZyroFrp/conf/*.toml` as your template, and rely on Dockerfiles when sharing reproductions so ports and TLS settings stay consistent. When testing database migrations, seed stub data via the SQL dumps inside `WEB/Mysql` instead of production exports. Always scrub binaries before pushing by running `make clean` and clearing `target/` or `dist/` outputs unless they are the intended artifacts.
+## 提交与 PR 规范
+
+- 提交信息保持精炼中文，现在时描述影响范围，示例 `更新开发状态显示；修复bug；修改自动化部署逻辑`。  
+- PR 必须说明问题背景、涉及模块（如 `FRP`、`WEB/BackEnd` 等）与测试证据（附关键命令输出）。  
+- UI 或移动端改动需附截图/录屏，并关联相关 issue 或说明配置、迁移影响。  
+- 同时涉及 Go 与 Web 的 PR 应说明资产重建方式（如 `make file`、`npm run build`），便于复现。  
+
+## 安全与配置提示
+
+- 禁止提交任何密钥；令牌、SMTP 凭据放入本地 `.env` 或 `application-*.yml`，并在 PR 中记录需求。  
+- 使用 `FRP/SourceCode/ZyroFrp/conf/*.toml` 的脱敏示例统一配置；复现问题时优先提供 Dockerfile，保证端口与 TLS 一致。  
+- 数据库迁移测试依赖 `WEB/Mysql` 的 SQL 样例，避免导入生产数据。  
+- 提交前执行 `make clean`，清理 `target/`、`dist/` 等构建产物，除非这些文件即为目标交付物。  

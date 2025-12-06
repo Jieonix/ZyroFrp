@@ -16,13 +16,13 @@ import Loading from '@/modules/common/components/Loading.vue'
         <div class="feature-box fb1">
           <h2>MacOS</h2>
           <div class="version-description">
-            <a class="version" :href="`${BASE_URL}frpc/macos/frpc-macos-amd64.tar.gz`">
+            <a class="version" :href="`${BASE_URL}/frpc-macos-amd64.tar.gz`">
               ZyroFrp_darwin_amd64
             </a>
             <p class="description">适用于 MacOS AMD64 版本</p>
           </div>
           <div class="version-description">
-            <a class="version" :href="`${BASE_URL}frpc/macos/frpc-macos-arm64.tar.gz`">
+            <a class="version" :href="`${BASE_URL}/frpc-macos-arm64.tar.gz`">
               ZyroFrp_darwin_arm64
             </a>
             <p class="description">适用于 MacOS ARM64 版本</p>
@@ -32,13 +32,13 @@ import Loading from '@/modules/common/components/Loading.vue'
         <div class="feature-box fb2">
           <h2>Linux</h2>
           <div class="version-description">
-            <a class="version" :href="`${BASE_URL}frpc/linux/frpc-linux-amd64.tar.gz`">
+            <a class="version" :href="`${BASE_URL}/frpc-linux-amd64.tar.gz`">
               ZyroFrp_linux_amd64
             </a>
             <p class="description">适用于 Linux AMD64 版本</p>
           </div>
           <div class="version-description">
-            <a class="version" :href="`${BASE_URL}frpc/linux/frpc-linux-arm64.tar.gz`">
+            <a class="version" :href="`${BASE_URL}/frpc-linux-arm64.tar.gz`">
               ZyroFrp_linux_arm64
             </a>
             <p class="description">适用于 Linux ARM64 版本</p>
@@ -48,13 +48,13 @@ import Loading from '@/modules/common/components/Loading.vue'
         <div class="feature-box fb3">
           <h2>Windows</h2>
           <div class="version-description">
-            <a class="version" :href="`${BASE_URL}frpc/windows/frpc-windows-amd64.tar.gz`">
+            <a class="version" :href="`${BASE_URL}/frpc-windows-amd64.tar.gz`">
               ZyroFrp_win_amd64
             </a>
             <p class="description">适用于 Windows AMD64 版本</p>
           </div>
           <div class="version-description">
-            <a class="version" :href="`${BASE_URL}frpc/windows/frpc-windows-arm64.tar.gz`">
+            <a class="version" :href="`${BASE_URL}/frpc-windows-arm64.tar.gz`">
               ZyroFrp_win_arm64
             </a>
             <p class="description">适用于 Windows ARM64 位版本</p>
@@ -88,7 +88,7 @@ export default {
   },
   data() {
     return {
-      BASE_URL: getStaticBaseUrl()
+      BASE_URL: 'https://gh.llkk.cc/https://github.com/Jieonix/ZyroFrp_App/releases/download/v1.0.0'
     }
   },
   methods: {

@@ -31,6 +31,7 @@ import Loading from '@/modules/common/components/Loading.vue'
               <div class="status" :class="statusClass">{{ s_status }}</div>
             </div>
             <div class="tips">
+              <h1>状态颜色含义：</h1>
               <div class="tip_1">
                 <div class="one"></div>
                 <p class="tips_p">vip用户专用节点</p>
@@ -486,7 +487,13 @@ input::placeholder {
   margin-right: 10px;
 }
 
-
+.tips h1 {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #000000;
+  margin-right: 1rem;
+  margin-left: 0.5rem;
+}
 
 .big {
   width: 35rem;
@@ -548,7 +555,7 @@ input::placeholder {
 
 .tips {
   display: flex;
-  width: 35rem;
+  width: 37rem;
   margin: 0.9rem 0;
 }
 
@@ -573,15 +580,15 @@ input::placeholder {
 }
 
 .one {
-  background-color: #ffc800;
+  background-color: #fce782;
 }
 
 .two {
-  background-color: #00ff80;
+  background-color: #8bfec4;
 }
 
 .three {
-  background-color: #ff5900;
+  background-color: #feaf84;
 }
 
 .tips_p {
@@ -589,7 +596,7 @@ input::placeholder {
 }
 
 .tip_1 {
-  color: #ffc800;
+  color: #eec700;
 }
 
 .tip_2 {

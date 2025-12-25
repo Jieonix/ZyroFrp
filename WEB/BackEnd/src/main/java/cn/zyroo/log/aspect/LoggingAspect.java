@@ -52,13 +52,13 @@ public class LoggingAspect {
     /**
      * 定义切点：Controller层所有方法
      */
-    @Pointcut("execution(* cn.zyroo.controller..*(..))")
+    @Pointcut("execution(* cn.zyroo..controller..*(..))")
     public void controllerPointcut() {}
 
     /**
      * 定义切点：Service层所有方法
      */
-    @Pointcut("execution(* cn.zyroo.service..*(..))")
+    @Pointcut("execution(* cn.zyroo..service..*(..))")
     public void servicePointcut() {}
 
     /**
